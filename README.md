@@ -46,4 +46,3 @@ An additional 10 marks are allocated for some error checking and/or handling of 
 An additional 10 marks are allocated for good programming style, like proper layout, readability, identifier names, commenting, modularisation, and the like.
 
 Do not use object-oriented programming other than method-free classes for the data containers. Do not use the C# Collection library. Keep your code simple and clear. The module’s DLE page contains an introduction into the C-core of C#. There are numerous examples in the lectures and labs showing what you can use.
-# 1003-CW

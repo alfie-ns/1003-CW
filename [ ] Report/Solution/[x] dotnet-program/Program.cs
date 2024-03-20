@@ -132,7 +132,7 @@ class Program
 
     
     
-    /// Predicate that checks if two Nodes hold the same value. [x]
+    /// Predicate that checks if two Nodes hold the same value.
     /// 
     /// As we assume Integers for convenience, the comparison is just the usual "equality" on integers.
     /// Equality could be more complicated for other sorts of data.
@@ -144,8 +144,6 @@ class Program
     static bool IsEqual(Node item1, Node item2)
     {
         /*
-            [x]
-
             This function checks if two Nodes hold
             the same value, e.g. returns true if
             item1's data is equal to item2's data.
@@ -164,7 +162,7 @@ class Program
     /// <param name="item">The item to insert</param>
     static void InsertItem(ref Node tree, Node item)
     {
-        // [x] This is a recursive function that inserts a Node into a Tree
+        // This is a recursive function that inserts a Node into a Tree
 
         if (tree == null) // if tree Node is empty, make item the tree's Node, e.g. The item to insert
         {
@@ -186,14 +184,14 @@ class Program
 
 
     
-    /// Insert a Node into a Tree [x]
+    /// Insert a Node into a Tree
     /// 
     /// This is an auxiliary function that expects a Tree structure, in contrast to the previous method. 
     /// It always inserts on the toplevel and is not recursive. It's just a wrapper.
     
     /// <param name="tree">The Tree (not a Node as in InsertItem())</param>
     /// <param name="item">The Node to insert</param>
-    static void InsertTree(Tree tree, Node item) { // SearchTree [x]
+    static void InsertTree(Tree tree, Node item) { 
         /*
           This, an auxiliary(helper) function, expects a Tree structure,
           it always inserts on the toplevel and 
@@ -242,7 +240,7 @@ class Program
     }
 
 
-    //  SearchTree [x]
+    //  SearchTree
 
     /// Find a value in a tree. 
     /// 
@@ -289,9 +287,8 @@ class Program
     static bool SearchTreeItem(Node tree, Node item)
     {
         /*
-            [ ] This function compares Node references not data values.
-            It recursively searches for a Node in a tree.
-
+            This function compares Node references not data values.
+            It recursively searches for a Node/Item in a tree.
         */
 
         if (tree == null) { // if the tree is empty, return false
@@ -403,7 +400,6 @@ class Program
     static int Size(Node node)
     {
         /*
-            [x]
             This function first checks if the tree is empty, if it's not,
             it recursively counts each node in the tree. It returns the sum
             of these nodes, +1 accounting for the current node before it 
@@ -574,9 +570,6 @@ class Program
         Console.WriteLine("Print out the (ordered!) tree");
         PrintTree(tree.root);
         Console.WriteLine();
-
-
-        // [ ] test SearchTree
 
         Console.WriteLine("Search for 10 random values");
 

@@ -10,8 +10,6 @@ using System;   // Don't use anything else than System and only use C-core funct
 /// 
 /// Thomas: 'Nullable is not allowed; checks are.'
 /// 
-/// So far, made a couple of functions,
-/// but I'm not sure if they are correct until I test them.
 /// 
 /// Notes
 /// 
@@ -322,9 +320,9 @@ class Program
     {
         /* 
             3 different things could happen, 
-            [ ] 1. delete a leaf node(node with no children), 
-            [ ] 2. delete a node with one child,
-            [ ] 3. delete a node with two children
+            [x] 1. delete a leaf node(node with no children), 
+            [x] 2. delete a node with one child,
+            [x] 3. delete a node with two children
 
             1. if the item is a leaf node, just delete it
             2. if the item has one child, replace the item with its child

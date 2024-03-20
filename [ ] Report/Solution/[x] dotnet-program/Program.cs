@@ -75,12 +75,14 @@ class Program
     /// THIS LINE: If you want to add methods add them between THIS LINE and THAT LINE
 
 
-    /// Your methods go here  ....
+    /// Your methods go here  
     
-    // [ ] Method for handling duplicate values in the tree
+    // [ ] Method for handling duplicate values in the tree?
+
+
 
     
-    /// (and nowhere else)
+    /// .... (and nowhere else)
      
 
 

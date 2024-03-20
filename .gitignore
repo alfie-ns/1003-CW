@@ -1,0 +1,11 @@
+# This .gitignore file ignores the files that don't need to be tracked by git; '*' means don't track files also beneath the directory it's in.
+
+# Windows
+desktop.ini
+# Visual Studio
+*.vs/
+# DotNet
+bin/
+obj/
+# Mac OS X
+*.DS_Store

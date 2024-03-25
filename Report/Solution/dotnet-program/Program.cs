@@ -19,7 +19,7 @@ using System;   // Don't use anything else than System and only use C-core funct
 /// 4. larger than the value. (item1 > item2)
 /// 
 /// Binary Search Tree Example (BST)  { 
-
+/// 
 /// To find a value(13) in an array of 10 nodes using Binary Search,
 /// the worst-case scenario would require at most 3 steps:
 /// 8 -> 10 -> 14 -> (13)

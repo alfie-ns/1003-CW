@@ -2,16 +2,53 @@
 using System;   // Don't use anything else than System and only use C-core functionality; read the specs!
 
 
-/// Implement a binary search tree 
-/// <summary>
-/// ALFIE's NOTES
+/// Implement a binary search tree [ ] CHECK IF 100% WORKS AND COMMENTS CORRECTLY [ ]
+/// 
+/// Repo for 1003 CW:
 /// https://github.com/alfie-ns/1003-CW
-/// </summary>
 /// 
-/// Thomas: 'Nullable is not allowed; checks are.'
+/// Thomas: 'Nullable is not allowed; checks are.' checks=[x]
+///  
+/// To quickly find 13 in a dataset, traverse a tree checking 
+/// if each node is the value itself, smaller than the value, 
+/// or larger than the value. In this order: 
+/// 
+/// 1. if null, return false (base case)
+/// 2. the value itself (item1==item2)
+/// 3. value isSmaller than (item1 < item2)
+/// 4. larger than the value. (item1 > item2)
+/// 
+/// Binary Search Tree Example (BST):
+/// 
+/// O(log(n))
+/// n = (arr.size() = 10)
+/// log2(n) = 3.32
 /// 
 /// 
-/// Notes
+/// To find a value in an array of 10 nodes using Binary Search,
+/// the worst-case scenario would require at most 4 steps to
+/// find a value or determine its absence in the array. 
+/// time_complexity = O(log2(10)) = 3.32(4 steps)
+/// 
+/// tree.depth() = ?
+/// tree.parent() = ?
+/// tree.root() = 1 step
+/// tree.findMin() = 2 steps(go down left side)
+/// tree.findMax() = 3 steps(go down right side)
+/// tree.deleteMin() = ? [ ] MAKE THIS
+/// 
+/// 
+///    
+///       8 (root node)
+///     /   \
+///    3     10
+///   / \   /  \
+///  1   6      14
+///     / \    /  \
+///    4   7 (13)  16
+///  
+/// 8 -> 10 -> 14 -> (13)
+/// 
 /// 
 /// <summary> CHECK IF ALL COMMENTS ARE CORRECT BEFORE SUBMISSION [ ] </summary>
 /// 
@@ -143,11 +180,6 @@ class Program
     
     static bool IsEqual(Node item1, Node item2)
     {
-        /*
-            This function checks if two Nodes hold
-            the same value, e.g. returns true if
-            item1's data is equal to item2's data.
-        */
         return item1.data.data == item2.data.data; // if item1 data == item2 data return true
 
     }
@@ -162,9 +194,11 @@ class Program
     /// <param name="item">The item to insert</param>
     static void InsertItem(ref Node tree, Node item)
     {
-        // This is a recursive function that inserts a Node into a Tree
-
-        if (tree == null) // if tree Node is empty, make item the tree's Node, e.g. The item to insert
+        /* 
+           This is a recursive function that 
+           inserts a Node into a Tree
+        */
+        if (tree == null) // if tree Node is empty,
         {
             tree = item; // insert item into tree
             return;
@@ -193,12 +227,17 @@ class Program
     /// <param name="item">The Node to insert</param>
     static void InsertTree(Tree tree, Node item) { 
         /*
+
+          Idk if this works [ ]
+
           This, an auxiliary(helper) function, expects a Tree structure,
           it always inserts on the toplevel and 
           is NOT recursive.
+
+          Essentially, this wrapper function calls the recursi
         */ 
     
-        if (tree.root == null) // if the tree is empty
+        if (tree.root == null) // Base case: If the tree is empty
         {
             tree.root = item; // make the item the root of the tree
             return; // return 
@@ -207,6 +246,14 @@ class Program
         Node current = tree.root; // the current node is the root of the tree
         while (true) // while there is a current node
         {
+            /* TRUE? [ ] 
+            If the item is smaller than the current node and the current node's left child is null,
+            the left child of the current node becomes the item, if the item is larger
+            and the current node's right child is null, the right child becomes the item. If the item
+            is neither smaller nor larger (implying equality), we do not insert the item, effectively
+            ignoring duplicates.
+            */
+
 
             /*
                 If the item is smaller than the current node,
@@ -214,25 +261,25 @@ class Program
                 left child of the current node becomes the item. 
             */
 
-            if (IsSmaller(item, current)) 
+            if (IsSmaller(item, current)) // if item < tree.root
             {
-                if (current.left == null)
+                if (current.left == null) // if left child is empty
                 {
-                    current.left = item;
-                    return;
+                    current.left = item; // left child becomes the item
+                    return; // return
                 }
-                current = current.left;
+                current = current.left; // current node becomes the left child
             }
-            else if (IsSmaller(current, item))
+            else if (IsSmaller(current, item)) // if item > tree.root
             {
-                if (current.right == null)
+                if (current.right == null) // if right child is empty
                 {
-                    current.right = item;
-                    return;
+                    current.right = item; // right child becomes the item
+                    return; // return
                 }
-                current = current.right;
+                current = current.right; // current node becomes the right child
             }
-            else
+            else // if item == tree.root do nothing
             {
                 return;
             }
@@ -318,6 +365,8 @@ class Program
     static void DeleteItem(Tree tree, Node item)
     {
         /* 
+            [ ] [ ] [ ]
+
             3 different things could happen, 
             [x] 1. delete a leaf node(node with no children), 
             [x] 2. delete a node with one child,
@@ -583,6 +632,8 @@ class Program
 
 
         //  Add more tree testing here .... 
+
+        
 
 
 

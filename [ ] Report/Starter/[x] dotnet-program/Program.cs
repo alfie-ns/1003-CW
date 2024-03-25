@@ -1,6 +1,8 @@
 
 using System;   // Don't use anything else than System and only use C-core functionality; read the specs!
 
+// DON'T CHANGE
+
 /// <summary>
 /// Implement a binary search tree 
 /// 
@@ -112,8 +114,8 @@ class Program
     static bool IsEqual(Node item1, Node item2)
     {
         //  Fill in proper code in this method stub
-        return item1.data.data == item2.data.data;
 
+        return false; // you can replace this statement; it is here because the stub code wouldn't run without it
     }
 
 

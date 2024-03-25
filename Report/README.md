@@ -1,10 +1,7 @@
-# 1003-cw
+# 1003-cw Report
 
 - [X] **Create a VS C# command line project called BinarySearchTree.** The implementation **must use the Program.cs file** available on the DLE in the Assessment section. This file has been modified from the implementation provided for the worksheet on Binary Search Trees.
 - [ ] Explain to Thomas that I made the github repo for my own wishes/use's, but this also showes high-level development
-
-
-
 - [ ] WHAT IS AN AVL TREE?? [ ]
 
 ## BST Functions 40 Marks

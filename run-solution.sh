@@ -1,3 +1,2 @@
-cd Report/Solution
-cd dotnet-program
+cd Report/Solution/dotnet-program
 dotnet run

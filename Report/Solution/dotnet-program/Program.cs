@@ -2,7 +2,8 @@
 using System;   // Don't use anything else than System and only use C-core functionality; read the specs!
 
 
-/// Implement a binary search tree [ ] CHECK IF 100% WORKS AND COMMENTS CORRECTLY [ ]
+/// [ ] Implement a binary search tree 
+/// [ ] CHECK IF 100% WORKS AND COMMENTS CORRECT
 /// 
 /// Repo for 1003 CW:
 /// https://github.com/alfie-ns/1003-CW

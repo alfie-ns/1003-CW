@@ -39,7 +39,7 @@ using System;   // Don't use anything else than System and only use C-core funct
 /// tree.deleteMin() = ? 
 /// 
 /// 1st step. 13 is bigger than 8 -> Move to the right child (10)
-/// 2nd step. 13 is bigger than 10 -> Move to the right child (14: 
+/// 2nd step. 13 is bigger than 10 -> Move to the right child (14 
 /// 3rd step. 13 is smaller than 14 -> Move to the left child (13) FOUND 
 /// 
 ///    

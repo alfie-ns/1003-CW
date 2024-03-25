@@ -18,25 +18,29 @@ using System;   // Don't use anything else than System and only use C-core funct
 /// 3. value isSmaller than (item1 < item2)
 /// 4. larger than the value. (item1 > item2)
 /// 
-/// Binary Search Tree Example (BST):
+/// Binary Search Tree Example (BST)  { 
+
+/// To find a value(13) in an array of 10 nodes using Binary Search,
+/// the worst-case scenario would require at most 3 steps:
+/// 8 -> 10 -> 14 -> (13)
+///  
+/// O(log2(10)) = 3.32 = 3 steps
 /// 
-/// O(log(n))
 /// n = (arr.size() = 10)
-/// log2(n) = 3.32
-/// 
-/// 
-/// To find a value in an array of 10 nodes using Binary Search,
-/// the worst-case scenario would require at most 4 steps to
-/// find a value or determine its absence in the array. 
-/// time_complexity = O(log2(10)) = 3.32(4 steps)
+/// log2(n) = log2(10) = 3.32
+/// 3.32(steps) = 3 steps
 /// 
 /// tree.depth() = ?
 /// tree.parent() = ?
+/// tree.target(n) = 3 steps
 /// tree.root() = 1 step
 /// tree.findMin() = 2 steps(go down left side)
 /// tree.findMax() = 3 steps(go down right side)
-/// tree.deleteMin() = ? [ ] MAKE THIS
+/// tree.deleteMin() = ? 
 /// 
+/// 1st step. Bigger -> Move to the right child (10): 2nd step.
+/// 2nd step. Bigger -> Move to the right child (14): 3rd step.
+/// 3rd step. Smaller -> Move to the left child (13): 4th step.
 /// 
 ///    
 ///       8 (root node)
@@ -47,7 +51,9 @@ using System;   // Don't use anything else than System and only use C-core funct
 ///     / \    /  \
 ///    4   7 (13)  16
 ///  
-/// 8 -> 10 -> 14 -> (13)
+/// 
+/// 
+/// 
 /// 
 /// 
 /// <summary> CHECK IF ALL COMMENTS ARE CORRECT BEFORE SUBMISSION [ ] </summary>

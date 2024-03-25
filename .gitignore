@@ -2,12 +2,16 @@
 
 # Windows
 desktop.ini
+
 # Visual Studio
 *.vs/
+
 # VS Code
 .vscode/
+
 # DotNet
 bin/
 obj/
+
 # Mac OS X
 *.DS_Store

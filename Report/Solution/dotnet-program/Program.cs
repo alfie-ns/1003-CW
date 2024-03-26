@@ -11,7 +11,7 @@ using System;   // Don't use anything else than System and only use C-core funct
 /// Thomas: 'Nullable is not allowed; checks are.' checks=[x]
 ///  
 /// To quickly find 13 in a dataset, traverse a tree checking 
-/// if each node is the value itself, smaller than the value, 
+/// if each node: is the value itself, smaller than the value, 
 /// or larger than the value. In this order: 
 /// 
 /// 1. if null, return false (base case)
@@ -47,11 +47,12 @@ using System;   // Don't use anything else than System and only use C-core funct
 ///       8 (root node)
 ///     /   \
 ///    3     10
-///   / \   /  \
+///   / \      \
 ///  1   6      14
 ///     / \    /  \
-///    4   7 (13)  16
-///  
+///    4   7  13   18
+///             \
+///             16
 /// 
 /// 
 /// 

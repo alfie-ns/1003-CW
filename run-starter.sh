@@ -1,2 +1,2 @@
-cd Report/Starter/dotnet-program
+cd Report/Starter
 dotnet run

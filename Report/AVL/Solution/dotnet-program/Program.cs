@@ -322,30 +322,63 @@ class Program
         return leftSize + rightSize + 1;
     }
 
-    static bool FindParentHelper(Node current, Node target, ref Node parent)
+    static Node FindParentHelper(Node current)
     {
         if (current == null)
         {
-            // Base case: If the current node is null, return false
-            return false;
+            // Base case: If the current node is null, return null
+            return null;
         }
 
-        // If the current node is the target node, the parent has been found
-        if (current == target)
+        // Check if the current node is the parent of the given node
+        if (current.left == node || current.right == node)
         {
+            // If the current node is the parent, return it
             return current;
         }
 
-        // Update the parent reference before making recursive calls
-        parent = current;
+        // Recursively search for the parent in the left subtree
+        Node parentInLeft = FindParentHelper(current.left);
+        if (parentInLeft != null)
+        {
+            // If the parent is found in the left subtree, return it
+            return parentInLeft;
+        }
 
-        // Recursive calls for the children of the current node
-        if (FindParentHelper(current.left, target, ref parent));
-        if (FindParentHelper(current.right, target, ref parent));
+        // Recursively search for the parent in the right subtree
+        Node parentInRight = FindParentHelper(current.right);
+        if (parentInRight != null)
+        {
+            // If the parent is found in the right subtree, return it
+            return parentInRight;
+        }
 
-        // If the target node is not found in the current subtree, reset the parent reference
-        parent = null;
-        return false;
+        // If the parent is not found in either subtree, return null
+        return null;
+    }
+
+
+    static void findParent(Node node, int val, int parent) // EXAMPLE FROM GEEKSFORGEEKS
+    {
+        if (node == null)
+            return;
+    
+        // If current node is the required node
+        if (node.data == val) 
+        {
+    
+            // Print its parent
+            Console.Write(parent);
+        }
+        else
+        {
+    
+            // Recursive calls for the children
+            // of the current node
+            // Current node is now the new parent
+            findParent(node.left, val, node.data);
+            findParent(node.right, val, node.data);
+        }
     }
 
     /// .... (and nowhere else)
@@ -403,7 +436,7 @@ class Program
     /// <param name="item2">Second Node</param>
     /// <returns>True if two Nodes have the same value, false otherwise.</returns>
     static bool IsEqual(Node item1, Node item2)
-    {
+    { // VERIFY THIS WORKS [x]
         return item1.data.data == item2.data.data; // if item1 data == item2 data return true, else false
     }
 
@@ -461,12 +494,9 @@ class Program
     /// The InsertItem function returns the new root node of the subtree after the insertion and balancing process.
     /// The InsertTree function then assigns this new root node back to the root field of the tree struct,
     /// updating the entire tree with the inserted item.
-    ///
-    /// By encapsulating the recursive insertion process and updating the root node, the InsertTree function provides a convenient way
-    /// to insert an item into an AVL tree while maintaining its balance.
     /// </remarks>
     static void InsertTree(Tree tree, Node item)
-    {
+    { // VERIFY THIS WORKS [ ]
         // Recursively call InsertItem() to insert the item into the AVL tree, starting from the root node.
         tree.root = InsertItem(tree.root, item);
     }
@@ -504,7 +534,7 @@ class Program
     /// <param name="item">The Node (reference) to be found.</param>
     /// <returns>True if the Node is found, false otherwise.</returns>
     static bool SearchTreeItem(Node tree, Node item)
-    {
+    { // VERIFY THIS WORKS [ ]
         // Base case: If the tree is empty, return false
         if (tree == null)
             return false;
@@ -534,7 +564,7 @@ class Program
     /// <param name="tree">The root of the tree</param>
     /// <param name="item">The Node to remove</param>
     static void DeleteItem(Tree tree, Node item)
-    {
+    { // VERIFY THIS WORKS [ ]
         // Recursively call DeleteNode() to delete the item from the AVL tree, starting from the root node.
         tree.root = DeleteNode(tree.root, item);
     }
@@ -546,7 +576,7 @@ class Program
     /// <param name="tree">The Tree.</param>
     /// <returns>The number of items in the tree.</returns>
     static int Size(Tree tree)
-    {
+    { // VERIFY THIS WORKS [ ]
         // Base case: If the tree is empty (root is null), return 0
         if (tree.root == null) {
             return 0;
@@ -566,7 +596,7 @@ class Program
     /// <param name="tree">The root of the tree</param>
     /// <returns>The depth of the tree.</returns>
     static int Depth(Node tree)
-    {
+    { // VERIFY THIS WORKS [ ]
 
         // Base case: If the tree is empty (root is null), return 0
         if (tree == null)
@@ -589,14 +619,14 @@ class Program
     /// <param name="node">The Node</param>
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
-    {
+    { // VERIFY THIS WORKS [ ] 
 
         /* 
            So, this function should 1st check if the node is
            null or root of the tree(thus no parents). Then
            init parent as an empty value, then check if the 
            current node is the parent, if so will return that
-           value. If it's NOT, then start traversing the tree, 
+           value. If it's NOT, start traversing the tree, 
            going left sub-tree then right sub-tree, it does this
            recursively, until the current node is the parent of 
            the node given initially 
@@ -609,14 +639,11 @@ class Program
             return null;
         }
 
-        // Initialise a variable to store the parent node
-        Node parent = null;
-
         // Call the recursive helper function to find the parent
         FindParentHelper(tree.root, node, ref parent);
 
-        // Return the parent node
-        return parent;
+        // If has not returned yet, the parent is not found
+        return null;
     }
 
 

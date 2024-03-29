@@ -44,6 +44,49 @@ using System;   // Don't use anything else than System and only use C-core funct
    subtree's height exceeds that of its right subtree by more than one (balance factor > 1), and right-heavy when the opposite is true 
    (balance factor < -1). These term's helps in determining the appropriate rotations to apply in order to restore the tree's balance.
  
+   Binary Search Tree Simple Example (BST)  { 
+    
+   To find a value(13) in an array of 10 nodes using Binary Search,
+   the worst-case scenario would require at most 3 steps:
+   8 -> 10 -> 14 -> (13)
+     
+   O(log2(10)) = 3.32 = 3 steps
+    
+   n = (arr.size() = 10)
+   log2(n) = log2(10) = 3.32
+   3.32(steps) = 3 steps
+    
+   tree.depth() = ?
+   tree.parent() = ?
+   tree.target(n) = 3 steps
+   tree.root() = 1 step
+   tree.findMin() = 2 steps(go down left side)
+   tree.findMax() = 3 steps(go down right side)
+   tree.deleteMin() = ? 
+    
+   1st step. 13 is bigger than 8 -> Move to the right child (10)
+   2nd step. 13 is bigger than 10 -> Move to the right child (14 
+   3rd step. 13 is smaller than 14 -> Move to the left child (13) FOUND 
+    
+    AVL Tree Example {
+
+    To find a value(13) in an AVL tree of 10 nodes using Binary Search,
+    the worst-case scenario would require at most 3 steps:
+    8 -> 10 -> 14 -> (13)
+
+    O(log2(10)) = 3.32 = 3 steps
+
+          8 (root node)
+        /   \
+       3     10
+      / \      \
+     1   6      14
+        / \    /  \
+       4   7 (13)  18
+          /    \    \
+         11    16    19
+      
+ 
 */
 
 /// <summary>
@@ -262,6 +305,49 @@ class Program
         return node;
     }
 
+    // Recursive helper function to calculate the size of a subtree
+    static int SizeHelper(Node node)
+    {
+        // If the node is null, return 0
+        if (node == null)
+            return 0;
+
+        // Recursively calculate the size of the left subtree
+        int leftSize = SizeHelper(node.left);
+
+        // Recursively calculate the size of the right subtree
+        int rightSize = SizeHelper(node.right);
+
+        // Return the sum of sizes of left subtree, right subtree, and the current node (1)
+        return leftSize + rightSize + 1;
+    }
+
+    static bool FindParentHelper(Node current, Node target, ref Node parent)
+    {
+        if (current == null)
+        {
+            // Base case: If the current node is null, return false
+            return false;
+        }
+
+        // If the current node is the target node, the parent has been found
+        if (current == target)
+        {
+            return current;
+        }
+
+        // Update the parent reference before making recursive calls
+        parent = current;
+
+        // Recursive calls for the children of the current node
+        if (FindParentHelper(current.left, target, ref parent));
+        if (FindParentHelper(current.right, target, ref parent));
+
+        // If the target node is not found in the current subtree, reset the parent reference
+        parent = null;
+        return false;
+    }
+
     /// .... (and nowhere else)
 
 
@@ -318,7 +404,7 @@ class Program
     /// <returns>True if two Nodes have the same value, false otherwise.</returns>
     static bool IsEqual(Node item1, Node item2)
     {
-        return item1.data.data == item2.data.data; // if item1 data == item2 data return true
+        return item1.data.data == item2.data.data; // if item1 data == item2 data return true, else false
     }
 
 
@@ -461,9 +547,14 @@ class Program
     /// <returns>The number of items in the tree.</returns>
     static int Size(Tree tree)
     {
-        //  Fill in proper code 
-
-        return 0;
+        // Base case: If the tree is empty (root is null), return 0
+        if (tree.root == null) {
+            return 0;
+        }
+        else {
+            // If the tree is not empty, call the recursive helper function to calculate the size of the tree
+            return SizeHelper(tree.root);
+        }
     }
 
 
@@ -477,9 +568,19 @@ class Program
     static int Depth(Node tree)
     {
 
-        return 0;
-    }
+        // Base case: If the tree is empty (root is null), return 0
+        if (tree == null)
+            return 0;
 
+        // Else, recursively calculate the depth of the left or right subtree's
+        int leftDepth = Depth(tree.left);
+        int rightDepth = Depth(tree.right);
+
+        // Return the max depth, either left or right subtree, plus 1 for the current node
+        int depth = Math.Max(leftDepth, rightDepth) + 1;
+
+        return depth;
+    }
 
     /// <summary>
     /// Find the parent of Node node in Tree tree.
@@ -490,7 +591,32 @@ class Program
     static Node Parent(Tree tree, Node node)
     {
 
-        return null;
+        /* 
+           So, this function should 1st check if the node is
+           null or root of the tree(thus no parents). Then
+           init parent as an empty value, then check if the 
+           current node is the parent, if so will return that
+           value. If it's NOT, then start traversing the tree, 
+           going left sub-tree then right sub-tree, it does this
+           recursively, until the current node is the parent of 
+           the node given initially 
+
+        */
+
+        if (node == null || node == tree.root)
+        {
+            // If node is null or the root of the tree, has no parent, so return null
+            return null;
+        }
+
+        // Initialise a variable to store the parent node
+        Node parent = null;
+
+        // Call the recursive helper function to find the parent
+        FindParentHelper(tree.root, node, ref parent);
+
+        // Return the parent node
+        return parent;
     }
 
 
@@ -500,7 +626,7 @@ class Program
     /// <param name="tree">The root node of the tree to search.</param>
     /// <returns>The Node that contains the largest value in the sub-tree provided.</returns>
     static Node FindMax(Node tree)
-    {
+    { // go down right side
         return null;
     }
 
@@ -587,6 +713,7 @@ class Program
         // Build a tree inserting 10 random values as data
 
         Console.WriteLine("Build a tree inserting 10 random values as data");
+        Console.WriteLine("------------------------------------------------");
 
         for (int i = 1; i <= 10; i++)
         {
@@ -599,7 +726,7 @@ class Program
             current.data = data;
 
             InsertItem(ref tree.root, current);
-            // InsertTree(tree, current);
+            //InsertTree(tree, current);
         }
 
         // print out the (ordered!) tree
@@ -608,6 +735,12 @@ class Program
         PrintTree(tree.root);
         Console.WriteLine();
 
+        Console.WriteLine("--------------------");
+
+        // print the size of the tree
+        Console.WriteLine("Size of the tree: " + Size(tree));
+        Console.WriteLine("Depth of the tree: " + Depth(tree.root));
+        Console.WriteLine("--------------------");
 
         // test SearchTree
 

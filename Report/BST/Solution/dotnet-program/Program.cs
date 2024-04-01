@@ -598,7 +598,7 @@ class Program
     
     static void TreeTests()  // some tests
     {
-        Tree tree = new Tree();
+        Tree tree = new Tree();s
         Random r = new Random();
         DataEntry data;
 

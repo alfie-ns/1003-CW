@@ -31,7 +31,6 @@
 
 ## AVL Tree 18 Marks
 
-- [X] https://youtu.be/jDM6_TnYIqE?si=SiG3GblT_3r_UQr7
 
 Extend the implementation from a) by adding a tree balancing mechanism. Specifically, make your trees AVL Trees. Do not use another balancing mechanism. This is an advanced task and only recommended if you are a confident programmer. The same methods as in part a) are requested but with an AVL-type balancing mechanism. This will need extensions to the data structures defined in a) as well as, most likely, some auxiliary functions.
 

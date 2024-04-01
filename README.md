@@ -1,6 +1,5 @@
 # 1003-CW Report
 
-- [X] https://youtu.be/jDM6_TnYIqE?si=SiG3GblT_3r_UQr7
 - [X] **Create a VS C# command line project called BinarySearchTree.** The implementation **must use the Program.cs file** available on the DLE in the Assessment section. This file has been modified from the implementation provided for the worksheet on Binary Search Trees.
 - [ ] Explain to Thomas that I made the github repo for my own wishes/uses, but this also showes high-level initiative and craftsmanship
 
@@ -31,6 +30,8 @@
 *This subtask interprets Trees as representing mathematical Sets and asks to implement the basic Set operations. Short descriptions of each function, its arguments and return values are in the file Program.cs. Do not change these method prototypes. Each method is worth a maximum of 3 marks individually.*
 
 ## AVL Tree 18 Marks
+
+- [X] https://youtu.be/jDM6_TnYIqE?si=SiG3GblT_3r_UQr7
 
 Extend the implementation from a) by adding a tree balancing mechanism. Specifically, make your trees AVL Trees. Do not use another balancing mechanism. This is an advanced task and only recommended if you are a confident programmer. The same methods as in part a) are requested but with an AVL-type balancing mechanism. This will need extensions to the data structures defined in a) as well as, most likely, some auxiliary functions.
 

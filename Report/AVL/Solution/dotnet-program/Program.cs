@@ -32,24 +32,20 @@ using System;   // Don't use anything else than System and only use C-core funct
      as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time complexity of 
      operations like search, insertion, and deletion to O(log n).
   
-   The balance factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
+   - The balance factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
    By continuously monitoring the balance factors and performing necessary rotations, AVL trees maintain their balanced property and 
    guarantee efficient operations.
   
-   The balance factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
+   - The balance factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
    in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
    number of nodes in each subtree.
   
-   Also, the terms 'left-heavy' and 'right-heavy' refer to the balance factor of a node; a node is considered left-heavy when its left 
+   - Also, the terms 'left-heavy' and 'right-heavy' refer to the balance factor of a node; a node is considered left-heavy when its left 
    subtree's height exceeds that of its right subtree by more than one (balance factor > 1), and right-heavy when the opposite is true 
    (balance factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
  
    Binary Search Tree Simple Example (BST)  { 
-    
-   To find a value(13) in an array of 10 nodes using Binary Search,
-   the worst-case scenario would require at most 3 steps:
-   8 -> 10 -> 14 -> (13)
-     
+
    O(log2(10)) = 3.32 = 3 steps
     
    n = (arr.size() = 10)
@@ -62,7 +58,7 @@ using System;   // Don't use anything else than System and only use C-core funct
    tree.root() = 1 step
    tree.findMin() = 2 steps(go down left side)
    tree.findMax() = 3 steps(go down right side)
-   tree.deleteMin() = ? 
+   tree.deleteMin() = same tree without 1(min value of tree)
     
    1st step. 13 is bigger than 8 -> Move to the right child (10)
    2nd step. 13 is bigger than 10 -> Move to the right child (14 
@@ -90,7 +86,7 @@ using System;   // Don't use anything else than System and only use C-core funct
 /// Implement a binary search tree 
 /// 
 /// Notes
-/// [ ] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
+/// [x] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
 /// [x] 2) If you want to add methods do this in the space indicated at the top of the Program.
 /// [x] 3) You can add fields to the structures Tree, Node, DataEntry, if you find this necessary or useful.
 /// [x] 4) Some of the method stubs have return statements that you may need to change (the code wouldn't run without return statements).
@@ -139,7 +135,6 @@ class Program
 {
 
     /// THIS LINE: If you want to add methods add them between THIS LINE and THAT LINE
-
 
     /// Your methods go here:
     
@@ -639,11 +634,6 @@ class Program
         return FindParentHelper(tree.root, node);
     }
 
-        
-
-        
-
-
     /// <summary>
     /// Find the Node with maximum value in a (sub-)tree, given the IsSmaller predicate.
     /// </summary>
@@ -695,7 +685,7 @@ class Program
 
 
 
-
+// --------------------------------------------------------------------------------------------------
 
 
 

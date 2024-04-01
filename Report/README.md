@@ -1,30 +1,30 @@
 # 1003-cw Report
 
+- [X] https://youtu.be/jDM6_TnYIqE?si=SiG3GblT_3r_UQr7
 - [X] **Create a VS C# command line project called BinarySearchTree.** The implementation **must use the Program.cs file** available on the DLE in the Assessment section. This file has been modified from the implementation provided for the worksheet on Binary Search Trees.
-- [ ] Explain to Thomas that I made the github repo for my own wishes/use's, but this also showes high-level development
-- [X] WHAT IS AN AVL TREE?? [ ]
+- [ ] Explain to Thomas that I made the github repo for my own wishes/uses, but this also showes high-level development
 
 ## BST Functions 40 Marks
 
 *Complete the implementation of a binary search tree in the Program.cs file provided by filling in the code requested. The methods/functions to implement are:*
 
-- [X] staticbool IsEqual(Node item1, Node item2)
-- [X] staticvoid InsertTree(Tree tree, Node item)
-- [X] staticbool SearchTree(Node tree, DataEntry value)
-- [X] staticbool SearchTreeItem(Node tree, Node item)
-- [X] staticvoid DeleteItem(Tree tree, Node item)
-- [X] staticint Size(Tree tree)
-- [X] staticint Depth(Node tree)
-- [ ] static Node Parent(Tree tree, Node node)
-- [ ] static Node FindMax(Node tree)
-- [ ] staticvoid DeleteMin(Tree tree)
+- [X] static bool IsEqual(Node item1, Node item2)
+- [X] static void InsertTree(Tree tree, Node item)
+- [X] static bool SearchTree(Node tree, DataEntry value)
+- [X] static bool SearchTreeItem(Node tree, Node item)
+- [X] static void DeleteItem(Tree tree, Node item)
+- [X] static int Size(Tree tree)
+- [X] static int Depth(Node tree)
+- [X] static Node Parent(Tree tree, Node node)
+- [X] static Node FindMax(Node tree)
+- [X] staticvoid DeleteMin(Tree tree)
 
 ## Set Data Type Functions 12 Marks
 
 *Implement the following functions for a Binary Search Tree (BST) in the Program.cs file. The methods/functions to implement are:*
 
-- [ ] static Tree Union(Tree tree1, Tree tree2)
-- [ ] static Tree Intersection(Tree tree1, Tree tree2)
+- [X] static Tree Union(Tree tree1, Tree tree2)
+- [X] static Tree Intersection(Tree tree1, Tree tree2)
 - [ ] static Tree Difference(Tree tree1, Node tree2)
 - [ ] static Tree SymmetricDifference(Node tree1, Tree tree2)
 
@@ -40,10 +40,15 @@ If you do task c) you do not need to implement task a) as both tasks require the
 
 The Set functions/methods in b) should not depend on whether you implement balancing (a) or not (c). The Set functionality is built on top of the list of methods in a). These methods should be assumed to be opaque to the user and only their prototypes known.
 
-An additional 10 marks are allocated for good and efficient use of data structures and algorithms. Try to make your implementation as efficient as possible.
+## Extra 30 marks
 
-An additional 10 marks are allocated for some error checking and/or handling of special cases, as well as some testing of your functions. Use the method stubs in the file Program.cs for this. Do not change the Main() method. (If useful, you are allowed to program individual test functions in the area in the Program between the lines THIS LINE and THAT LINE and call these in TreeTests() or SetTests().)
+- [ ] An additional 10 marks are allocated for good and efficient use of data structures and algorithms. Try to make your implementation as efficient as possible.
+- [ ] An additional 10 marks are allocated for some error checking and/or handling of special cases, as well as some testing of your functions. Use the method stubs in the file Program.cs for this. Do not change the Main() method. (If useful, you are allowed to program individual test functions in the area in the Program between the lines THIS LINE and THAT LINE and call these in TreeTests() or SetTests().)
+- [ ] An additional 10 marks are allocated for good programming style, like proper layout, readability, identifier names, commenting, modularisation, and the like.
 
-An additional 10 marks are allocated for good programming style, like proper layout, readability, identifier names, commenting, modularisation, and the like.
+## Testing
+
+- [ ] Test the BST/AVL Functions
+- [ ] Test the Set Data Type Functions
 
 Do not use object-oriented programming other than method-free classes for the data containers. Do not use the C# Collection library. Keep your code simple and clear. The module’s DLE page contains an introduction into the C-core of C#. There are numerous examples in the lectures and labs showing what you can use.

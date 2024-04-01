@@ -42,7 +42,7 @@ using System;   // Don't use anything else than System and only use C-core funct
   
    Also, the terms 'left-heavy' and 'right-heavy' refer to the balance factor of a node; a node is considered left-heavy when its left 
    subtree's height exceeds that of its right subtree by more than one (balance factor > 1), and right-heavy when the opposite is true 
-   (balance factor < -1). These term's helps in determining the appropriate rotations to apply in order to restore the tree's balance.
+   (balance factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
  
    Binary Search Tree Simple Example (BST)  { 
     
@@ -71,20 +71,17 @@ using System;   // Don't use anything else than System and only use C-core funct
     AVL Tree Example {
 
     To find a value(13) in an AVL tree of 10 nodes using Binary Search,
-    the worst-case scenario would require at most 3 steps:
-    8 -> 10 -> 14 -> (13)
+    the worst-case scenario would require at most 2 steps:
+    10 -> 14 -> (13)
 
-    O(log2(10)) = 3.32 = 3 steps
+           10 (root node)
+         /    \
+        5      14
+       / \    /  \
+      3   8 (13)  18
+     / \   \     / \
+    1   4   9   16  19
 
-          8 (root node)
-        /   \
-       3     10
-      / \      \
-     1   6      14
-        / \    /  \
-       4   7 (13)  18
-          /    \    \
-         11    16    19
       
  
 */
@@ -94,9 +91,9 @@ using System;   // Don't use anything else than System and only use C-core funct
 /// 
 /// Notes
 /// [ ] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
-/// [ ] 2) If you want to add methods do this in the space indicated at the top of the Program.
-/// [ ] 3) You can add fields to the structures Tree, Node, DataEntry, if you find this necessary or useful.
-/// [ ] 4) Some of the method stubs have return statements that you may need to change (the code wouldn't run without return statements).
+/// [x] 2) If you want to add methods do this in the space indicated at the top of the Program.
+/// [x] 3) You can add fields to the structures Tree, Node, DataEntry, if you find this necessary or useful.
+/// [x] 4) Some of the method stubs have return statements that you may need to change (the code wouldn't run without return statements).
 /// 
 ///    You can ignore most warnings - many of them result from requirements of Object-Orientated Programming or other constraints
 ///    unimportant for COMP1003.
@@ -124,7 +121,7 @@ class Node
     public DataEntry data;
     public Node right;
     public Node left;
-    public int Height; // This is for AVL tree's, because we need to keep track of the height of the tree to balance it
+    public int Height; // This is for AVL tree, because we need to keep track of the height of the tree to balance it
 }
 
 
@@ -156,7 +153,7 @@ class Program
         // make current node the left child of the new root, completing the rotation
         newRoot.right = node;
 
-        // Consequently, updates heights of nodes involved in the rotation, height of a node is calculated as 1 plus the maximum height of its left and right subtrees
+        // Consequently, this updates heights of nodes involved in the rotation, height of a node is calculated as 1 plus the maximum height of its left and right subtrees
 
         // Update the heights
 
@@ -174,7 +171,7 @@ class Program
 
     static Node RotateLeft(Node node)
     {
-        // Essentially, the logic is the same as RotateRight, but mirrored
+        // The logic is the same as RotateRight, but mirrored
         Node newRoot = node.right;
         node.right = newRoot.left;
         newRoot.left = node;
@@ -186,17 +183,9 @@ class Program
         return newRoot;
     }
 
-    static Node FindMin(Node node)
-    { // While the left child of the current node is not null,
-      // keep traversing left to find the minimum value in the tree.
-        while (node.left != null)
-            node = node.left;
-        return node;
-    }
-
     static int GetBalanceFactor(Node node)
     {
-        if (node == null) // Base case: If the node is null,
+        if (node == null) // Base case: If the node is null, immediately return 0
             return 0;
         // Calculate the balance factor of a node as the difference between the height of its left and right subtrees
         return GetHeight(node.left) - GetHeight(node.right);
@@ -210,7 +199,7 @@ class Program
     }
 
     static Node InsertItem(Node tree, Node item)
-    {
+    { // [ ] VERIFY THIS WORKS
         if (tree == null)
         { // if tree is empty, make item the tree and add a height of the single node
             item.Height = 1; // Set the height of the leaf node
@@ -322,7 +311,7 @@ class Program
         return leftSize + rightSize + 1;
     }
 
-    static Node FindParentHelper(Node current)
+   static Node FindParentHelper(Node current, Node node)
     {
         if (current == null)
         {
@@ -338,7 +327,7 @@ class Program
         }
 
         // Recursively search for the parent in the left subtree
-        Node parentInLeft = FindParentHelper(current.left);
+        Node parentInLeft = FindParentHelper(current.left, node);
         if (parentInLeft != null)
         {
             // If the parent is found in the left subtree, return it
@@ -346,7 +335,7 @@ class Program
         }
 
         // Recursively search for the parent in the right subtree
-        Node parentInRight = FindParentHelper(current.right);
+        Node parentInRight = FindParentHelper(current.right, node);
         if (parentInRight != null)
         {
             // If the parent is found in the right subtree, return it
@@ -357,28 +346,21 @@ class Program
         return null;
     }
 
-
-    static void findParent(Node node, int val, int parent) // EXAMPLE FROM GEEKSFORGEEKS
+    static Node FindMin(Node tree)
     {
-        if (node == null)
-            return;
-    
-        // If current node is the required node
-        if (node.data == val) 
+        if (tree == null) return null; // Base case: If the tree is empty, return null immediately
+        
+
+        //Console.WriteLine("FindMin: Current node value: " + tree.data.data); // Testing
+
+        while (tree.left != null)
         {
-    
-            // Print its parent
-            Console.Write(parent);
+            tree = tree.left;
+            //Console.WriteLine("FindMin: Moving to left child, value: " + tree.data.data); // Testing
         }
-        else
-        {
-    
-            // Recursive calls for the children
-            // of the current node
-            // Current node is now the new parent
-            findParent(node.left, val, node.data);
-            findParent(node.right, val, node.data);
-        }
+
+        //Console.WriteLine("FindMin: Minimum value node: " + tree.data.data); // Testing
+        return tree;
     }
 
     /// .... (and nowhere else)
@@ -400,6 +382,8 @@ class Program
     /// <param name="subtree">The *root node* of the tree to traverse and print</param>
     static void PrintTree(Node tree)
     {
+        if (tree == null) return; // this was needed to avoid null reference exceptions in set functions
+
         if (tree.left != null)
             PrintTree(tree.left);
 
@@ -436,7 +420,7 @@ class Program
     /// <param name="item2">Second Node</param>
     /// <returns>True if two Nodes have the same value, false otherwise.</returns>
     static bool IsEqual(Node item1, Node item2)
-    { // VERIFY THIS WORKS [x]
+    { 
         return item1.data.data == item2.data.data; // if item1 data == item2 data return true, else false
     }
 
@@ -512,7 +496,7 @@ class Program
     /// <returns>True if the value is found and false otherwise.</returns>
     static bool SearchTree(Node tree, DataEntry value)
     {
-        if (tree == null) // Base case: If the tree is empty, return false
+        if (tree == null) // Base case: If the tree is empty, return false immediately
             return false;
 
         if (value.data == tree.data.data)
@@ -535,7 +519,7 @@ class Program
     /// <returns>True if the Node is found, false otherwise.</returns>
     static bool SearchTreeItem(Node tree, Node item)
     { // VERIFY THIS WORKS [ ]
-        // Base case: If the tree is empty, return false
+        // Base case: If the tree is empty, return false immediately
         if (tree == null)
             return false;
 
@@ -567,6 +551,7 @@ class Program
     { // VERIFY THIS WORKS [ ]
         // Recursively call DeleteNode() to delete the item from the AVL tree, starting from the root node.
         tree.root = DeleteNode(tree.root, item);
+        // The DeleteNode function returns the new root node of the tree after the deletion and balancing process.
     }
 
 
@@ -576,15 +561,20 @@ class Program
     /// <param name="tree">The Tree.</param>
     /// <returns>The number of items in the tree.</returns>
     static int Size(Tree tree)
-    { // VERIFY THIS WORKS [ ]
-        // Base case: If the tree is empty (root is null), return 0
-        if (tree.root == null) {
-            return 0;
-        }
-        else {
-            // If the tree is not empty, call the recursive helper function to calculate the size of the tree
-            return SizeHelper(tree.root);
-        }
+    { 
+        /* 
+            This function calculates the size of a tree by calling the recursive helper function SizeHelper.
+            If the tree is empty (root is null), it returns 0. Otherwise, it calls the recursive helper function
+            to calculate the size of the tree. The helper function traverses the tree in a depth-first manner,
+        */
+
+        // Base case: If the tree is empty (root is null), return 0 (no elements) immediately
+        if (tree.root == null) return 0;
+        
+        
+        // If the tree is not empty, call the recursive helper function to calculate the size of the tree
+        return SizeHelper(tree.root);
+        
     }
 
 
@@ -596,9 +586,16 @@ class Program
     /// <param name="tree">The root of the tree</param>
     /// <returns>The depth of the tree.</returns>
     static int Depth(Node tree)
-    { // VERIFY THIS WORKS [ ]
+    { 
+        /*
+            First null check, then recursively calculate the depth of the left and right subtrees. 
+            The depth is the length of the longest path from the root to a leaf node. It first checks
+            the leftDepth then rightDepth, then returns the max depth of the left or right subtree, plus 1
+            accounting for the current node.
 
-        // Base case: If the tree is empty (root is null), return 0
+        */
+
+        // Base case: If the tree is empty (root is null), return 0 (no depth) immediately
         if (tree == null)
             return 0;
 
@@ -619,32 +616,32 @@ class Program
     /// <param name="node">The Node</param>
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
-    { // VERIFY THIS WORKS [ ] 
-
+    {
         /* 
-           So, this function should 1st check if the node is
+           This function should 1st check if the node is
            null or root of the tree(thus no parents). Then
            init parent as an empty value, then check if the 
            current node is the parent, if so will return that
            value. If it's NOT, start traversing the tree, 
-           going left sub-tree then right sub-tree, it does this
+           going left subtree to right subtree, it does this
            recursively, until the current node is the parent of 
-           the node given initially 
+           the node given to the function. [x]
 
         */
 
         if (node == null || node == tree.root)
         {
-            // If node is null or the root of the tree, has no parent, so return null
+            // If node is null or the root of the tree, has no parent, so return null immediately
             return null;
         }
 
         // Call the recursive helper function to find the parent
-        FindParentHelper(tree.root, node, ref parent);
-
-        // If has not returned yet, the parent is not found
-        return null;
+        return FindParentHelper(tree.root, node);
     }
+
+        
+
+        
 
 
     /// <summary>
@@ -653,8 +650,21 @@ class Program
     /// <param name="tree">The root node of the tree to search.</param>
     /// <returns>The Node that contains the largest value in the sub-tree provided.</returns>
     static Node FindMax(Node tree)
-    { // go down right side
-        return null;
+    {
+        // Base case: If the tree is empty, return null immediately
+        if (tree == null) return null;
+
+        // Node to keep track of the current node as we traverse the tree
+        Node current = tree;
+
+        // Go right until we reach the rightmost node (maximum value node in the tree)
+        while (current.right != null)
+        {
+            current = current.right;
+        }
+
+        // Now, current is the rightmost node, which will be the maximum value node in the tree
+        return current;
     }
 
 
@@ -664,11 +674,47 @@ class Program
     /// <param name="tree">The Tree to process.</param>
     static void DeleteMin(Tree tree)
     {
+        /* 
+            This function deletes the node with the minimum value in the tree. 
+            It first checks if the tree is empty, if so, there is nothing to delete. 
+            Then, it calls the FindMin function to find the node with the minimum value. 
+            Finally, it calls the DeleteNode function to delete the node with the minimum value from the tree.
+        */
 
+        // If the tree is empty, there is nothing to delete
+        if (tree.root == null) return; // Base case: If the tree is empty, return immediately
+
+        // Call helper func to find the node with the minimum value
+        Node minNode = FindMin(tree.root);
+
+        // Delete the node with the minimum value
+        tree.root = DeleteNode(tree.root, minNode);
     }
 
 
-    /// SET FUNCTIONS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ///!!! <remarks> !!!
+    /* 
+       MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION
+       BECAUSE I WAS CONFUSED REGARDING THE SCOPE OF resultTree.
+       NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE
+       AND THAT LINE, AS THEY'RE INSIDE THEIR RESPECTIVE FUNCTION
+    */
+    ///!!! </remarks> !!!
+    
+    /// SET FUNCTIONS
 
 
     /// <summary>
@@ -680,7 +726,36 @@ class Program
     /// <returns>A new tree with all the values from tree1 and tree2.</returns>
     static Tree Union(Tree tree1, Tree tree2)
     {
-        return null;
+
+        /* 
+            This function merges the values of two trees into a new resultTree. 
+            It first creates an empty result tree. Then, it calls the InsertUnique function to insert the unique values from tree1 and tree2 into the result tree. 
+            The InsertUnique function recursively traverses the trees and inserts only the unique values into the result tree. 
+            Finally, it returns the result tree with all the values from tree1 and tree2.
+        */
+
+        Tree resultTree = new Tree(); // Create an empty result tree
+
+        void InsertUnique(Node node, Tree resultTree) // Helper function to insert unique values into the result tree
+        {
+            if (node == null) return; // Base case: If the current node is null, 
+
+            // Check if the current node's value does not already exist in the result tree
+            if (!SearchTree(resultTree.root, node.data))
+            {
+                // If the value is unique, insert it into the result tree
+                InsertTree(resultTree, new Node { data = node.data });
+            }
+
+            // Recursively traverse the left and right subtrees
+            InsertUnique(node.left, resultTree);
+            InsertUnique(node.right, resultTree);
+        }
+
+        InsertUnique(tree1.root, resultTree); // traverse tree1 and insert unique values into result tree
+        InsertUnique(tree2.root, resultTree); // traverse tree2 and insert unique values into result tree
+
+        return resultTree;
     }
 
 
@@ -689,10 +764,33 @@ class Program
     /// </summary>
     /// <param name="tree1">The first Tree</param>
     /// <param name="tree2">The second Tree</param>
-    /// <returns>A new Tree with all values in tree1 and tree2.</returns>
+    /// <returns>A new Tree with all values in tree1 and tree2.</returns> 
     static Tree Intersection(Tree tree1, Tree tree2)
     {
-        return null;
+        /*
+            This function finds the intersection of the values in two trees and returns a new tree with the common values. 
+            It first creates an empty result tree. Then, it calls the IntersectionHelper function to traverse the trees and find the common values. 
+            The IntersectionHelper function recursively compares the values in the trees and inserts the common values into the result tree. 
+            Finally, it returns the result tree with the intersection of the values from tree1 and tree2.
+        */
+
+        Tree resultTree = new Tree(); // Create an empty result tree
+
+        void IntersectHelper(Node node) 
+        {
+            if (node == null) return; // Base case: If the current node is null, return
+
+            if (SearchTreeItem(tree2.root, node)) { // If nodes are in both trees, insert into result tree
+                InsertTree(resultTree, new Node { data = node.data });
+            }
+
+            IntersectHelper(node.left); // Recursively traverse the left subtree
+            IntersectHelper(node.right); // Recursively traverse the right subtree
+        }
+
+        IntersectHelper(tree1.root); // Start the intersection recursive process from the root of tree1
+
+        return resultTree;
     }
 
 
@@ -704,7 +802,28 @@ class Program
     /// <returns>The values of the set difference tree1/tree2 in a new Tree.</returns>
     static Tree Difference(Tree tree1, Node tree2)
     {
-        return null;
+        /*
+            the difference of two sets A and B is equal
+            to the set which consists of elements present
+            in A but not in B. Thus the difference
+        */
+
+        Tree resultTree = new Tree(); // Create an empty result tree
+
+        void DiffHelper(Node node) 
+        {
+            if (node == null) return; // Base case: If the current node is null, return
+
+            if (!SearchTreeItem(tree2, node)) // If the node is in tree1 but not in tree2, insert into result tree
+                InsertTree(resultTree, new Node { data = new DataEntry { data = node.data.data } });
+
+            DiffHelper(node.left);
+            DiffHelper(node.right);
+        }
+
+        DiffHelper(tree1.root);
+
+        return resultTree;
     }
 
 
@@ -716,7 +835,23 @@ class Program
     /// <returns>The values of the symmetric difference tree1/tree2 in a new Tree.</returns>
     static Tree SymmetricDifference(Node tree1, Tree tree2)
     {
-        return null;
+        Tree resultTree = new Tree();
+
+        void SymDiffHelper(Node node, Tree currentTree, Tree otherTree)
+        {
+            if (node == null) return; // Base case: If the current node is null, return
+
+            if (!SearchTreeItem(otherTree.root, node))
+                InsertTree(resultTree, new Node { data = new DataEntry { data = node.data.data } });
+
+            SymDiffHelper(node.left, currentTree, otherTree);
+            SymDiffHelper(node.right, currentTree, otherTree);
+        }
+
+        SymDiffHelper(tree1, new Tree { root = tree1 }, tree2);
+        SymDiffHelper(tree2.root, tree2, new Tree { root = tree1 });
+
+        return resultTree;
     }
 
 
@@ -736,9 +871,7 @@ class Program
         Random r = new Random();
         DataEntry data;
 
-
         // Build a tree inserting 10 random values as data
-
         Console.WriteLine("Build a tree inserting 10 random values as data");
         Console.WriteLine("------------------------------------------------");
 
@@ -752,12 +885,10 @@ class Program
             current.right = null;
             current.data = data;
 
-            InsertItem(ref tree.root, current);
-            //InsertTree(tree, current);
+            InsertTree(tree, current);
         }
 
         // print out the (ordered!) tree
-
         Console.WriteLine("Print out the (ordered!) tree");
         PrintTree(tree.root);
         Console.WriteLine();
@@ -765,27 +896,39 @@ class Program
         Console.WriteLine("--------------------");
 
         // print the size of the tree
-        Console.WriteLine("Size of the tree: " + Size(tree));
-        Console.WriteLine("Depth of the tree: " + Depth(tree.root));
+        Console.WriteLine("Size of the tree: " + Size(tree)); // print size
+        Console.WriteLine("Depth of the tree: " + Depth(tree.root)); // print depth
+        Node minNode = FindMin(tree.root); // find min value
+        Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else  
+        Node maxNode = FindMax(tree.root); // find max value
+        Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null"));   
         Console.WriteLine("--------------------");
 
         // test SearchTree
-
         Console.WriteLine("Search for 10 random values");
 
         data = new DataEntry();
         for (int i = 0; i < 10; i++)
         {
-            data.data = r.Next(10);       // vvvv this is ugly ... improve it! vvvvv 
+            data.data = r.Next(10);
             Console.WriteLine(data.data + " was" + (!SearchTree(tree.root, data) ? " NOT" : "") + " found");
         }
 
+        Console.WriteLine("--------------------");
 
+        // Test the Parent function with nodes from the randomly generated tree
+        if (tree.root != null) // If the tree is not empty
+        {
+            Node randomNode1 = tree.root;
+            Node randomNode2 = tree.root.left;
+            Node randomNode3 = tree.root.right;
 
-        //  Add more tree testing here .... 
+            Console.WriteLine("Parent of randomNode1: " + (Parent(tree, randomNode1)?.data.data.ToString() ?? "null"));
+            Console.WriteLine("Parent of randomNode2: " + (Parent(tree, randomNode2)?.data.data.ToString() ?? "null"));
+            Console.WriteLine("Parent of randomNode3: " + (Parent(tree, randomNode3)?.data.data.ToString() ?? "null"));
+        }
 
-
-
+        Console.WriteLine("--------------------");
     }
 
 
@@ -793,12 +936,92 @@ class Program
     /// Testing of the Set methods that does some reasonable checks.
     /// It does not have to be exhaustive but sufficient to suggest the code is correct.
     /// </summary>
+    
     static void SetTests()
     {
+        /*
+            This function is for testing the set operation functions
+            It creates 3 sample trees, inserts values into them, then tests
+            the Union, Intersection, Difference, and SymmetricDifference functions.
+        */
 
-        //   Tests for the Set methods
+        // Create sample trees
+        Tree tree1 = new Tree();
+        Tree tree2 = new Tree();
+        Tree tree3 = new Tree();
 
+        // Insert values into tree1
+        InsertTree(tree1, new Node { data = new DataEntry { data = 5 } });
+        InsertTree(tree1, new Node { data = new DataEntry { data = 3 } });
+        InsertTree(tree1, new Node { data = new DataEntry { data = 7 } });
+        InsertTree(tree1, new Node { data = new DataEntry { data = 1 } });
+
+        // Insert values into tree2
+        InsertTree(tree2, new Node { data = new DataEntry { data = 6 } });
+        InsertTree(tree2, new Node { data = new DataEntry { data = 2 } });
+        InsertTree(tree2, new Node { data = new DataEntry { data = 9 } });
+        InsertTree(tree2, new Node { data = new DataEntry { data = 5 } });
+
+        // Insert values into tree3
+        InsertTree(tree3, new Node { data = new DataEntry { data = 4 } });
+        InsertTree(tree3, new Node { data = new DataEntry { data = 7 } });
+        InsertTree(tree3, new Node { data = new DataEntry { data = 1 } });
+        InsertTree(tree3, new Node { data = new DataEntry { data = 8 } });
+
+        // Test the Union function
+        Tree unionResult = Union(tree1, tree2);
+        // Expected result: 1, 2, 3, 5, 6, 7, 9
+        Console.WriteLine("Union of tree1 and tree2:");
+        PrintTree(unionResult.root);
+        Console.WriteLine();
+        Console.WriteLine("----------------------------");
+
+        // Test the Intersection function
+        Tree intersectionResult = Intersection(tree1, tree2);
+        // Expected result: 5
+        Console.WriteLine("Intersection of tree1 and tree2:");
+        PrintTree(intersectionResult.root);
+        Console.WriteLine();
+        Console.WriteLine("----------------------------");
+
+        // Test the Difference function
+        Tree differenceResult = Difference(tree1, tree3.root);
+        // Expected result: 3
+        Console.WriteLine("Difference of tree1 and tree3:");
+        PrintTree(differenceResult.root);
+        Console.WriteLine();
+        Console.WriteLine("----------------------------");
+
+        // Test the SymmetricDifference function
+        Tree symmetricDifferenceResult = SymmetricDifference(tree2.root, tree3);
+        // Expected result: 2, 4, 6, 8, 9
+        Console.WriteLine("Symmetric Difference of tree2 and tree3:");
+        PrintTree(symmetricDifferenceResult.root);
     }
+
+
+/// ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /// <summary>

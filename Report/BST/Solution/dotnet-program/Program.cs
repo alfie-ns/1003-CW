@@ -242,7 +242,7 @@ class Program
           it always inserts on the toplevel and 
           is NOT recursive.
 
-          Essentially, this wrapper function calls the recursi
+          Essentially, this wrapper function calls the recursisve InsertItem() function
         */ 
     
         if (tree.root == null) // Base case: If the tree is empty
@@ -254,7 +254,7 @@ class Program
         Node current = tree.root; // the current node is the root of the tree
         while (true) // while there is a current node
         {
-            /* TRUE? [ ] 
+            /* TRUE? [x] 
             If the item is smaller than the current node and the current node's left child is null,
             the left child of the current node becomes the item, if the item is larger
             and the current node's right child is null, the right child becomes the item. If the item

@@ -461,7 +461,6 @@ class Program
             it recursively counts each node in the tree. It returns the sum
             of these nodes, +1 accounting for the current node before it 
             proceedes to recursively explore and count the nodes in its left and right subtrees
-        
         */
         
         if (node == null) // if reaches leaf node

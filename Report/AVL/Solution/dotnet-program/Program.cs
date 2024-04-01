@@ -33,16 +33,16 @@ using System;   // Don't use anything else than System and only use C-core funct
      operations like search, insertion, and deletion to O(log n).
   
    - The balance factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
-   By continuously monitoring the balance factors and performing necessary rotations, AVL trees maintain their balanced property and 
-   guarantee efficient operations.
+     By continuously monitoring the balance factors and performing necessary rotations, AVL trees maintain their balanced property and 
+     guarantee efficient operations.
   
    - The balance factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
-   in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
-   number of nodes in each subtree.
+     in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
+     number of nodes in each subtree.
   
    - Also, the terms 'left-heavy' and 'right-heavy' refer to the balance factor of a node; a node is considered left-heavy when its left 
-   subtree's height exceeds that of its right subtree by more than one (balance factor > 1), and right-heavy when the opposite is true 
-   (balance factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
+     subtree's height exceeds that of its right subtree by more than one (balance factor > 1), and right-heavy when the opposite is true 
+     (balance factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
  
    Binary Search Tree Simple Example (BST)  { 
 
@@ -118,7 +118,7 @@ class Node
     public Node right;
     public Node left;
     public int Height; // This is for AVL tree, because we need to keep track of the height of the tree to balance it
-}
+} // Storing the height in each node means that the tree can perform rotations and rebalancing efficiently
 
 
 /// <summary>
@@ -180,17 +180,16 @@ class Program
 
     static int GetBalanceFactor(Node node)
     {
-        if (node == null) // Base case: If the node is null, immediately return 0
-            return 0;
+        if (node == null) return 0; // Base case: If the node is null, immediately return 0
         // Calculate the balance factor of a node as the difference between the height of its left and right subtrees
         return GetHeight(node.left) - GetHeight(node.right);
     }
     
     static int GetHeight(Node node)
     { // This is a helper function to get the height of a node, for balancing AVL trees
-        if (node == null) // If the node is null, return false
-            return 0;
-        return node.Height; // Return the height of the node
+        if (node == null) return 0; // Null check first, If the node is null, return 0
+              
+        return node.Height; // Else, return the height of the node
     }
 
     static Node InsertItem(Node tree, Node item)
@@ -200,13 +199,15 @@ class Program
             item.Height = 1; // Set the height of the leaf node
             return item; // Return 
         }
-
-        if (IsSmaller(item, tree)) // if the items data is smaller than the trees data
+        if (IsSmaller(item, tree)) { // if the items data is smaller than the trees data
             tree.left = InsertItem(tree.left, item); // Recursively insert into the left subtree
-        else if (IsSmaller(tree, item)) // if the items data is larger than the trees data
+        }
+        else if (IsSmaller(tree, item)) { // if the items data is larger than the trees data
             tree.right = InsertItem(tree.right, item); // Recursively insert into the right subtree
-        else 
+        }
+        else {
             return tree; // Discard duplicates
+        }
 
         // Update the height of the current node
         tree.Height = 1 + Math.Max(GetHeight(tree.left), GetHeight(tree.right));
@@ -214,22 +215,23 @@ class Program
         // AVL tree balancing
         int balanceFactor = GetHeight(tree.left) - GetHeight(tree.right);
 
-        if (balanceFactor > 1) // Left-heavy
-        {
-            if (IsSmaller(item, tree.left)) // Left-Left case
+        if (balanceFactor > 1) { // Left-heavy
+        
+            if (IsSmaller(item, tree.left)){ // Left-Left case
                 return RotateRight(tree);
-            else // Left-Right case
-            {
+            }
+            else { // Left-Right case
+            
                 tree.left = RotateLeft(tree.left);
                 return RotateRight(tree);
             }
         }
-        else if (balanceFactor < -1) // Right-heavy
-        {
-            if (IsSmaller(tree.right, item)) // Right-Right case
+        else if (balanceFactor < -1) { // Right-heavy
+        
+            if (IsSmaller(tree.right, item)) { // Right-Right case
                 return RotateLeft(tree);
-            else // Right-Left case
-            {
+            }
+            else { // Right-Left case
                 tree.right = RotateRight(tree.right);
                 return RotateLeft(tree);
             }
@@ -240,16 +242,16 @@ class Program
 
     static Node DeleteNode(Node node, Node item)
     {
-        if (node == null) // Base case: If node is null
-            return null;
-
+        if (node == null) return null; // Base case: If node is null return null
+            
         // Recursively search for the node to delete, going left or right based on the comparison of the item's data with the current node's data
-        if (IsSmaller(item, node))
+        if (IsSmaller(item, node)){
             node.left = DeleteNode(node.left, item);
-        else if (IsSmaller(node, item))
+        }
+        else if (IsSmaller(node, item)){
             node.right = DeleteNode(node.right, item);
-        else
-        {
+        }
+        else {
             // Case 1: Node to be deleted is a leaf node
             if (node.left == null && node.right == null)
                 return null;
@@ -273,16 +275,18 @@ class Program
         // Check the balance factor and perform rotations if necessary
         int balanceFactor = GetBalanceFactor(node);
 
-        if (balanceFactor > 1) // Left-heavy
-        {
-            if (GetBalanceFactor(node.left) < 0) // Left-Right case
+        if (balanceFactor > 1) { // Left-heavy
+        
+            if (GetBalanceFactor(node.left) < 0) { // Left-Right case
                 node.left = RotateLeft(node.left);
+            }
             return RotateRight(node); // Left-Left case
+
         }
-        else if (balanceFactor < -1) // Right-heavy
-        {
-            if (GetBalanceFactor(node.right) > 0) // Right-Left case
+        else if (balanceFactor < -1) {// Right-heavy
+            if (GetBalanceFactor(node.right) > 0) {// Right-Left case
                 node.right = RotateRight(node.right);
+            }
             return RotateLeft(node); // Right-Right case
         }
 
@@ -293,9 +297,8 @@ class Program
     static int SizeHelper(Node node)
     {
         // If the node is null, return 0
-        if (node == null)
-            return 0;
-
+        if (node == null) return 0;
+            
         // Recursively calculate the size of the left subtree
         int leftSize = SizeHelper(node.left);
 
@@ -345,11 +348,9 @@ class Program
     {
         if (tree == null) return null; // Base case: If the tree is empty, return null immediately
         
-
         //Console.WriteLine("FindMin: Current node value: " + tree.data.data); // Testing
 
-        while (tree.left != null)
-        {
+        while (tree.left != null) {
             tree = tree.left;
             //Console.WriteLine("FindMin: Moving to left child, value: " + tree.data.data); // Testing
         }
@@ -493,7 +494,6 @@ class Program
     {
         if (tree == null) // Base case: If the tree is empty, return false immediately
             return false;
-
         if (value.data == tree.data.data)
             return true;
         else if (value.data < tree.data.data)
@@ -680,6 +680,8 @@ class Program
         // Delete the node with the minimum value
         tree.root = DeleteNode(tree.root, minNode);
     }
+
+
 
 
 

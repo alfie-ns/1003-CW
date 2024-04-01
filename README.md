@@ -2,7 +2,7 @@
 
 - [X] https://youtu.be/jDM6_TnYIqE?si=SiG3GblT_3r_UQr7
 - [X] **Create a VS C# command line project called BinarySearchTree.** The implementation **must use the Program.cs file** available on the DLE in the Assessment section. This file has been modified from the implementation provided for the worksheet on Binary Search Trees.
-- [ ] Explain to Thomas that I made the github repo for my own wishes/uses, but this also showes high-levelinitiative and craftsmanship
+- [ ] Explain to Thomas that I made the github repo for my own wishes/uses, but this also showes high-level initiative and craftsmanship
 
 ## BST Functions 40 Marks
 

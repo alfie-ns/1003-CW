@@ -10,8 +10,7 @@ using System;   // Don't use anything else than System and only use C-core funct
    AVL Tree Context:
 
    An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at most one.
-
-   The reason for using the difference in heights as the balance factor in AVL tree's is to ensure that the AVL tree maintains its balance. 
+ 
    In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree 
    remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time complexity 
    of O(log n). 
@@ -25,7 +24,7 @@ using System;   // Don't use anything else than System and only use C-core funct
      is too tall compared to the left subtree, making the node right-heavy. These situations represent an imbalance in the tree.
    
    - Triggering rotations: When an imbalance is detected (i.e., the balance factor is outside the range [-1, 1]), the AVL tree performs 
-     rotations to rebalance the tree. The specific rotation(s) needed depend on the balance factor and the structure of the subtrees 
+     rotations to rebalance the tree. The specific rotation's needed depend on the balance factor and the structure of the subtrees 
      involved.
    
    - Maintaining efficiency: By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
@@ -44,7 +43,7 @@ using System;   // Don't use anything else than System and only use C-core funct
      subtree's height exceeds that of its right subtree by more than one (balance factor > 1), and right-heavy when the opposite is true 
      (balance factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
  
-   Binary Search Tree Simple Example (BST)  { 
+   BST(Binary Search Tree) Example { 
 
    O(log2(10)) = 3.32 = 3 steps
     
@@ -60,11 +59,12 @@ using System;   // Don't use anything else than System and only use C-core funct
    tree.findMax() = 3 steps(go down right side)
    tree.deleteMin() = same tree without 1(min value of tree)
     
-   1st step. 13 is bigger than 8 -> Move to the right child (10)
-   2nd step. 13 is bigger than 10 -> Move to the right child (14 
-   3rd step. 13 is smaller than 14 -> Move to the left child (13) FOUND 
+   1st step. 13 is bigger than 10 -> Move to the right child (14)
+   2nd step. 13 is less than 14 -> Move to the left child (13) -> FOUND
+
+   }
     
-    AVL Tree Example {
+    AVL(Adelson-Velskii and Landis(creator's)) Example {
 
     To find a value(13) in an AVL tree of 10 nodes using Binary Search,
     the worst-case scenario would require at most 2 steps:
@@ -153,15 +153,24 @@ class Program
         // Update the heights
 
         // calculate the height of the current node as 1 plus the maximum height of its left and right subtrees
-        // adding 1 to account for current node
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
 
         // calculate the height of the new root node as 1 plus the maximum height of its left and right subtrees
-        // adding 1 to account for new root node itself
         newRoot.Height = 1 + Math.Max(GetHeight(newRoot.left), GetHeight(newRoot.right));
 
         // return the new root node of the rotated subtree
         return newRoot;
+
+        /*
+
+          node                    newRoot
+         /    \                   /     \
+        /      \                 /       \
+     newRoot    T3     --->     T1      node
+     /   \                            /   \
+     T1    T2                         T2   T3
+
+        */
     }
 
     static Node RotateLeft(Node node)
@@ -170,8 +179,6 @@ class Program
         Node newRoot = node.right;
         node.right = newRoot.left;
         newRoot.left = node;
-
-        // Update the heights
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
         newRoot.Height = 1 + Math.Max(GetHeight(newRoot.left), GetHeight(newRoot.right));
 
@@ -181,15 +188,17 @@ class Program
     static int GetBalanceFactor(Node node)
     {
         if (node == null) return 0; // Base case: If the node is null, immediately return 0
-        // Calculate the balance factor of a node as the difference between the height of its left and right subtrees
+  
         return GetHeight(node.left) - GetHeight(node.right);
+        // The balance factor is calculated by subtracting the height of the right subtree from the height of the left subtree
     }
     
     static int GetHeight(Node node)
-    { // This is a helper function to get the height of a node, for balancing AVL trees
-        if (node == null) return 0; // Null check first, If the node is null, return 0
-              
-        return node.Height; // Else, return the height of the node
+    {
+        if (node == null) return 0; // Base case: If the node is null, return 0
+        int leftHeight = GetHeight(node.left); // Recursively calculate the height of the left subtree
+        int rightHeight = GetHeight(node.right); // Recursively calculate the height of the right subtree
+        return 1 + Math.Max(leftHeight, rightHeight);  //you get the max of either left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
     }
 
     static Node InsertItem(Node tree, Node item)
@@ -213,7 +222,7 @@ class Program
         tree.Height = 1 + Math.Max(GetHeight(tree.left), GetHeight(tree.right));
 
         // AVL tree balancing
-        int balanceFactor = GetHeight(tree.left) - GetHeight(tree.right);
+        int balanceFactor = GetHeight(tree.left) - GetHeight(tree.right); // left subtree height - right subtree height
 
         if (balanceFactor > 1) { // Left-heavy
         
@@ -240,7 +249,7 @@ class Program
         return tree;
     }
 
-    static Node DeleteNode(Node node, Node item)
+    static Node DeleteNode(Node node, Node item) 
     {
         if (node == null) return null; // Base case: If node is null return null
             
@@ -267,7 +276,6 @@ class Program
             node.data = successor.data;
             node.right = DeleteNode(node.right, successor);
         }
-
         // AVL tree balancing
         // Update the height of the current node
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
@@ -280,7 +288,7 @@ class Program
             if (GetBalanceFactor(node.left) < 0) { // Left-Right case
                 node.left = RotateLeft(node.left);
             }
-            return RotateRight(node); // Left-Left case
+            return RotateRight(node); // Left-left case
 
         }
         else if (balanceFactor < -1) {// Right-heavy
@@ -702,7 +710,7 @@ class Program
        MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION
        BECAUSE I WAS CONFUSED REGARDING THE SCOPE OF resultTree.
        NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE
-       AND THAT LINE, AS THEY'RE INSIDE THEIR RESPECTIVE FUNCTION
+       AND THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION
     */
     ///!!! </remarks> !!!
     

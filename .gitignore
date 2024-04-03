@@ -6,7 +6,7 @@ desktop.ini
 # Visual Studio
 *.vs/
 
-# VS Code
+# Visual Studio Code
 .vscode/
 
 # DotNet

@@ -1098,9 +1098,9 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("AVL balancing test passed");
 
         DateTime endTime = DateTime.Now; // end time
-        TimeSpan elapsedTime = endTime - startTime; // calculate time taken
+        TimeSpan elapsedTime = endTime - startTime; // calculate time-taken
 
-        Console.WriteLine("Time taken for AVL processing: " + elapsedTime.TotalMilliseconds + " milliseconds"); // print time taken
+        Console.WriteLine("Time-taken for AVL processing: " + elapsedTime.TotalMilliseconds + " milliseconds"); // print time taken
 
         Console.WriteLine("--------------------");
     }

@@ -1,4 +1,4 @@
-﻿
+
 using System; // Don't use anything else than System and only use C-core functionality; read the specs!
 
 // DON'T CHANGE
@@ -48,7 +48,7 @@ using System; // Don't use anything else than System and only use C-core functio
  - AVL Tree: O(log n)
  - BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree)
 
- If we say an AVL tree has 10 nodes, the formula for finding the average time-complexity is log2(10) ≈ 3.32,
+ If we say an AVL tree has 10 nodes, the formula for finding the average time-complexity is log2(10)=3.32,
  which rounds down to 3 since steps are integers; thus, on average, it'll take 3 steps to find a particular
  node in this tree. This will always be the case in an AVL tree, but not necessarily for a BST that could become
  unbalanced.

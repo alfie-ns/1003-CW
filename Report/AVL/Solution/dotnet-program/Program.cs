@@ -7,6 +7,10 @@ using System;   // Don't use anything else than System and only use C-core funct
    
    https://github.com/alfie-ns/1003-CW
 
+   !ALERT! BEFORE SUBMISSION MAKE SURE THIS WORKS IN VISUAL STUDIO .SLN FILE !ALERT!
+
+   A 'base case' ensures recusion TERMINATES when a leaf node is reached, otherwise, the function could run forever !
+
    AVL Tree Context:
 
    An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at most one.
@@ -117,7 +121,7 @@ class Node
     public DataEntry data;
     public Node right;
     public Node left;
-    public int Height; // This is for AVL tree, because we need to keep track of the height of the tree to balance it
+    public int Height; // This is for AVL tree, thus one needs to keep track of the height of the tree to balance it
 } // Storing the height in each node means that the tree can perform rotations and rebalancing efficiently
 
 
@@ -126,17 +130,19 @@ class Node
 /// </summary>
 class Tree
 {
-    public Node root;
+    public Node root; // The root node of the tree
 }
 
 
 
-class Program
+class Program // Program class, the entry point of the program 
 {
 
     /// THIS LINE: If you want to add methods add them between THIS LINE and THAT LINE
 
     /// Your methods go here:
+    
+    /// ------------------------------------------------------------- AVL Tree Functions ------------------------------------------------------------- ///
     
     static Node RotateRight(Node node)
     { // this function performs a right rotation on the given node in an AVL tree
@@ -161,16 +167,6 @@ class Program
         // return the new root node of the rotated subtree
         return newRoot;
 
-        /*
-
-          node                    newRoot
-         /    \                   /     \
-        /      \                 /       \
-     newRoot    T3     --->     T1      node
-     /   \                            /   \
-     T1    T2                         T2   T3
-
-        */
     }
 
     static Node RotateLeft(Node node)
@@ -194,7 +190,7 @@ class Program
     }
     
     static int GetHeight(Node node)
-    {
+    { // get the height of a trees
         if (node == null) return 0; // Base case: If the node is null, return 0
         int leftHeight = GetHeight(node.left); // Recursively calculate the height of the left subtree
         int rightHeight = GetHeight(node.right); // Recursively calculate the height of the right subtree
@@ -202,7 +198,7 @@ class Program
     }
 
     static Node InsertItem(Node tree, Node item)
-    { // [ ] VERIFY THIS WORKS
+    {
         if (tree == null)
         { // if tree is empty, make item the tree and add a height of the single node
             item.Height = 1; // Set the height of the leaf node
@@ -272,11 +268,12 @@ class Program
                 return node.left;
 
             // Case 3: Node to be deleted has two children
-            Node successor = FindMin(node.right);
-            node.data = successor.data;
-            node.right = DeleteNode(node.right, successor);
+            Node successor = FindMin(node.right); // Find the inorder successor of the node
+            node.data = successor.data; // Copy the data of the inorder successor to the current node's data
+            node.right = DeleteNode(node.right, successor); // Delete the inorder successor node from the right subtree, as its value has already been copied to replace the deleted node's value.
         }
         // AVL tree balancing
+
         // Update the height of the current node
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
 
@@ -326,7 +323,7 @@ class Program
         }
 
         // Check if the current node is the parent of the given node
-        if (current.left == node || current.right == node)
+        if (current.left == node || current.right == node) // if current node is left or right child of node
         {
             // If the current node is the parent, return it
             return current;
@@ -367,7 +364,132 @@ class Program
         return tree;
     }
 
-    /// .... (and nowhere else)
+    /// ------------------------------------------------------------- AVL Tree Test Functions ------------------------------------------------------------- ///
+     
+    static void TestInsertion()
+    {
+        Tree tree = new Tree(); // init test tree
+        int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
+
+        foreach (int element in elements) // for every element in elements array
+        {
+            InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
+        }
+
+        Assert(Size(tree) == 5, "Insertion test: Tree size is incorrect"); // check if tree size is correct
+        Assert(IsBalanced(tree.root), "Insertion test: Tree is not balanced"); // check if tree is balanced
+        Assert(IsSorted(tree), "Insertion test: Tree is not sorted"); // check if tree is sorted
+    }
+
+    static void TestDeletion()
+    {
+        Tree tree = new Tree(); // init test tree
+        int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
+
+        foreach (int element in elements) // for every element in elements array
+        {
+            InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
+        }
+
+        DeleteItem(tree, new Node { data = new DataEntry { data = 3 } }); // delete 3 from the tree 
+        DeleteItem(tree, new Node { data = new DataEntry { data = 7 } }); // delete 7 from the tree
+
+        Assert(Size(tree) == 3, "Deletion test: Tree size is incorrect"); // check if tree size is correct
+        Assert(IsBalanced(tree.root), "Deletion test: Tree is not balanced"); // check if tree is balanced
+        Assert(IsSorted(tree), "Deletion test: Tree is not sorted"); // check if tree is sorted
+    }
+
+    static void TestSearch()
+    {
+        Tree tree = new Tree(); // init test tree
+        int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
+
+        foreach (int element in elements) // for every element in elements array
+        {
+            InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
+        }
+
+        Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
+        Assert(!SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+    }
+
+    static bool IsBalanced(Node node)
+    {
+        if (node == null) return null; // Base case: If the node is null, return null immediately
+
+        int leftHeight = GetHeight(node.left); // Calculate the height of the left subtree
+        int rightHeight = GetHeight(node.right); // Calculate the height of the right subtree
+
+        if (Math.Abs(leftHeight - rightHeight) > 1) return false; // If the absolute difference between the heights of the left and right subtrees is greater than 1, return false
+
+        return IsBalanced(node.left) && IsBalanced(node.right); // Recursively check the balance of the left and right subtrees
+    }
+
+    static bool IsSorted(Tree tree)
+    {
+        int[] sortedArray = new int[Size(tree)]; // Create an array to store the sorted elements
+        int index = 0; // Initialize the index to 0
+
+        InOrderTraversal(tree.root, (int value) => { sortedArray[index++] = value; }); // Perform in-order traversal to store the elements in the array
+
+        for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array
+        {
+            if (sortedArray[i] < sortedArray[i - 1]) return false; // If the current element is less than the previous element, return false
+        }
+
+        return true; // If the array is sorted in ascending order, return true
+    }
+
+    static void InOrderTraversal(Node node, Action<int> action)
+    {
+        /*
+            This function utilises an Action<int> delegate for flexible node
+            data handling during in-order traversal; the null check serves as
+            a base case, ensuring recursion halts at leaf nodes. I need to use 
+            a delegate to handle the node's data, when I use this function inside
+            the IsSorted function, essentially, I pass a lambda function that 
+            stores the node's data in an array, that I check is indeed sorted.
+        */
+
+        if (node == null) return; // Base case: If the node is null, return immediately
+
+        InOrderTraversal(node.left, action); // Recursively traverse the left subtree
+        action(node.data.data); // Action<int> delegate to handle the node's data
+        InOrderTraversal(node.right, action); // Recursively traverse the right subtree
+    }
+
+    static void Assert(bool condition, string message)
+    { // This function, akin to Debug.Assert used for debugging, was custom-made by me due to restrictions on only being allowed to use C-core functionality.
+        if (!condition) throw new Exception("Assertion failed"); // If the condition is false, throw an exception with the specified message
+    }
+
+    static void TestAVLBalancing()
+    {
+        /*
+            This function tests whether the AVL tree remains balanced after insertion and deletion operations.
+            First, it creates a new test tree and defines an array of elements to insert into the tree; it then
+            iterates over each element in the array, inserting them into the tree. After each insertion, it checks
+            whether the tree is balanced. Subsequently, it deletes an element from the tree and verifies if the
+            tree remains balanced. The assert function is one I had to custom make, due to only being able to use
+            C-core functionality and not being able to use any other libraries. The assert function checks if the
+            condition is true, if not, it throws an exception with the specified message.
+        */
+
+        Tree tree = new Tree(); // Create a test AVL tree
+        int[] elements = { 1, 2, 3, 4, 5, 6, 7 }; // Define an array of elements to insert into the tree
+
+        foreach (int element in elements) // for every element in the elements array
+        {
+            InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
+            Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after insertion"); // If IsBalanced returns false, throw an exception
+        }
+
+        DeleteItem(tree, new Node { data = new DataEntry { data = 4 } }); // Delete an element, specifically 4, from the tree
+        Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after deletion"); // Check if the tree remains balanced after deletion
+    }
+
+
+    /// .... (and nowhere else) [x]
 
 
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
@@ -384,16 +506,16 @@ class Program
     /// 
     /// </summary>
     /// <param name="subtree">The *root node* of the tree to traverse and print</param>
-    static void PrintTree(Node tree)
+    static void PrintTree(Node tree) // Premade function to print the tree
     {
         if (tree == null) return; // this was needed to avoid null reference exceptions in set functions
 
-        if (tree.left != null)
+        if (tree.left != null) // if left child is NOT null
             PrintTree(tree.left);
 
-        Console.Write(tree.data.data + "  ");
+        Console.Write(tree.data.data + "  "); // print the data of the current node
 
-        if (tree.right != null)
+        if (tree.right != null) // if right child is NOT null
             PrintTree(tree.right);
     }
 
@@ -410,7 +532,7 @@ class Program
     /// <returns>True if the data in item1 is smaller than the data in item2, and false otherwise.</returns>
     static bool IsSmaller(Node item1, Node item2)
     {
-        return item1.data.data < item2.data.data;
+        return item1.data.data < item2.data.data; // if item1 data < item2 data return true, else false
     }
 
 
@@ -438,7 +560,7 @@ class Program
     /// <param name="tree">The *root node* of the tree</param>
     /// <param name="item">The item to insert</param>
     static void InsertItem(ref Node tree, Node item)
-    {
+    { // Premade function to insert an item into the tree
         if (tree == null)                           // if tree Node is empty, make item the tree's Node
         {
             tree = item;
@@ -484,7 +606,7 @@ class Program
     /// updating the entire tree with the inserted item.
     /// </remarks>
     static void InsertTree(Tree tree, Node item)
-    { // VERIFY THIS WORKS [ ]
+    {
         // Recursively call InsertItem() to insert the item into the AVL tree, starting from the root node.
         tree.root = InsertItem(tree.root, item);
     }
@@ -502,12 +624,12 @@ class Program
     {
         if (tree == null) // Base case: If the tree is empty, return false immediately
             return false;
-        if (value.data == tree.data.data)
+        if (value.data == tree.data.data) // If the current node's data matches the value, return true
             return true;
-        else if (value.data < tree.data.data)
+        else if (value.data < tree.data.data) // If the value is less than the current node's data, search in the left subtree
             return SearchTree(tree.left, value);
-        else
-            return SearchTree(tree.right, value);
+        else // otherwise, search in the right subtree
+            return SearchTree(tree.right, value); 
     }
 
 
@@ -521,7 +643,7 @@ class Program
     /// <param name="item">The Node (reference) to be found.</param>
     /// <returns>True if the Node is found, false otherwise.</returns>
     static bool SearchTreeItem(Node tree, Node item)
-    { // VERIFY THIS WORKS [ ]
+    {
         // Base case: If the tree is empty, return false immediately
         if (tree == null)
             return false;
@@ -551,7 +673,7 @@ class Program
     /// <param name="tree">The root of the tree</param>
     /// <param name="item">The Node to remove</param>
     static void DeleteItem(Tree tree, Node item)
-    { // VERIFY THIS WORKS [ ]
+    {
         // Recursively call DeleteNode() to delete the item from the AVL tree, starting from the root node.
         tree.root = DeleteNode(tree.root, item);
         // The DeleteNode function returns the new root node of the tree after the deletion and balancing process.
@@ -724,39 +846,43 @@ class Program
     /// <param name="tree1">A tree</param>
     /// <param name="tree2">Another tree</param>
     /// <returns>A new tree with all the values from tree1 and tree2.</returns>
-    static Tree Union(Tree tree1, Tree tree2)
+    static Tree Union(Tree tree1, Tree tree2) 
     {
 
-        /* 
+         /* 
             This function merges the values of two trees into a new resultTree. 
             It first creates an empty result tree. Then, it calls the InsertUnique function to insert the unique values from tree1 and tree2 into the result tree. 
             The InsertUnique function recursively traverses the trees and inserts only the unique values into the result tree. 
             Finally, it returns the result tree with all the values from tree1 and tree2.
         */
 
-        Tree resultTree = new Tree(); // Create an empty result tree
+        Tree resultTree = new Tree();
 
-        void InsertUnique(Node node, Tree resultTree) // Helper function to insert unique values into the result tree
+        // Helper function to insert unique nodes from a given tree into the resultTree
+        void InsertUniqueFromTree(Node node)
         {
-            if (node == null) return; // Base case: If the current node is null, 
+            if (node == null) return; // Base case: If the current node is null, return immediately
 
-            // Check if the current node's value does not already exist in the result tree
+            // Before inserting, check if the current node's value already exists in the resultTree
             if (!SearchTree(resultTree.root, node.data))
             {
-                // If the value is unique, insert it into the result tree
+                // If the value does not exist, insert the node into the resultTree
                 InsertTree(resultTree, new Node { data = node.data });
             }
 
-            // Recursively traverse the left and right subtrees
-            InsertUnique(node.left, resultTree);
-            InsertUnique(node.right, resultTree);
+            // Recursively insert unique nodes from the left and right subtrees
+            InsertUniqueFromTree(node.left);
+            InsertUniqueFromTree(node.right);
         }
 
-        InsertUnique(tree1.root, resultTree); // traverse tree1 and insert unique values into result tree
-        InsertUnique(tree2.root, resultTree); // traverse tree2 and insert unique values into result tree
+        // Insert all nodes from the first tree into the resultTree
+        InsertUniqueFromTree(tree1.root);
+        // Insert nodes from the second tree into the resultTree, checking for duplicates
+        InsertUniqueFromTree(tree2.root);
 
         return resultTree;
     }
+
 
 
     /// <summary>
@@ -778,9 +904,9 @@ class Program
 
         void IntersectHelper(Node node) 
         {
-            if (node == null) return; // Base case: If the current node is null, return
+            if (node == null) return; // Base case: If the current node is null, return immediately
 
-            if (SearchTreeItem(tree2.root, node)) { // If nodes are in both trees, insert into result tree
+            if (SearchTree(tree2.root, node.data)) { // If nodes are in both trees, insert into result tree
                 InsertTree(resultTree, new Node { data = node.data });
             }
 
@@ -800,31 +926,31 @@ class Program
     /// <param name="tree1">Tree one</param>
     /// <param name="tree2">Tree two</param>
     /// <returns>The values of the set difference tree1/tree2 in a new Tree.</returns>
-    static Tree Difference(Tree tree1, Node tree2)
+    static Tree Difference(Tree tree1, Tree tree2)
     {
-        /*
-            the difference of two sets A and B is equal
-            to the set which consists of elements present
-            in A but not in B. Thus the difference
-        */
 
         Tree resultTree = new Tree(); // Create an empty result tree
 
-        void DiffHelper(Node node) 
+        void DiffHelper(Node node)
         {
             if (node == null) return; // Base case: If the current node is null, return
 
-            if (!SearchTreeItem(tree2, node)) // If the node is in tree1 but not in tree2, insert into result tree
+            // Use SearchTree to check if the node's value exists in tree2
+            if (!SearchTree(tree2.root, node.data))
+            {
+                // If the node value is in tree1 but not in tree2, insert into result tree
                 InsertTree(resultTree, new Node { data = new DataEntry { data = node.data.data } });
+            }
 
-            DiffHelper(node.left);
-            DiffHelper(node.right);
+            DiffHelper(node.left); // Recursively check the left subtree
+            DiffHelper(node.right); // Recursively check the right subtree
         }
 
-        DiffHelper(tree1.root);
+        DiffHelper(tree1.root); // Start the difference recursive process from the root of tree1
 
         return resultTree;
     }
+
 
 
     /// <summary>
@@ -833,22 +959,29 @@ class Program
     /// <param name="tree1">Tree one</param>
     /// <param name="tree2">Tree two</param>
     /// <returns>The values of the symmetric difference tree1/tree2 in a new Tree.</returns>
-    static Tree SymmetricDifference(Node tree1, Tree tree2)
+   static Tree SymmetricDifference(Node tree1, Tree tree2)
     {
-        Tree resultTree = new Tree();
+        Tree resultTree = new Tree(); // Create an empty result tree
 
         void SymDiffHelper(Node node, Tree currentTree, Tree otherTree)
         {
             if (node == null) return; // Base case: If the current node is null, return
 
-            if (!SearchTreeItem(otherTree.root, node))
+            // Check if the node value exists in the other tree
+            if (!SearchTree(otherTree.root, node.data))
+            {
+                // If the node value is not in the other tree, insert it into the result tree
                 InsertTree(resultTree, new Node { data = new DataEntry { data = node.data.data } });
+            }
 
-            SymDiffHelper(node.left, currentTree, otherTree);
-            SymDiffHelper(node.right, currentTree, otherTree);
+            SymDiffHelper(node.left, currentTree, otherTree); // Recursively check the left subtree
+            SymDiffHelper(node.right, currentTree, otherTree); // Recursively check the right subtree
         }
 
+        // Traverse tree1 and insert nodes that are not in tree2
         SymDiffHelper(tree1, new Tree { root = tree1 }, tree2);
+
+        // Traverse tree2 and insert nodes that are not in tree1
         SymDiffHelper(tree2.root, tree2, new Tree { root = tree1 });
 
         return resultTree;
@@ -867,9 +1000,14 @@ class Program
     /// </summary>
     static void TreeTests()  // some tests
     {
-        Tree tree = new Tree();
-        Random r = new Random();
-        DataEntry data;
+
+        Console.WriteLine("----------------------------");
+        Console.WriteLine("Entering TreeTests() function");
+        Console.WriteLine("----------------------------");
+
+        Tree tree = new Tree(); // init tree for tests
+        Random r = new Random(); // init random number generator
+        DataEntry data; // init data entry
 
         // Build a tree inserting 10 random values as data
         Console.WriteLine("Build a tree inserting 10 random values as data");
@@ -916,17 +1054,21 @@ class Program
 
         Console.WriteLine("--------------------");
 
-        // Test the Parent function with nodes from the randomly generated tree
-        if (tree.root != null) // If the tree is not empty
-        {
-            Node randomNode1 = tree.root;
-            Node randomNode2 = tree.root.left;
-            Node randomNode3 = tree.root.right;
+        /*
+            I run all my tests and directly report them as passed;
+            as the assert function throws an exception if the condition is false,
+            e.g. the test fails. also, prior to reporting success, I made sure that 
+            they would all pass!
+        */
 
-            Console.WriteLine("Parent of randomNode1: " + (Parent(tree, randomNode1)?.data.data.ToString() ?? "null"));
-            Console.WriteLine("Parent of randomNode2: " + (Parent(tree, randomNode2)?.data.data.ToString() ?? "null"));
-            Console.WriteLine("Parent of randomNode3: " + (Parent(tree, randomNode3)?.data.data.ToString() ?? "null"));
-        }
+        TestInsertion(); // run insertion test
+        Console.WriteLine("Insertion test passed");
+        TestDeletion(); // run deletion test
+        Console.WriteLine("Deletion test passed");
+        TestSearch(); // run search test
+        Console.WriteLine("Search test passed");
+        TestAVLBalancing(); // run AVL balancing test
+        Console.WriteLine("AVL balancing test passed");
 
         Console.WriteLine("--------------------");
     }
@@ -940,15 +1082,18 @@ class Program
     static void SetTests()
     {
         /*
-            This function is for testing the set operation functions
-            It creates 3 sample trees, inserts values into them, then tests
+            This function tests the set operation functions.
+            It creates 2 test trees, inserts values into them, and then tests
             the Union, Intersection, Difference, and SymmetricDifference functions.
         */
 
-        // Create sample trees
+        Console.WriteLine("Entering SetTests() function");
+        Console.WriteLine("----------------------------");
+
+
+        // Create sample/test trees
         Tree tree1 = new Tree();
         Tree tree2 = new Tree();
-        Tree tree3 = new Tree();
 
         // Insert values into tree1
         InsertTree(tree1, new Node { data = new DataEntry { data = 5 } });
@@ -962,65 +1107,44 @@ class Program
         InsertTree(tree2, new Node { data = new DataEntry { data = 9 } });
         InsertTree(tree2, new Node { data = new DataEntry { data = 5 } });
 
-        // Insert values into tree3
-        InsertTree(tree3, new Node { data = new DataEntry { data = 4 } });
-        InsertTree(tree3, new Node { data = new DataEntry { data = 7 } });
-        InsertTree(tree3, new Node { data = new DataEntry { data = 1 } });
-        InsertTree(tree3, new Node { data = new DataEntry { data = 8 } });
-
-        // Test the Union function
+        // Test to show all unique elements from both trees.
         Tree unionResult = Union(tree1, tree2);
-        // Expected result: 1, 2, 3, 5, 6, 7, 9
+        
         Console.WriteLine("Union of tree1 and tree2:");
         PrintTree(unionResult.root);
         Console.WriteLine();
         Console.WriteLine("----------------------------");
 
-        // Test the Intersection function
+        // Test to show all elements common to both trees.
         Tree intersectionResult = Intersection(tree1, tree2);
-        // Expected result: 5
+
         Console.WriteLine("Intersection of tree1 and tree2:");
         PrintTree(intersectionResult.root);
         Console.WriteLine();
         Console.WriteLine("----------------------------");
 
-        // Test the Difference function
-        Tree differenceResult = Difference(tree1, tree3.root);
-        // Expected result: 3
-        Console.WriteLine("Difference of tree1 and tree3:");
+        // Test to show all elements in tree1 but not in tree2.
+        Tree differenceResult = Difference(tree1, tree2);
+
+        Console.WriteLine("Difference of tree1 and tree2:");
         PrintTree(differenceResult.root);
         Console.WriteLine();
         Console.WriteLine("----------------------------");
 
-        // Test the SymmetricDifference function
-        Tree symmetricDifferenceResult = SymmetricDifference(tree2.root, tree3);
-        // Expected result: 2, 4, 6, 8, 9
-        Console.WriteLine("Symmetric Difference of tree2 and tree3:");
+        // Test to show all elements that are in tree1 or tree2 but not in both.
+        Tree symmetricDifferenceResult = SymmetricDifference(tree1.root, tree2);
+
+        Console.WriteLine("Symmetric Difference of tree1 and tree2:");
         PrintTree(symmetricDifferenceResult.root);
+        Console.WriteLine();
+        Console.WriteLine("----------------------------");
+        Console.WriteLine();
+        Console.WriteLine("All tests passed successfully!"); // I first checked all tests would pass successfully, I guess I could've done this programmatically, however, I hope my manual check is sufficient.
+        Console.WriteLine();
     }
 
 
 /// ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

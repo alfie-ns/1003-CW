@@ -7,7 +7,7 @@ using System; // Don't use anything else than System and only use C-core functio
  
  https://github.com/alfie-ns/1003-CW
 
- A 'base case' ensures recusion TERMINATES when a leaf node is reached, otherwise, the function could run forever !
+ - A 'base case' ensures recusion TERMINATES when a leaf node is reached, otherwise, the function could run forever!
 
  AVL Tree Context:
 
@@ -18,69 +18,40 @@ using System; // Don't use anything else than System and only use C-core functio
  of O(log n). 
  
  - The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of 
- its left and right subtrees should be at MOST 1. By calculating the balance factor, we can easily check if a node violates this 
+ its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node violates this 
  condition.
 
- - If the balance factor of a node is greater than 1, it means that the left subtree is too tall compared to the 
- right subtree, making the node left-heavy. Conversely, if the balance factor is LESS than -1, it indicates that the right subtree 
+ - If the balance-factor of a node is greater than 1, it means that the left subtree is too tall compared to the 
+ right subtree, making the node left-heavy. Conversely, if the balance-factor is LESS than -1, it indicates that the right subtree 
  is too tall compared to the left subtree, making the node right-heavy. These situations represent an imbalance in the tree.
  
- - When an imbalance is detected (i.e., the balance factor is outside the range [-1, 1]), the AVL tree performs 
- rotations to rebalance the tree. The specific rotation's needed depend on the balance factor and the structure of the subtrees 
+ - When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs 
+ rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees 
  involved.
  
  - By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
  as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time complexity of 
  operations like search, insertion, and deletion to O(log n).
  
- - The balance factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
- By continuously monitoring the balance factors and performing necessary rotations, AVL trees maintain their balanced property and 
+ - The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
+ By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and 
  guarantee efficient operations.
  
- - The balance factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
+ - The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
  in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
  number of nodes in each subtree.
  
- - Also, the terms 'left-heavy' and 'right-heavy' refer to the balance factor of a node; a node is considered left-heavy when its left 
- subtree's height exceeds that of its right subtree by MORE than one (balance factor > 1), and right-heavy when the opposite is true 
- (balance factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
- 
- BST(Binary Search Tree) Example { 
+ - Also, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left 
+ subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true 
+ (balance-factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
 
- O(log2(10)) = 3.32 = 3 steps
- 
- n = (arr.size() = 10)
- log2(n) = log2(10) = 3.32
- 3.32(steps) = 3 steps
- 
- tree.depth() = ?
- tree.parent() = ?
- tree.target(n) = 3 steps
- tree.root() = 1 step
- tree.findMin() = 2 steps(go down left side)
- tree.findMax() = 3 steps(go down right side)
- tree.deleteMin() = same tree without 1(min value of tree)
- 
- 1st step. 13 is bigger than 10 -> Move to the right child (14)
- 2nd step. 13 is LESS than 14 -> Move to the left child (13) -> FOUND
+ - AVL Tree: O(log n)
+ - BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree)
 
- }
- 
- AVL(Adelson-Velskii and Landis(creator's)) Example {
-
- To find a value(13) in an AVL tree of 10 nodes using Binary Search,
- the worst-case scenario would require at MOST 2 steps:
- 10 -> 14 -> (13)
-
- 10 (root node)
- / \
- 5 14
- / \ / \
- 3 8 (13) 18
- / \ \ / \
- 1 4 9 16 19
-
- 
+ If we say an AVL tree has 10 nodes, the formula for finding the average time-complexity is log2(10) ≈ 3.32,
+ which rounds down to 3 since steps are integers; thus, on average, it'll take 3 steps to find a particular
+ node in this tree. This will always be the case in an AVL tree, but not necessarily for a BST that could become
+ unbalanced.
  
 */
 
@@ -143,28 +114,34 @@ class Program // Program class, the entry point of the program
     /// ------------------------------------------------------------- AVL Tree Functions ------------------------------------------------------------- ///
 
     static Node RotateRight(Node node)
-    { // this function performs a right rotation on the given node in an AVL tree
+    {
+        // This function performs a right rotation on the given node in an AVL tree.
 
-        // store reference to left child of current node, becomes new root of rotated subtree
+        // Store a reference to the left child of the current node; it becomes the new root of the rotated subtree.
         Node newRoot = node.left;
-        // update left to become right child of new root node, ensuring right subtree of new root becomes left subtree of current node
+
+        // Update the left child of the current node to become the right child of the new root node,
+        // ensuring that the right subtree of the new root becomes the left subtree of the current node.
         node.left = newRoot.right;
-        // make current node the left child of the new root, completing the rotation
+
+        // Make the current node the left child of the new root, completing the rotation.
         newRoot.right = node;
 
-        // Consequently, this updates heights of nodes involved in the rotation, height of a node is calculated as 1 plus the maximum height of its left and right subtrees
+        /* 
+        Consequently, this updates the heights of the nodes involved in the rotation;
+        the height of a node is calculated as 1 plus the maximum height of its left and right subtrees.
+        */
 
-        // Update the heights
+        // Then, update the respective heights of the current node and the new root node.
 
-        // calculate the height of the current node as 1 plus the maximum height of its left and right subtrees
+        // Calculate the height of the current node as 1 plus the maximum height of its left and right subtrees.
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
 
-        // calculate the height of the new root node as 1 plus the maximum height of its left and right subtrees
+        // Calculate the height of the new root node as 1 plus the maximum height of its left and right subtrees.
         newRoot.Height = 1 + Math.Max(GetHeight(newRoot.left), GetHeight(newRoot.right));
 
-        // return the new root node of the rotated subtree
+        // Return the new root node of the rotated subtree.
         return newRoot;
-
     }
 
     static Node RotateLeft(Node node)
@@ -184,7 +161,7 @@ class Program // Program class, the entry point of the program
         if (node == null) return 0; // Base case: If the node is null, immediately return 0
 
         return GetHeight(node.left) - GetHeight(node.right);
-        // The balance factor is calculated by subtracting the height of the right subtree from the height of the left subtree
+        // The balance-factor is calculated by subtracting the height of the right subtree from the height of the left subtree
     }
 
     static int GetHeight(Node node)
@@ -197,6 +174,7 @@ class Program // Program class, the entry point of the program
 
     static Node InsertItem(Node tree, Node item)
     {
+
         if (tree == null)
         { // if tree is empty, make item the tree and add a height of the single node
             item.Height = 1; // Set the height of the leaf node
@@ -221,29 +199,29 @@ class Program // Program class, the entry point of the program
         // AVL tree balancing
         int balanceFactor = GetHeight(tree.left) - GetHeight(tree.right); // left subtree height - right subtree height
 
-        if (balanceFactor > 1)
+        if (balanceFactor > 1) // Left-heavy is when the balance-factor is greater than 1(left subtree is taller than right subtree)
         { // Left-heavy
 
             if (IsSmaller(item, tree.left))
-            { // Left-Left case
+            { // Left-Left case is when the item is inserted into the left subtree of the left child.
                 return RotateRight(tree);
             }
             else
-            { // Left-Right case
+            { // Left-Right case is when item is inserted into the right subtree of the left child.
 
                 tree.left = RotateLeft(tree.left);
                 return RotateRight(tree);
             }
         }
-        else if (balanceFactor < -1)
+        else if (balanceFactor < -1) // Right-heavy is when the balance-factor is less than -1(right subtree is taller than left subtree)
         { // Right-heavy
 
             if (IsSmaller(tree.right, item))
-            { // Right-Right case
+            { // Right-Right case is when the item is inserted into the right subtree of the right child.
                 return RotateLeft(tree);
             }
             else
-            { // Right-Left case
+            { // Right-Left case is when the item is inserted into the left subtree of the right child.
                 tree.right = RotateRight(tree.right);
                 return RotateLeft(tree);
             }
@@ -287,7 +265,7 @@ class Program // Program class, the entry point of the program
         // Update the height of the current node
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
 
-        // Check the balance factor and perform rotations if necessary
+        // Check the balance-factor and perform rotations if necessary
         int balanceFactor = GetBalanceFactor(node);
 
         if (balanceFactor > 1)
@@ -515,7 +493,6 @@ class Program // Program class, the entry point of the program
 
     /// .... (and nowhere else) [x]
 
-
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
 
 
@@ -622,8 +599,8 @@ class Program // Program class, the entry point of the program
     /// If the item is greater, it recursively calls InsertItem on the right subtree.
     /// If the item is equal to the current node, it discards the duplicate
     ///
-    /// After the recursive insertion, the InsertItem function updates the height of the current node and checks the balance factor.
-    /// If the tree becomes unbalanced (balance factor > 1 or < -1), it performs the necessary rotations to restore the balance.
+    /// After the recursive insertion, the InsertItem function updates the height of the current node and checks the balance-factor.
+    /// If the tree becomes unbalanced (balance-factor > 1 or < -1), it performs the necessary rotations to restore the balance.
     ///
     /// The InsertItem function returns the new root node of the subtree after the insertion and balancing process.
     /// The InsertTree function then assigns this new root node back to the root field of the tree struct,
@@ -801,13 +778,13 @@ class Program // Program class, the entry point of the program
         // Node to keep track of the current node as we traverse the tree
         Node current = tree;
 
-        // Go right until we reach the rightMOST node (maximum value node in the tree)
+        // Go right until we reach the RIGHTMOST node (maximum value node in the tree)
         while (current.right != null)
         {
             current = current.right;
         }
 
-        // Now, current is the rightMOST node, which will be the maximum value node in the tree
+        // Now, current is the RIGHTMOST node, which will be the maximum value node in the tree
         return current;
     }
 
@@ -1015,7 +992,7 @@ class Program // Program class, the entry point of the program
 
 
     /* 
-    * TESTING 
+    * TESTING -----------------------------------------------------------------------------------------------------------------------------------------------------
     */
 
 

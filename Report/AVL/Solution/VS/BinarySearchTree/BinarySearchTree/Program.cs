@@ -11,25 +11,25 @@ using System; // Don't use anything else than System and only use C-core functio
 
  AVL Tree Context:
 
- An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at most one.
+ An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at MOST one.
  
  In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree 
  remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time complexity 
  of O(log n). 
  
- - Balance condition: The AVL tree property states that for every node in the tree, the absolute difference between the heights of 
- its left and right subtrees should be at most 1. By calculating the balance factor, we can easily check if a node violates this 
+ - The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of 
+ its left and right subtrees should be at MOST 1. By calculating the balance factor, we can easily check if a node violates this 
  condition.
 
- - Detecting imbalance: If the balance factor of a node is greater than 1, it means that the left subtree is too tall compared to the 
- right subtree, making the node left-heavy. Conversely, if the balance factor is less than -1, it indicates that the right subtree 
+ - If the balance factor of a node is greater than 1, it means that the left subtree is too tall compared to the 
+ right subtree, making the node left-heavy. Conversely, if the balance factor is LESS than -1, it indicates that the right subtree 
  is too tall compared to the left subtree, making the node right-heavy. These situations represent an imbalance in the tree.
  
- - Triggering rotations: When an imbalance is detected (i.e., the balance factor is outside the range [-1, 1]), the AVL tree performs 
+ - When an imbalance is detected (i.e., the balance factor is outside the range [-1, 1]), the AVL tree performs 
  rotations to rebalance the tree. The specific rotation's needed depend on the balance factor and the structure of the subtrees 
  involved.
  
- - Maintaining efficiency: By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
+ - By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
  as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time complexity of 
  operations like search, insertion, and deletion to O(log n).
  
@@ -42,7 +42,7 @@ using System; // Don't use anything else than System and only use C-core functio
  number of nodes in each subtree.
  
  - Also, the terms 'left-heavy' and 'right-heavy' refer to the balance factor of a node; a node is considered left-heavy when its left 
- subtree's height exceeds that of its right subtree by more than one (balance factor > 1), and right-heavy when the opposite is true 
+ subtree's height exceeds that of its right subtree by MORE than one (balance factor > 1), and right-heavy when the opposite is true 
  (balance factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
  
  BST(Binary Search Tree) Example { 
@@ -62,14 +62,14 @@ using System; // Don't use anything else than System and only use C-core functio
  tree.deleteMin() = same tree without 1(min value of tree)
  
  1st step. 13 is bigger than 10 -> Move to the right child (14)
- 2nd step. 13 is less than 14 -> Move to the left child (13) -> FOUND
+ 2nd step. 13 is LESS than 14 -> Move to the left child (13) -> FOUND
 
  }
  
  AVL(Adelson-Velskii and Landis(creator's)) Example {
 
  To find a value(13) in an AVL tree of 10 nodes using Binary Search,
- the worst-case scenario would require at most 2 steps:
+ the worst-case scenario would require at MOST 2 steps:
  10 -> 14 -> (13)
 
  10 (root node)
@@ -93,7 +93,7 @@ using System; // Don't use anything else than System and only use C-core functio
 /// [x] 3) You can add fields to the structures Tree, Node, DataEntry, if you find this necessary or useful.
 /// [x] 4) Some of the method stubs have return statements that you may need to change (the code wouldn't run without return statements).
 /// 
-/// You can ignore most warnings - many of them result from requirements of Object-Orientated Programming or other constraints
+/// You can ignore MOST warnings - many of them result from requirements of Object-Orientated Programming or other constraints
 /// unimportant for COMP1003.
 /// 
 /// </summary>
@@ -386,7 +386,7 @@ class Program // Program class, the entry point of the program
         Tree tree = new Tree(); // init test tree
         int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
 
-        foreach (int element in elements) // for every element in elements array
+        foreach (int element in elements) // for EVERY element in elements array
         {
             InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
         }
@@ -401,7 +401,7 @@ class Program // Program class, the entry point of the program
         Tree tree = new Tree(); // init test tree
         int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
 
-        foreach (int element in elements) // for every element in elements array
+        foreach (int element in elements) // for EVERY element in elements array
         {
             InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
         }
@@ -419,7 +419,7 @@ class Program // Program class, the entry point of the program
         Tree tree = new Tree(); // init test tree
         int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
 
-        foreach (int element in elements) // for every element in elements array
+        foreach (int element in elements) // for EVERY element in elements array
         {
             InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
         }
@@ -458,7 +458,7 @@ class Program // Program class, the entry point of the program
 
         for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array
         {
-            if (sortedArray[i] < sortedArray[i - 1]) return false; // If the current element is less than the previous element, return false
+            if (sortedArray[i] < sortedArray[i - 1]) return false; // If the current element is LESS than the previous element, return false
         }
 
         return true; // If the array is sorted in ascending order, return true
@@ -502,7 +502,7 @@ class Program // Program class, the entry point of the program
         Tree tree = new Tree(); // Create a test AVL tree
         int[] elements = { 1, 2, 3, 4, 5, 6, 7 }; // Define an array of elements to insert into the tree
 
-        foreach (int element in elements) // for every element in the elements array
+        foreach (int element in elements) // for EVERY element in the elements array
         {
             InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
             Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after insertion"); // If IsBalanced returns false, throw an exception
@@ -564,7 +564,7 @@ class Program // Program class, the entry point of the program
     /// Predicate that checks if two Nodes hold the same value. 
     /// 
     /// As we assume Integers for convenience, the comparison is just the usual "equality" on integers.
-    /// Equality could be more complicated for other sorts of data.
+    /// Equality could be MORE complicated for other sorts of data.
     /// </summary>
     /// <param name="item1">First Node</param>
     /// <param name="item2">Second Node</param>
@@ -650,7 +650,7 @@ class Program // Program class, the entry point of the program
             return false;
         if (value.data == tree.data.data) // If the current node's data matches the value, return true
             return true;
-        else if (value.data < tree.data.data) // If the value is less than the current node's data, search in the left subtree
+        else if (value.data < tree.data.data) // If the value is LESS than the current node's data, search in the left subtree
             return SearchTree(tree.left, value);
         else // otherwise, search in the right subtree
             return SearchTree(tree.right, value);
@@ -801,13 +801,13 @@ class Program // Program class, the entry point of the program
         // Node to keep track of the current node as we traverse the tree
         Node current = tree;
 
-        // Go right until we reach the rightmost node (maximum value node in the tree)
+        // Go right until we reach the rightMOST node (maximum value node in the tree)
         while (current.right != null)
         {
             current = current.right;
         }
 
-        // Now, current is the rightmost node, which will be the maximum value node in the tree
+        // Now, current is the rightMOST node, which will be the maximum value node in the tree
         return current;
     }
 

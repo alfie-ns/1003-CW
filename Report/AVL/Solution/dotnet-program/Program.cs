@@ -430,14 +430,23 @@ class Program // Program class, the entry point of the program
 
     static bool IsBalanced(Node node)
     {
-        if (node == null) return null; // Base case: If the node is null, return null immediately
+        if (node == null) return true;
+        /*
+            A null node IS considered balanced because it represents an empty subtree.
+            In an AVL tree, an empty subtree is always balanced as it has a height of 0
+            Returning true for null nodes ensures that the base case of the recursive
+            function is handled correctly, thus will compile and run without errors.
+        */
 
-        int leftHeight = GetHeight(node.left); // Calculate the height of the left subtree
-        int rightHeight = GetHeight(node.right); // Calculate the height of the right subtree
+        int leftHeight = GetHeight(node.left); // Get the height of the left subtree
+        int rightHeight = GetHeight(node.right); // Get the height of the right subtree
 
-        if (Math.Abs(leftHeight - rightHeight) > 1) return false; // If the absolute difference between the heights of the left and right subtrees is greater than 1, return false
+        if (Math.Abs(leftHeight - rightHeight) > 1) return false; // If the absolute difference between the heights of the left and right subtrees is greater than 1, thus the tree is unbalanced, return false
 
-        return IsBalanced(node.left) && IsBalanced(node.right); // Recursively check the balance of the left and right subtrees
+        bool isLeftBalanced = IsBalanced(node.left); // Recursively check if the left subtree is balanced
+        bool isRightBalanced = IsBalanced(node.right); // Recursively check if the right subtree is balanced
+
+        return isLeftBalanced && isRightBalanced; // Return true if both subtrees are balanced, false if EITHER subtree is unbalanced
     }
 
     static bool IsSorted(Tree tree)
@@ -1077,6 +1086,8 @@ class Program // Program class, the entry point of the program
             they would all pass!
         */
 
+        DateTime startTime = DateTime.Now; // start time
+
         TestInsertion(); // run insertion test
         Console.WriteLine("Insertion test passed");
         TestDeletion(); // run deletion test
@@ -1085,6 +1096,11 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Search test passed");
         TestAVLBalancing(); // run AVL balancing test
         Console.WriteLine("AVL balancing test passed");
+
+        DateTime endTime = DateTime.Now; // end time
+        TimeSpan elapsedTime = endTime - startTime; // calculate time taken
+
+        Console.WriteLine("Time taken for AVL processing: " + elapsedTime.TotalMilliseconds + " milliseconds"); // print time taken
 
         Console.WriteLine("--------------------");
     }

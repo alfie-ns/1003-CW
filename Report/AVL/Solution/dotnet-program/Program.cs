@@ -7,8 +7,6 @@ using System;   // Don't use anything else than System and only use C-core funct
    
    https://github.com/alfie-ns/1003-CW
 
-   !ALERT! BEFORE SUBMISSION MAKE SURE THIS WORKS IN VISUAL STUDIO .SLN FILE !ALERT!
-
    A 'base case' ensures recusion TERMINATES when a leaf node is reached, otherwise, the function could run forever !
 
    AVL Tree Context:
@@ -141,14 +139,14 @@ class Program // Program class, the entry point of the program
     /// THIS LINE: If you want to add methods add them between THIS LINE and THAT LINE
 
     /// Your methods go here:
-    
+
     /// ------------------------------------------------------------- AVL Tree Functions ------------------------------------------------------------- ///
-    
+
     static Node RotateRight(Node node)
     { // this function performs a right rotation on the given node in an AVL tree
-        
+
         // store reference to left child of current node, becomes new root of rotated subtree
-        Node newRoot = node.left; 
+        Node newRoot = node.left;
         // update left to become right child of new root node, ensuring right subtree of new root becomes left subtree of current node
         node.left = newRoot.right;
         // make current node the left child of the new root, completing the rotation
@@ -184,11 +182,11 @@ class Program // Program class, the entry point of the program
     static int GetBalanceFactor(Node node)
     {
         if (node == null) return 0; // Base case: If the node is null, immediately return 0
-  
+
         return GetHeight(node.left) - GetHeight(node.right);
         // The balance factor is calculated by subtracting the height of the right subtree from the height of the left subtree
     }
-    
+
     static int GetHeight(Node node)
     { // get the height of a trees
         if (node == null) return 0; // Base case: If the node is null, return 0
@@ -204,13 +202,16 @@ class Program // Program class, the entry point of the program
             item.Height = 1; // Set the height of the leaf node
             return item; // Return 
         }
-        if (IsSmaller(item, tree)) { // if the items data is smaller than the trees data
+        if (IsSmaller(item, tree))
+        { // if the items data is smaller than the trees data
             tree.left = InsertItem(tree.left, item); // Recursively insert into the left subtree
         }
-        else if (IsSmaller(tree, item)) { // if the items data is larger than the trees data
+        else if (IsSmaller(tree, item))
+        { // if the items data is larger than the trees data
             tree.right = InsertItem(tree.right, item); // Recursively insert into the right subtree
         }
-        else {
+        else
+        {
             return tree; // Discard duplicates
         }
 
@@ -220,23 +221,29 @@ class Program // Program class, the entry point of the program
         // AVL tree balancing
         int balanceFactor = GetHeight(tree.left) - GetHeight(tree.right); // left subtree height - right subtree height
 
-        if (balanceFactor > 1) { // Left-heavy
-        
-            if (IsSmaller(item, tree.left)){ // Left-Left case
+        if (balanceFactor > 1)
+        { // Left-heavy
+
+            if (IsSmaller(item, tree.left))
+            { // Left-Left case
                 return RotateRight(tree);
             }
-            else { // Left-Right case
-            
+            else
+            { // Left-Right case
+
                 tree.left = RotateLeft(tree.left);
                 return RotateRight(tree);
             }
         }
-        else if (balanceFactor < -1) { // Right-heavy
-        
-            if (IsSmaller(tree.right, item)) { // Right-Right case
+        else if (balanceFactor < -1)
+        { // Right-heavy
+
+            if (IsSmaller(tree.right, item))
+            { // Right-Right case
                 return RotateLeft(tree);
             }
-            else { // Right-Left case
+            else
+            { // Right-Left case
                 tree.right = RotateRight(tree.right);
                 return RotateLeft(tree);
             }
@@ -245,18 +252,21 @@ class Program // Program class, the entry point of the program
         return tree;
     }
 
-    static Node DeleteNode(Node node, Node item) 
+    static Node DeleteNode(Node node, Node item)
     {
         if (node == null) return null; // Base case: If node is null return null
-            
+
         // Recursively search for the node to delete, going left or right based on the comparison of the item's data with the current node's data
-        if (IsSmaller(item, node)){
+        if (IsSmaller(item, node))
+        {
             node.left = DeleteNode(node.left, item);
         }
-        else if (IsSmaller(node, item)){
+        else if (IsSmaller(node, item))
+        {
             node.right = DeleteNode(node.right, item);
         }
-        else {
+        else
+        {
             // Case 1: Node to be deleted is a leaf node
             if (node.left == null && node.right == null)
                 return null;
@@ -280,16 +290,20 @@ class Program // Program class, the entry point of the program
         // Check the balance factor and perform rotations if necessary
         int balanceFactor = GetBalanceFactor(node);
 
-        if (balanceFactor > 1) { // Left-heavy
-        
-            if (GetBalanceFactor(node.left) < 0) { // Left-Right case
+        if (balanceFactor > 1)
+        { // Left-heavy
+
+            if (GetBalanceFactor(node.left) < 0)
+            { // Left-Right case
                 node.left = RotateLeft(node.left);
             }
             return RotateRight(node); // Left-left case
 
         }
-        else if (balanceFactor < -1) {// Right-heavy
-            if (GetBalanceFactor(node.right) > 0) {// Right-Left case
+        else if (balanceFactor < -1)
+        {// Right-heavy
+            if (GetBalanceFactor(node.right) > 0)
+            {// Right-Left case
                 node.right = RotateRight(node.right);
             }
             return RotateLeft(node); // Right-Right case
@@ -303,7 +317,7 @@ class Program // Program class, the entry point of the program
     {
         // If the node is null, return 0
         if (node == null) return 0;
-            
+
         // Recursively calculate the size of the left subtree
         int leftSize = SizeHelper(node.left);
 
@@ -314,7 +328,7 @@ class Program // Program class, the entry point of the program
         return leftSize + rightSize + 1;
     }
 
-   static Node FindParentHelper(Node current, Node node)
+    static Node FindParentHelper(Node current, Node node)
     {
         if (current == null)
         {
@@ -352,10 +366,11 @@ class Program // Program class, the entry point of the program
     static Node FindMin(Node tree)
     {
         if (tree == null) return null; // Base case: If the tree is empty, return null immediately
-        
+
         //Console.WriteLine("FindMin: Current node value: " + tree.data.data); // Testing
 
-        while (tree.left != null) {
+        while (tree.left != null)
+        {
             tree = tree.left;
             //Console.WriteLine("FindMin: Moving to left child, value: " + tree.data.data); // Testing
         }
@@ -365,7 +380,7 @@ class Program // Program class, the entry point of the program
     }
 
     /// ------------------------------------------------------------- AVL Tree Test Functions ------------------------------------------------------------- ///
-     
+
     static void TestInsertion()
     {
         Tree tree = new Tree(); // init test tree
@@ -546,7 +561,7 @@ class Program // Program class, the entry point of the program
     /// <param name="item2">Second Node</param>
     /// <returns>True if two Nodes have the same value, false otherwise.</returns>
     static bool IsEqual(Node item1, Node item2)
-    { 
+    {
         return item1.data.data == item2.data.data; // if item1 data == item2 data return true, else false
     }
 
@@ -588,7 +603,7 @@ class Program // Program class, the entry point of the program
     /// </summary>
     /// <param name="tree">The Tree (not a Node as in InsertItem())</param>
     /// <param name="item">The Node to insert</param>
-    
+
     /// <remarks>
     /// The InsertTree function inserts an item into an AVL tree by calling the recursive InsertItem function.
     /// It starts the insertion process from the root node of the tree.
@@ -629,7 +644,7 @@ class Program // Program class, the entry point of the program
         else if (value.data < tree.data.data) // If the value is less than the current node's data, search in the left subtree
             return SearchTree(tree.left, value);
         else // otherwise, search in the right subtree
-            return SearchTree(tree.right, value); 
+            return SearchTree(tree.right, value);
     }
 
 
@@ -686,7 +701,7 @@ class Program // Program class, the entry point of the program
     /// <param name="tree">The Tree.</param>
     /// <returns>The number of items in the tree.</returns>
     static int Size(Tree tree)
-    { 
+    {
         /* 
             This function calculates the size of a tree by calling the recursive helper function SizeHelper.
             If the tree is empty (root is null), it returns 0. Otherwise, it calls the recursive helper function
@@ -695,11 +710,11 @@ class Program // Program class, the entry point of the program
 
         // Base case: If the tree is empty (root is null), return 0 (no elements) immediately
         if (tree.root == null) return 0;
-        
-        
+
+
         // If the tree is not empty, call the recursive helper function to calculate the size of the tree
         return SizeHelper(tree.root);
-        
+
     }
 
 
@@ -711,7 +726,7 @@ class Program // Program class, the entry point of the program
     /// <param name="tree">The root of the tree</param>
     /// <returns>The depth of the tree.</returns>
     static int Depth(Node tree)
-    { 
+    {
         /*
             First null check, then recursively calculate the depth of the left and right subtrees. 
             The depth is the length of the longest path from the root to a leaf node. It first checks
@@ -817,7 +832,7 @@ class Program // Program class, the entry point of the program
 
 
 
-// --------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------------
 
 
 
@@ -835,7 +850,7 @@ class Program // Program class, the entry point of the program
        AND THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION
     */
     ///!!! </remarks> !!!
-    
+
     /// SET FUNCTIONS
 
 
@@ -846,15 +861,15 @@ class Program // Program class, the entry point of the program
     /// <param name="tree1">A tree</param>
     /// <param name="tree2">Another tree</param>
     /// <returns>A new tree with all the values from tree1 and tree2.</returns>
-    static Tree Union(Tree tree1, Tree tree2) 
+    static Tree Union(Tree tree1, Tree tree2)
     {
 
-         /* 
-            This function merges the values of two trees into a new resultTree. 
-            It first creates an empty result tree. Then, it calls the InsertUnique function to insert the unique values from tree1 and tree2 into the result tree. 
-            The InsertUnique function recursively traverses the trees and inserts only the unique values into the result tree. 
-            Finally, it returns the result tree with all the values from tree1 and tree2.
-        */
+        /* 
+           This function merges the values of two trees into a new resultTree. 
+           It first creates an empty result tree. Then, it calls the InsertUnique function to insert the unique values from tree1 and tree2 into the result tree. 
+           The InsertUnique function recursively traverses the trees and inserts only the unique values into the result tree. 
+           Finally, it returns the result tree with all the values from tree1 and tree2.
+       */
 
         Tree resultTree = new Tree();
 
@@ -902,11 +917,12 @@ class Program // Program class, the entry point of the program
 
         Tree resultTree = new Tree(); // Create an empty result tree
 
-        void IntersectHelper(Node node) 
+        void IntersectHelper(Node node)
         {
             if (node == null) return; // Base case: If the current node is null, return immediately
 
-            if (SearchTree(tree2.root, node.data)) { // If nodes are in both trees, insert into result tree
+            if (SearchTree(tree2.root, node.data))
+            { // If nodes are in both trees, insert into result tree
                 InsertTree(resultTree, new Node { data = node.data });
             }
 
@@ -959,7 +975,7 @@ class Program // Program class, the entry point of the program
     /// <param name="tree1">Tree one</param>
     /// <param name="tree2">Tree two</param>
     /// <returns>The values of the symmetric difference tree1/tree2 in a new Tree.</returns>
-   static Tree SymmetricDifference(Node tree1, Tree tree2)
+    static Tree SymmetricDifference(Node tree1, Tree tree2)
     {
         Tree resultTree = new Tree(); // Create an empty result tree
 
@@ -1039,7 +1055,7 @@ class Program // Program class, the entry point of the program
         Node minNode = FindMin(tree.root); // find min value
         Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else  
         Node maxNode = FindMax(tree.root); // find max value
-        Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null"));   
+        Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null"));
         Console.WriteLine("--------------------");
 
         // test SearchTree
@@ -1078,7 +1094,7 @@ class Program // Program class, the entry point of the program
     /// Testing of the Set methods that does some reasonable checks.
     /// It does not have to be exhaustive but sufficient to suggest the code is correct.
     /// </summary>
-    
+
     static void SetTests()
     {
         /*
@@ -1109,7 +1125,7 @@ class Program // Program class, the entry point of the program
 
         // Test to show all unique elements from both trees.
         Tree unionResult = Union(tree1, tree2);
-        
+
         Console.WriteLine("Union of tree1 and tree2:");
         PrintTree(unionResult.root);
         Console.WriteLine();
@@ -1144,7 +1160,7 @@ class Program // Program class, the entry point of the program
     }
 
 
-/// ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 

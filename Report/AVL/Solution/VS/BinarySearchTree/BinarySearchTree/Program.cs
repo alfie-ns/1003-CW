@@ -36,7 +36,12 @@ using System; // Don't use anything else than System and only use C-core functio
  
  - When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs 
  rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees 
- involved.
+ involved. In my case, after insertion or deletion operations, the program assesses the balance-factor of each node
+ starting from the newly inserted or deleted node's parent up to the root. If the balance-factor indicates a 
+ left-heavy imbalance (greater than 1), the program then assesses left subtree's balance-factor to determine if a single right
+ rotation or a left-right double rotation is required. Conversely, for a right-heavy imbalance (less than -1), it checks the
+ right subtree's balance-factor to decide between a single left rotation or a right-left double rotation. This ensures the
+ tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time complexity.
  
  - By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
  as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time complexity of 

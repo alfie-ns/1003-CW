@@ -104,8 +104,8 @@ class Node
     public DataEntry data;
     public Node right;
     public Node left;
-    public int Height; // This is for AVL tree, thus one needs to keep track of the height of the tree to balance it
-} // Storing the height in each node means that the tree can perform rotations and rebalancing efficiently
+    public int Height; // This is for AVL tree, as one needs to keep track of the height of the tree to balance it
+} // Must store the height in each node means that the tree to perform rotations and rebalancing efficiently
 
 
 /// <summary>
@@ -359,15 +359,15 @@ class Program // Program class, the entry point of the program
     {
         if (tree == null) return null; // Base case: If the tree is empty, return null immediately
 
-        //Console.WriteLine("FindMin: Current node value: " + tree.data.data); // Testing
+        //Console.WriteLine("FindMin: Current node value: " + tree.data.data); // TESTING
 
         while (tree.left != null)
         {
             tree = tree.left;
-            //Console.WriteLine("FindMin: Moving to left child, value: " + tree.data.data); // Testing
+            //Console.WriteLine("FindMin: Moving to left child, value: " + tree.data.data); // TESTING
         }
 
-        //Console.WriteLine("FindMin: Minimum value node: " + tree.data.data); // Testing
+        //Console.WriteLine("FindMin: Minimum value node: " + tree.data.data); // TESTING
         return tree;
     }
 
@@ -485,7 +485,7 @@ class Program // Program class, the entry point of the program
         This function tests whether the AVL tree remains balanced after insertion and deletion operations.
         First, it creates a new test tree and defines an array of elements to insert into the tree; it then
         iterates over each element in the array, inserting them into the tree. After each insertion, it checks
-        whether the tree is balanced. Subsequently, it deletes an element from the tree and verifies if the
+        whether the tree is indeed balanced. Subsequently, it deletes an element from the tree and verifies if the
         tree remains balanced. The assert function is one I had to custom make, due to only being able to use
         C-core functionality and not being able to use any other libraries. The assert function checks if the
         condition is true, if not, it throws an exception with the specified message.
@@ -508,7 +508,6 @@ class Program // Program class, the entry point of the program
     /// .... (and nowhere else)
 
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
-
 
 
     /// <summary>
@@ -575,7 +574,7 @@ class Program // Program class, the entry point of the program
     /// <param name="tree">The *root node* of the tree</param>
     /// <param name="item">The item to insert</param>
     static void InsertItem(ref Node tree, Node item)
-    { // Premade function to insert an item into the tree
+    { 
         if (tree == null) // if tree Node is empty, make item the tree's Node
         {
             tree = item;
@@ -827,19 +826,7 @@ class Program // Program class, the entry point of the program
     }
 
 
-
-
-
-
-
     // --------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
 
 
     ///!!! <remarks> !!!
@@ -931,7 +918,7 @@ class Program // Program class, the entry point of the program
 
         IntersectHelper(tree1.root); // Start the intersection recursive process from the root of tree1
 
-        return resultTree;
+        return resultTree; 
     }
 
 
@@ -1071,8 +1058,8 @@ class Program // Program class, the entry point of the program
 
         /*
         I run all my tests and directly report them as passed;
-        as the assert function throws an exception if the condition is false,
-        e.g. the test fails. also, prior to reporting success, I made sure that 
+        as the assert function throws an exception if the condition is false;
+        e.g. the test fails. Prior to reporting success, I made sure that 
         they would all pass!
         */
 
@@ -1088,7 +1075,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("AVL balancing test passed");
 
         DateTime endTime = DateTime.Now; // end time
-        TimeSpan elapsedTime = endTime - startTime; // calculate time-taken
+        TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
 
         Console.WriteLine("Time-taken for AVL processing: " + elapsedTime.TotalMilliseconds + " milliseconds"); // print time taken
 
@@ -1112,8 +1099,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Entering SetTests() function");
         Console.WriteLine("----------------------------");
 
-
-        // Create sample/test trees
+        // Create sample/test trees for set operations
         Tree tree1 = new Tree();
         Tree tree2 = new Tree();
 

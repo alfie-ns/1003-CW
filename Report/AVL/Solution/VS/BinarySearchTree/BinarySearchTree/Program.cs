@@ -4,8 +4,18 @@ using System; // Don't use anything else than System and only use C-core functio
 // DON'T CHANGE
 
 /*
- 
+
+ Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
+ I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
+ way to keep track of my work on both computers, and also a dopamine hit when I push to the 
+ repo! However, this also shows a high-level commitment, organisation, structure, and proactive
+ initiative in managing my coursework effectively.
+
+
+
  https://github.com/alfie-ns/1003-CW
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
  - A 'base case' ensures recusion TERMINATES when a leaf node is reached, otherwise, the function could run forever!
 
@@ -49,9 +59,9 @@ using System; // Don't use anything else than System and only use C-core functio
  - BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree)
 
  If we say an AVL tree has 10 nodes, the formula for finding the average time-complexity is log2(10)=3.32,
- which rounds down to 3 since steps are integers; thus, on average, it'll take 3 steps to find a particular
- node in this tree. This will always be the case in an AVL tree, but not necessarily for a BST that could become
- unbalanced.
+ which rounds down to 3 since steps are integers(cannot have .32 a step!); thus, on average, it'll take 3
+ steps to find a particular node in this tree. This will always be the case in an AVL tree, but not necessarily
+ for a BST that could become unbalanced.
  
 */
 
@@ -491,7 +501,7 @@ class Program // Program class, the entry point of the program
     }
 
 
-    /// .... (and nowhere else) [x]
+    /// .... (and nowhere else)
 
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
 
@@ -751,7 +761,7 @@ class Program // Program class, the entry point of the program
         value. If it's NOT, start traversing the tree, 
         going left subtree to right subtree, it does this
         recursively, until the current node is the parent of 
-        the node given to the function. [x]
+        the node given to the function.
 
         */
 
@@ -798,7 +808,7 @@ class Program // Program class, the entry point of the program
         /* 
         This function deletes the node with the minimum value in the tree. 
         It first checks if the tree is empty, if so, there is nothing to delete. 
-        Then, it calls the FindMin function to find the node with the minimum value. 
+        Then, it calls the FindMin() helper function to find the node with the minimum value. 
         Finally, it calls the DeleteNode function to delete the node with the minimum value from the tree.
         */
 
@@ -829,15 +839,14 @@ class Program // Program class, the entry point of the program
 
 
     ///!!! <remarks> !!!
-    /* 
+    /* SET FUNCTIONS
+
     MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION
     BECAUSE I WAS CONFUSED REGARDING THE SCOPE OF resultTree.
     NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE
     AND THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION
     */
     ///!!! </remarks> !!!
-
-    /// SET FUNCTIONS
 
 
     /// <summary>
@@ -857,7 +866,7 @@ class Program // Program class, the entry point of the program
         Finally, it returns the result tree with all the values from tree1 and tree2.
         */
 
-        Tree resultTree = new Tree();
+        Tree resultTree = new Tree(); // Create an empty result/test tree
 
         // Helper function to insert unique nodes from a given tree into the resultTree
         void InsertUniqueFromTree(Node node)
@@ -1109,16 +1118,20 @@ class Program // Program class, the entry point of the program
         InsertTree(tree1, new Node { data = new DataEntry { data = 3 } });
         InsertTree(tree1, new Node { data = new DataEntry { data = 7 } });
         InsertTree(tree1, new Node { data = new DataEntry { data = 1 } });
+        InsertTree(tree1, new Node { data = new DataEntry { data = 9 } });
+        InsertTree(tree1, new Node { data = new DataEntry { data = 4 } });
 
         // Insert values into tree2
         InsertTree(tree2, new Node { data = new DataEntry { data = 6 } });
         InsertTree(tree2, new Node { data = new DataEntry { data = 2 } });
         InsertTree(tree2, new Node { data = new DataEntry { data = 9 } });
         InsertTree(tree2, new Node { data = new DataEntry { data = 5 } });
+        InsertTree(tree2, new Node { data = new DataEntry { data = 8 } });
+        InsertTree(tree2, new Node { data = new DataEntry { data = 10 } });
 
         // Test to show all unique elements from both trees.
         Tree unionResult = Union(tree1, tree2);
-
+        // Should be: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
         Console.WriteLine("Union of tree1 and tree2:");
         PrintTree(unionResult.root);
         Console.WriteLine();
@@ -1126,7 +1139,7 @@ class Program // Program class, the entry point of the program
 
         // Test to show all elements common to both trees.
         Tree intersectionResult = Intersection(tree1, tree2);
-
+        // Should be: 5, 9
         Console.WriteLine("Intersection of tree1 and tree2:");
         PrintTree(intersectionResult.root);
         Console.WriteLine();
@@ -1134,7 +1147,7 @@ class Program // Program class, the entry point of the program
 
         // Test to show all elements in tree1 but not in tree2.
         Tree differenceResult = Difference(tree1, tree2);
-
+        // Should be: 1, 3, 4, 7
         Console.WriteLine("Difference of tree1 and tree2:");
         PrintTree(differenceResult.root);
         Console.WriteLine();
@@ -1142,13 +1155,13 @@ class Program // Program class, the entry point of the program
 
         // Test to show all elements that are in tree1 or tree2 but not in both.
         Tree symmetricDifferenceResult = SymmetricDifference(tree1.root, tree2);
-
+        // Should be: 1, 2, 3, 4, 6, 7, 8, 10
         Console.WriteLine("Symmetric Difference of tree1 and tree2:");
         PrintTree(symmetricDifferenceResult.root);
         Console.WriteLine();
         Console.WriteLine("----------------------------");
         Console.WriteLine();
-        Console.WriteLine("All tests passed successfully!"); // I first checked all tests would pass successfully, I guess I could've done this programmatically, however, I hope my manual check is sufficient.
+        Console.WriteLine("All tests passed successfully!"); // I first checked all tests would pass successfully; I guess I could've done this programmatically, however, I hope my manual check is sufficient.
         Console.WriteLine();
     }
 

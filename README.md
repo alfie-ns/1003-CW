@@ -1,9 +1,9 @@
 # 1003-CW Report - https://github.com/alfie-ns/1003-CW
 
 - [X] **Create a VS C# command line project called BinarySearchTree.** The implementation **must use the Program.cs file** available on the DLE in the Assessment section. This file has been modified from the implementation provided for the worksheet on Binary Search Trees.
-- [ ] Test final codebase compiles on VS !!!
+- [X] Test final codebase compiles on VS !!!
 
-## BST Functions 40 Marks [X]
+## BST/AVL Functions 58 Marks [X]
 
 *'Complete the implementation of a binary search tree in the Program.cs file provided by filling in the code requested. The methods/functions to implement are:'*
 
@@ -28,7 +28,7 @@
 
 ## Set Data Type Functions 12 Marks [X]
 
-- [ ] static Tree Union(Tree tree1, Tree tree2)
+- [X] static Tree Union(Tree tree1, Tree tree2)
 - [X] static Tree Intersection(Tree tree1, Tree tree2)
 - [X] static Tree Difference(Tree tree1, Node tree2)
 - [X] static Tree SymmetricDifference(Node tree1, Tree tree2)
@@ -39,9 +39,9 @@
 
 - [X] An additional 10 marks are allocated for good and efficient use of data structures and algorithms. Try to make your implementation as efficient as possible.
 - [X] An additional 10 marks are allocated for some error checking and/or handling of special cases, as well as some testing of your functions. Use the method stubs in the file Program.cs for this. Do not change the Main() method. (If useful, you are allowed to program individual test functions in the area in the Program between the lines THIS LINE and THAT LINE and call these in TreeTests() or SetTests().)
-- [ ] An additional 10 marks are allocated for good programming style, like proper layout, readability, identifier names, commenting, modularisation, and the like.
+- [X] An additional 10 marks are allocated for good programming style, like proper layout, readability, identifier names, commenting, modularisation, and the like.
 
-## Testing
+## Testing [X]
 
 - [X] Test the BST/AVL Functions
 - [X] Test the Set Data Type Functions

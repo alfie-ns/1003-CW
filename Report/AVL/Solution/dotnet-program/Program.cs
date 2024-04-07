@@ -8,9 +8,8 @@ using System; // Don't use anything else than System and only use C-core functio
  Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
  I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
  way to keep track of my work on both computers, and also a dopamine hit when I push to the 
- repo! However, this also shows a high-level commitment, organisation, structure, and proactive
- initiative in managing my coursework effectively.
-
+ repo! However, I realised this also shows a high-level commitment, organisation, structure,
+ and proactive initiative in managing my coursework effectively. Hence why I'm mentioning it now.
 
 
  https://github.com/alfie-ns/1003-CW

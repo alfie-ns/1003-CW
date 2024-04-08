@@ -238,7 +238,6 @@ class Program // Program class, the entry point of the program
         }
 
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right)); // Update the height of the current node
-
         int balanceFactor = GetBalanceFactor(node); // Calculate the balance factor of the current node
  
         if (balanceFactor > 1) // Left-heavy cases

@@ -570,24 +570,29 @@ class Program // Program class, the entry point of the program
     static void PrintTreeVisual(Node node, string indent = "", bool last = true) 
     {
         /*
-            This functions prints the AVL tree visually in the console;
-            it incorporates box-drawing characters to represent the tree's
-            structure. The indent parameter is used to create the indentation
-            used to structure the tree visually, and the last parameter is used
+            This function prints the AVL tree in the console using box-drawing characters for structure.
+            The 'indent' parameter creates visual indentation, and 'last' is used to identify if a node
+            is the last child, influencing the visual layout. Initially, 'last' is true for the root,
+            simplifying the start of the rendering logic. This approach, inspired by a technique I
+            observed one night on YouTube, ensures consistent formatting from the 'top down'. This means
+            ensuring the root node sets the initial structure, and as we move to each level, we adjust
+            indentations and box-drawing characters accordingly, reflecting each node's position and relation in the
+            hierarchy efficiently and clearly. I copied and pasted each box-drawing character from: https://en.wikipedia.org/wiki/Box-drawing_character
+            as I couldn't work out how to type them on my keyboard, and I didn't want to spend too much time on it!
 
         */
 
         if (node != null) // If node is NOT null
         {
             Console.Write(indent); // Write the indent(ident==""), which is a string of nothing, so it's just a space
-            if (last) // If last == true, which would be the case on the first time round, as it's the root node
+            if (last)
             {
-                Console.Write("└─"); // CHECK [ ] Write "└─" to the console, you get this char by holding ALT and typing 196 on the numpad? IS THIS TRUE?
-                indent += "  "; // += 2 spaces
+                Console.Write("└─"); // print box-drawing character 
+                indent += "  "; // += 2 spaces 
             }
-            else // Otherwise(Could I do 'else if (!last)'? and then save else for error handling?
+            else // Otherwise print the following
             {
-                Console.Write("├─"); // Write "├─" to the console, you get this char by holding ALT and typing 195 on the numpad? IS THIS TRUE?
+                Console.Write("├─"); 
                 indent += "| "; // += 1 pipe and a space
             }
 
@@ -1163,9 +1168,9 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Testing deletion..."); // testing...
         TestDeletion(tree); // run test passing the tree
         Console.WriteLine(); // newline
-        Console.WriteLine("Deletion test passed!"); // print success
         Console.WriteLine("Tree after deletion:"); // header for visual tree
         PrintTreeVisual(tree.root); // print visual tree
+        Console.WriteLine("Deletion test passed!"); // print success
         Console.WriteLine(); // newline
 
         // Test search

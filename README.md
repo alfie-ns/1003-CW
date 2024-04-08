@@ -1,9 +1,11 @@
-# 1003-CW Report - https://github.com/alfie-ns/1003-CW
+# 1003-CW | Alfie Nurse
+
+## Report
 
 - [X] **Create a VS C# command line project called BinarySearchTree.** The implementation **must use the Program.cs file** available on the DLE in the Assessment section. This file has been modified from the implementation provided for the worksheet on Binary Search Trees.
 - [X] Test final codebase compiles on VS !!!
 
-## BST/AVL Functions 58 Marks [X]
+### BST/AVL Functions 58 Marks [X]
 
 *'Complete the implementation of a binary search tree in the Program.cs file provided by filling in the code requested. The methods/functions to implement are:'*
 
@@ -26,7 +28,7 @@
 
 *The Set functions/methods in b) should not depend on whether you implement balancing (a) or not (c). The Set functionality is built on top of the list of methods in a). These methods should be assumed to be opaque to the user and only their prototypes known.'*
 
-## Set Data Type Functions 12 Marks [X]
+### Set Data Type Functions 12 Marks [X]
 
 - [X] static Tree Union(Tree tree1, Tree tree2)
 - [X] static Tree Intersection(Tree tree1, Tree tree2)
@@ -35,15 +37,21 @@
 
 *'This subtask interprets Trees as representing mathematical Sets and asks to implement the basic Set operations. Short descriptions of each function, its arguments and return values are in the file Program.cs. Do not change these method prototypes. Each method is worth a maximum of 3 marks individually.'*
 
-## Extra 30 marks [X]
+### Extra 30 marks [X]
 
 - [X] An additional 10 marks are allocated for good and efficient use of data structures and algorithms. Try to make your implementation as efficient as possible.
 - [X] An additional 10 marks are allocated for some error checking and/or handling of special cases, as well as some testing of your functions. Use the method stubs in the file Program.cs for this. Do not change the Main() method. (If useful, you are allowed to program individual test functions in the area in the Program between the lines THIS LINE and THAT LINE and call these in TreeTests() or SetTests().)
 - [X] An additional 10 marks are allocated for good programming style, like proper layout, readability, identifier names, commenting, modularisation, and the like.
 
-## Testing [X]
+### Testing [X]
 
 - [X] Test the BST/AVL Functions
 - [X] Test the Set Data Type Functions
+- [ ] Print Visual AVL Tree
 
-'Do not use object-oriented programming other than method-free classes for the data containers. Do not use the C# Collection library. Keep your code simple and clear. The module’s DLE page contains an introduction into the C-core of C#. There are numerous examples in the lectures and labs showing what you can use.'
+'Do not use object-oriented programming other than method-free classes for the data containers. Do no	t use the C# Collection library. Keep your code simple and clear. The module’s DLE page contains an introduction into the C-core of C#. There are numerous examples in the lectures and labs showing what you can use.'
+
+### Extra Context [ ]
+
+- This program incorporates box-drawing characters to build the visual AVL tree, to learn this, the following wiki link is a good place to start:  https://en.wikipedia.org/wiki/Box-drawing_character
+-

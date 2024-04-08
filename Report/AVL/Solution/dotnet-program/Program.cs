@@ -1,5 +1,5 @@
 
-using System; // Don't use anything else than System and only use C-core functionality; read the specs!
+using System; // Don't use anything else than System and only use C-core functionality; read the specs! [x]
 
 // DON'T CHANGE
 
@@ -16,7 +16,11 @@ using System; // Don't use anything else than System and only use C-core functio
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- - A 'base case' ensures recusion TERMINATES when a leaf node is reached, otherwise, the function could run forever!
+ - A 'base case' ensures recrusion TERMINATES when a leaf node is reached, otherwise, the function could run forever!
+ - The `ref` keyword is crucial for operations like insertions or deletions in this AVL tree. It allows modifications made
+   to the tree's root node within the method to directly affect the original tree. This ensures any structural changes,
+   such as rebalancing or updating node links, are preserved, keeping the tree balanced and accurate. Without `ref`, changes
+   would only apply to a local copy, leaving the actual tree unchanged and potentially unbalanced.
 
  AVL Tree Context:
 
@@ -113,6 +117,8 @@ class Node
 class Tree
 {
     public Node root; // The root node of the tree
+    public int size; // The number of elements in the tree, used to keep track of the tree's size
+    
 }
 
 
@@ -126,6 +132,7 @@ class Program // Program class, the entry point of the program
 
     /// ------------------------------------------------------------- AVL Tree Functions ------------------------------------------------------------- ///
 
+    /// ------------------------------------------------------------- AVL Rotations ------------------------------------------------------------- ///
     static Node RotateRight(Node node)
     {
         // This function performs a right rotation on the given node in an AVL tree.
@@ -169,138 +176,88 @@ class Program // Program class, the entry point of the program
         return newRoot;
     }
 
-    static int GetBalanceFactor(Node node)
+    static Node RotateLeftRight(Node node)
     {
-        if (node == null) return 0; // Base case: If the node is null, immediately return 0
+        // This function performs a left-right double rotation on the given node in an AVL tree.
 
-        return GetHeight(node.left) - GetHeight(node.right);
-        // The balance-factor is calculated by subtracting the height of the right subtree from the height of the left subtree
+        // Perform a left rotation on the left child of the current node.
+        node.left = RotateLeft(node.left);
+
+        // Then perform a right rotation on the current node.
+        return RotateRight(node);
     }
 
-    static int GetHeight(Node node)
-    { // get the height of a trees
-        if (node == null) return 0; // Base case: If the node is null, return 0
-        int leftHeight = GetHeight(node.left); // Recursively calculate the height of the left subtree
-        int rightHeight = GetHeight(node.right); // Recursively calculate the height of the right subtree
-        return 1 + Math.Max(leftHeight, rightHeight); //you get the max of either left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
+    static Node RotateRightLeft(Node node)
+    {
+        // This function performs a right-left double rotation on the given node in an AVL tree.
+
+        // Perform a right rotation on the right child of the current node.
+        node.right = RotateRight(node.right);
+
+        // Then perform a left rotation on the current node.
+        return RotateLeft(node);
     }
 
-    static Node InsertItem(Node tree, Node item)
-    {
+    // -------------------------------------------------------------------------------------------------------------------------------------------------------------
+  
 
-        if (tree == null)
-        { // if tree is empty, make item the tree and add a height of the single node
-            item.Height = 1; // Set the height of the leaf node
-            return item; // Return 
-        }
-        if (IsSmaller(item, tree))
-        { // if the items data is smaller than the trees data
-            tree.left = InsertItem(tree.left, item); // Recursively insert into the left subtree
-        }
-        else if (IsSmaller(tree, item))
-        { // if the items data is larger than the trees data
-            tree.right = InsertItem(tree.right, item); // Recursively insert into the right subtree
-        }
-        else
+    static Node DeleteNode(Node node, Node item, ref int treeSize)
+    {
+        if (node == null) return null; // Base case: If the node is null, return null immediately
+
+        if (IsSmaller(item, node)) // If the item is smaller than the current node, search in the left subtree
         {
-            return tree; // Discard duplicates
+            node.left = DeleteNode(node.left, item, ref treeSize); // Recursively search in the left subbtree
+        }
+        else if (IsSmaller(node, item)) // If the item is larger than the current node, search in the right subtree
+        {
+            node.right = DeleteNode(node.right, item, ref treeSize); // Recursively search in the right subtree
+        }
+        else // Otherwise, the item is found
+        {
+            if (node.left == null && node.right == null) // If the node is a leaf node
+            {
+                treeSize--; // Decrement the tree size when deleting a leaf node
+                return null; // Return an empty tree
+            }
+
+            if (node.left == null) // If the node only has a right child
+            {
+                treeSize--; // Decrement the tree size when deleting a node with only a right child
+                return node.right; // Return the right child
+            }
+            else if (node.right == null) // If the node only has a left child
+            {
+                treeSize--; // Decrement the tree size when deleting a node with only a left child
+                return node.left; // Return the left child
+            }
+
+            Node successor = FindMin(node.right); // Find the minimum value in the right subtree
+            node.data = successor.data; // Replace the current node's data with the successor's data
+            node.right = DeleteNode(node.right, successor, ref treeSize); // Recursively delete the successor node
         }
 
-        // Update the height of the current node
-        tree.Height = 1 + Math.Max(GetHeight(tree.left), GetHeight(tree.right));
+        node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right)); // Update the height of the current node
 
-        // AVL tree balancing
-        int balanceFactor = GetHeight(tree.left) - GetHeight(tree.right); // left subtree height - right subtree height
-
-        if (balanceFactor > 1) // Left-heavy is when the balance-factor is greater than 1(left subtree is taller than right subtree)
-        { // Left-heavy
-
-            if (IsSmaller(item, tree.left))
-            { // Left-Left case is when the item is inserted into the left subtree of the left child.
-                return RotateRight(tree);
-            }
+        int balanceFactor = GetBalanceFactor(node); // Calculate the balance factor of the current node
+ 
+        if (balanceFactor > 1) // Left-heavy cases
+        {
+            if (GetBalanceFactor(node.left) < 0) // Left-Right case(if the left child is right-heavy)
+                node = RotateLeftRight(node); // Perform a left-right double rotation
             else
-            { // Left-Right case is when item is inserted into the right subtree of the left child.
-
-                tree.left = RotateLeft(tree.left);
-                return RotateRight(tree);
-            }
+                node = RotateRight(node); // otherwise, perform a right rotation
         }
-        else if (balanceFactor < -1) // Right-heavy is when the balance-factor is less than -1(right subtree is taller than left subtree)
-        { // Right-heavy
 
-            if (IsSmaller(tree.right, item))
-            { // Right-Right case is when the item is inserted into the right subtree of the right child.
-                return RotateLeft(tree);
-            }
+        if (balanceFactor < -1) // Right-heavy cases
+        {
+            if (GetBalanceFactor(node.right) > 0) // Right-Left case(if the right child is left-heavy)
+                node = RotateRightLeft(node); // Perform a right-left double rotation
             else
-            { // Right-Left case is when the item is inserted into the left subtree of the right child.
-                tree.right = RotateRight(tree.right);
-                return RotateLeft(tree);
-            }
+                node = RotateLeft(node); // otherwise, perform a left rotation
         }
 
-        return tree;
-    }
-
-    static Node DeleteNode(Node node, Node item)
-    {
-        if (node == null) return null; // Base case: If node is null return null
-
-        // Recursively search for the node to delete, going left or right based on the comparison of the item's data with the current node's data
-        if (IsSmaller(item, node))
-        {
-            node.left = DeleteNode(node.left, item);
-        }
-        else if (IsSmaller(node, item))
-        {
-            node.right = DeleteNode(node.right, item);
-        }
-        else
-        {
-            // Case 1: Node to be deleted is a leaf node
-            if (node.left == null && node.right == null)
-                return null;
-
-            // Case 2: Node to be deleted has only one child
-            if (node.left == null) // if leftchild==null, return rightchild
-                return node.right;
-            else if (node.right == null) // if rightchild==null, return leftchild
-                return node.left;
-
-            // Case 3: Node to be deleted has two children
-            Node successor = FindMin(node.right); // Find the inorder successor of the node
-            node.data = successor.data; // Copy the data of the inorder successor to the current node's data
-            node.right = DeleteNode(node.right, successor); // Delete the inorder successor node from the right subtree, as its value has already been copied to replace the deleted node's value.
-        }
-        // AVL tree balancing
-
-        // Update the height of the current node
-        node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
-
-        // Check the balance-factor and perform rotations if necessary
-        int balanceFactor = GetBalanceFactor(node);
-
-        if (balanceFactor > 1)
-        { // Left-heavy
-
-            if (GetBalanceFactor(node.left) < 0)
-            { // Left-Right case
-                node.left = RotateLeft(node.left);
-            }
-            return RotateRight(node); // Left-left case
-
-        }
-        else if (balanceFactor < -1)
-        {// Right-heavy
-            if (GetBalanceFactor(node.right) > 0)
-            {// Right-Left case
-                node.right = RotateRight(node.right);
-            }
-            return RotateLeft(node); // Right-Right case
-        }
-
-        return node;
+        return node; // After deletion and balancing, return the root of the subtree to the caller function
     }
 
     // Recursive helper function to calculate the size of a subtree
@@ -370,39 +327,146 @@ class Program // Program class, the entry point of the program
         return tree;
     }
 
-    /// ------------------------------------------------------------- AVL Tree Test Functions ------------------------------------------------------------- ///
-
-    static void TestInsertion()
-    {
-        Tree tree = new Tree(); // init test tree
-        int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
-
-        foreach (int element in elements) // for EVERY element in elements array
+    static Node InsertTreeHelper(Node node, Node newNode)
+    { // First, perform the standard BST insertion
+        if (node == null) // Base case: If the node is null, e.g tree is empty, Insert the node node, giving the single node tree a height of 1
         {
-            InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
+            newNode.Height = 1; // Set the height as 1 for the single node thats been inserted
+            return newNode; // Return the new node
+        }
+        if (IsSmaller(newNode, node)) // If the new node is smaller than the current node
+            node.left = InsertTreeHelper(node.left, newNode); // Recursively insert the new node into the left subtree
+        else if (IsSmaller(node, newNode)) // Elif the new node is larger than the current node
+            node.right = InsertTreeHelper(node.right, newNode); // Recursively insert the new node into the right subtree
+        else
+        {
+            // otherwise, the new node MUST equal the current node, thus discard the duplicate
+            return node;
         }
 
-        Assert(Size(tree) == 5, "Insertion test: Tree size is incorrect"); // check if tree size is correct
-        Assert(IsBalanced(tree.root), "Insertion test: Tree is not balanced"); // check if tree is balanced
-        Assert(IsSorted(tree), "Insertion test: Tree is not sorted"); // check if tree is sorted
+        // Then, update the height of the current node, +1 to account for the new node
+        node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
+
+        // Check the balance factor to see if the tree is unbalanced, and if needed, perform rebalance rotations
+        int balanceFactor = GetBalanceFactor(node);
+
+        // Left-heavy cases
+        if (balanceFactor > 1)
+        {
+            if (GetBalanceFactor(node.left) < 0) // Left-Right case(if the left child is right-heavy)
+                node = RotateLeftRight(node); // Perform a left-right double rotation
+            else 
+                node = RotateRight(node); // otherwise, perform a right rotation
+        }
+        // Right-heavy cases
+        if (balanceFactor < -1)
+        {
+            if (GetBalanceFactor(node.right) > 0) // Right-Left case(if the right child is left-heavy)
+                node = RotateRightLeft(node); // Perform a right-left double rotation
+            else
+                node = RotateLeft(node); // otherwise, perform a left rotation
+        }
+
+        return node; // return the root of the subtree after insertion and balancing, to the caller function, this allows the caller function to update the NEW root's reference
     }
 
-    static void TestDeletion()
-    {
-        Tree tree = new Tree(); // init test tree
-        int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
+    /// ------------------------------------------------------------- AVL Tree Test Functions ------------------------------------------------------------- ///
 
+    static int GetBalanceFactor(Node node)
+    {
+        if (node == null) return 0; // Base case: If the node is null, immediately return 0
+
+        return GetHeight(node.left) - GetHeight(node.right);
+        // The balance-factor is calculated by subtracting the height of the right subtree from the height of the left subtree
+    }
+
+    static int GetHeight(Node node)
+    { // get the height of a trees
+        if (node == null) return 0; // Base case: If the node is null, return 0
+        int leftHeight = GetHeight(node.left); // Recursively calculate the height of the left subtree
+        int rightHeight = GetHeight(node.right); // Recursively calculate the height of the right subtree
+        return 1 + Math.Max(leftHeight, rightHeight); //you get the max of either left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
+    }
+
+    static void TestInsertion(Tree testTree)
+    {
+        /*
+            This test function shows that the tree is
+            INSERTING and rebalanceing itself correctly.
+            I need to pick elements that definitely WON'T
+            be trandomly generated, in TestTrees() so a
+            duplicate WON'T get discarded when I randomly
+            insert it prior to when I can delete it.
+        */
+
+        int[] elements = { 11, 12, 13 }; // init the particular elements into the tree that I want to delete
+        
+        int initialSize = Size(testTree); // get the initial size of the testTree
+        Console.WriteLine("Initial tree size: " + initialSize); // print the size BEFORE insertion
+
+        int uniqueElementsInserted = 0; // init a counter for unique elements inserted
+        
         foreach (int element in elements) // for EVERY element in elements array
         {
-            InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
+            if (!SearchTree(testTree.root, new DataEntry { data = element }))
+            {
+                InsertTree(testTree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
+                uniqueElementsInserted++; // increment counter
+            }
+            Console.WriteLine("Inserted element: " + element); // print the element that was inserted
+            Console.WriteLine("Tree size after insertion: " + Size(testTree)); // print the size AFTER insertion
+        }
+        
+        Console.WriteLine("Final tree size: " + Size(testTree)); // print the size AFTER ALL insertions
+
+        Assert(Size(testTree) == initialSize + uniqueElementsInserted, "Insertion test: Tree size is incorrect"); // check if tree size is correct
+        Assert(IsBalanced(testTree.root), "Insertion test: Tree is not balanced"); // check if tree is balanced
+        Assert(IsSorted(testTree), "Insertion test: Tree is not sorted"); // check if tree is sorted
+    }
+
+    static void TestDeletion(Tree testTree)
+    {
+        /*
+            This test function shows that the tree is
+            deleting and rebalanceing itself correctly.
+            I need to pick elements that definitely WON'T
+            be trandomly generated, in TestTrees() so a
+            duplicate WON'T get discarded when I randomly
+            insert it prior to when I can delete it.
+        */
+
+        int[] elements = { 11, 12, 13 }; // init the particular elements into the tree that I want to delete, otherwise it would be random, thus I don't know what to delete
+        
+        foreach (int element in elements) // for EVERY element in elements array
+        {
+            InsertTree(testTree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
         }
 
-        DeleteItem(tree, new Node { data = new DataEntry { data = 3 } }); // delete 3 from the tree 
-        DeleteItem(tree, new Node { data = new DataEntry { data = 7 } }); // delete 7 from the tree
+        int initialSize = Size(testTree); // get the initial size of the testTree from the randomly generated elements outside of the function
+        Console.WriteLine("Initial tree size: " + initialSize);
 
-        Assert(Size(tree) == 3, "Deletion test: Tree size is incorrect"); // check if tree size is correct
-        Assert(IsBalanced(tree.root), "Deletion test: Tree is not balanced"); // check if tree is balanced
-        Assert(IsSorted(tree), "Deletion test: Tree is not sorted"); // check if tree is sorted
+        Console.WriteLine("Deleting 11...");
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 11 } }); // delete 11 from the tree
+        Console.WriteLine("Tree size after deleting 11: " + Size(testTree)); // print the size AFTER deletion
+        PrintTreeVisual(testTree.root); // print the tree visually
+        Console.WriteLine(); // newline
+
+        Console.WriteLine("Deleting 12...");
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 12 } }); // delete 12 from the tree
+        Console.WriteLine("Tree size after deleting 12: " + Size(testTree)); // print the size AFTER deletion
+        PrintTreeVisual(testTree.root); // print the tree visually
+        Console.WriteLine(); // newline
+
+        Console.WriteLine("Deleting 13...");
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 13 } }); // delete 13 from the tree
+        Console.WriteLine("Tree size after deleting 13: " + Size(testTree)); // print the size AFTER deletion
+        PrintTreeVisual(testTree.root); // print the tree visually
+        Console.WriteLine(); // newline
+
+        int expectedSize = initialSize - 3; // calculate the expected size after deletion of 11, 12, and 13
+        Assert(Size(testTree) == expectedSize, "Deletion test: Tree size is incorrect"); // check if tree size is correct
+        Assert(IsBalanced(testTree.root), "Deletion test: Tree is not balanced"); // check if tree is balanced
+        Assert(IsSorted(testTree), "Deletion test: Tree is not sorted"); // check if tree is sorted
     }
 
     static void TestSearch()
@@ -426,7 +490,7 @@ class Program // Program class, the entry point of the program
         A null node IS considered balanced because it represents an empty subtree.
         In an AVL tree, an empty subtree is always balanced as it has a height of 0
         Returning true for null nodes ensures that the base case of the recursive
-        function is handled correctly, thus will compile and run without errors.
+        function is handled correctly.
         */
 
         int leftHeight = GetHeight(node.left); // Get the height of the left subtree
@@ -503,9 +567,49 @@ class Program // Program class, the entry point of the program
         Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after deletion"); // Check if the tree remains balanced after deletion
     }
 
+    static void PrintTreeVisual(Node node, string indent = "", bool last = true) 
+    {
+        /*
+            This functions prints the AVL tree visually in the console;
+            it incorporates box-drawing characters to represent the tree's
+            structure. The indent parameter is used to create the indentation
+            used to structure the tree visually, and the last parameter is used
 
-    /// .... (and nowhere else)
+        */
 
+        if (node != null) // If node is NOT null
+        {
+            Console.Write(indent); // Write the indent(ident==""), which is a string of nothing, so it's just a space
+            if (last) // If last == true, which would be the case on the first time round, as it's the root node
+            {
+                Console.Write("└─"); // CHECK [ ] Write "└─" to the console, you get this char by holding ALT and typing 196 on the numpad? IS THIS TRUE?
+                indent += "  "; // += 2 spaces
+            }
+            else // Otherwise(Could I do 'else if (!last)'? and then save else for error handling?
+            {
+                Console.Write("├─"); // Write "├─" to the console, you get this char by holding ALT and typing 195 on the numpad? IS THIS TRUE?
+                indent += "| "; // += 1 pipe and a space
+            }
+
+            Console.WriteLine(node.data.data); // Write the node's data to the console
+
+            PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==false this time round
+            PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last==true this time round
+        }
+    }
+
+    static Node FindNode(Node node, Node item)
+    {
+        if (node == null || IsEqual(node, item)) return node; // Base case: If the node is immediately found OR the tree is empty, return the node argument
+            
+        if (IsSmaller(item, node)) // If the item is smaller than the current node, traverse the left subtree
+            return FindNode(node.left, item);
+        else // Otherwise, traverse the right subtree
+            return FindNode(node.right, item);
+    }
+
+
+    /// .... (and nowhere else) [x]
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
 
 
@@ -519,7 +623,7 @@ class Program // Program class, the entry point of the program
     /// 
     /// </summary>
     /// <param name="subtree">The *root node* of the tree to traverse and print</param>
-    static void PrintTree(Node tree) // Premade function to print the tree
+    static void PrintTree(Node tree)
     {
         if (tree == null) return; // this was needed to avoid null reference exceptions in set functions
 
@@ -573,20 +677,20 @@ class Program // Program class, the entry point of the program
     /// <param name="tree">The *root node* of the tree</param>
     /// <param name="item">The item to insert</param>
     static void InsertItem(ref Node tree, Node item)
-    { 
-        if (tree == null) // if tree Node is empty, make item the tree's Node
+    {
+        if (tree == null)                           // if tree Node is empty, make item the tree's Node
         {
             tree = item;
             return;
         }
 
-        if (IsSmaller(item, tree)) // if item data is smaller than tree's data
+        if (IsSmaller(item, tree))                  // if item data is smaller than tree's data
         {
-            InsertItem(ref tree.left, item); // recursively insert into the left subtree
+            InsertItem(ref tree.left, item);        //     recursively insert into the left subtree
         }
-        else if (IsSmaller(tree, item)) // if item data is larger than tree's data
+        else if (IsSmaller(tree, item))             // if item data is larger than tree's data
         {
-            InsertItem(ref tree.right, item); // recursively insert into the right subtree
+            InsertItem(ref tree.right, item);       //     recursively insert into the right subtree
         }
 
         // otherwise the item data is already in the tree and we discard it 
@@ -601,27 +705,10 @@ class Program // Program class, the entry point of the program
     /// </summary>
     /// <param name="tree">The Tree (not a Node as in InsertItem())</param>
     /// <param name="item">The Node to insert</param>
-
-    /// <remarks>
-    /// The InsertTree function inserts an item into an AVL tree by calling the recursive InsertItem function.
-    /// It starts the insertion process from the root node of the tree.
-    ///
-    /// The InsertItem function traverses the tree recursively, comparing the item to be inserted with the current node.
-    /// If the item is smaller, it recursively calls InsertItem on the left subtree.
-    /// If the item is greater, it recursively calls InsertItem on the right subtree.
-    /// If the item is equal to the current node, it discards the duplicate
-    ///
-    /// After the recursive insertion, the InsertItem function updates the height of the current node and checks the balance-factor.
-    /// If the tree becomes unbalanced (balance-factor > 1 or < -1), it performs the necessary rotations to restore the balance.
-    ///
-    /// The InsertItem function returns the new root node of the subtree after the insertion and balancing process.
-    /// The InsertTree function then assigns this new root node back to the root field of the tree struct,
-    /// updating the entire tree with the inserted item.
-    /// </remarks>
     static void InsertTree(Tree tree, Node item)
     {
-        // Recursively call InsertItem() to insert the item into the AVL tree, starting from the root node.
-        tree.root = InsertItem(tree.root, item);
+        
+        tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the item to insert
     }
 
 
@@ -670,10 +757,12 @@ class Program // Program class, the entry point of the program
         if (foundInLeft)
             return true;
 
-        // 2nd recursively search in the RIGHT subtree
+        // then recursively search in the RIGHT subtree
         bool foundInRight = SearchTreeItem(tree.right, item);
         if (foundInRight)
             return true;
+
+        // this is in-order traversal, to search the left subtree first
 
         // If the item is not found in either subtree, it is not in the tree at all
         return false;
@@ -687,9 +776,7 @@ class Program // Program class, the entry point of the program
     /// <param name="item">The Node to remove</param>
     static void DeleteItem(Tree tree, Node item)
     {
-        // Recursively call DeleteNode() to delete the item from the AVL tree, starting from the root node.
-        tree.root = DeleteNode(tree.root, item);
-        // The DeleteNode function returns the new root node of the tree after the deletion and balancing process.
+        tree.root = DeleteNode(tree.root, item, ref tree.size); // call the helper function, passing the root node, the item to delete, and the tree size by reference to ensure it is updated after deletion
     }
 
 
@@ -821,7 +908,7 @@ class Program // Program class, the entry point of the program
         Node minNode = FindMin(tree.root);
 
         // Delete the node with the minimum value
-        tree.root = DeleteNode(tree.root, minNode);
+        tree.root = DeleteNode(tree.root, minNode, ref tree.size);
     }
 
 
@@ -1014,6 +1101,8 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Build a tree inserting 10 random values as data");
         Console.WriteLine("------------------------------------------------");
 
+        DateTime startTime = DateTime.Now; // start time
+
         for (int i = 1; i <= 10; i++)
         {
             data = new DataEntry();
@@ -1052,8 +1141,46 @@ class Program // Program class, the entry point of the program
             data.data = r.Next(10);
             Console.WriteLine(data.data + " was" + (!SearchTree(tree.root, data) ? " NOT" : "") + " found");
         }
+        Console.WriteLine();
+        Console.WriteLine("---------- Visualising the tree while testing --------");
 
-        Console.WriteLine("--------------------");
+        // Print and visualise the initial tree
+        Console.WriteLine("Initial tree:");
+        PrintTreeVisual(tree.root);
+        Console.WriteLine();
+
+        // Test insertion
+        Console.WriteLine("Testing insertion..."); // testing...
+        Console.WriteLine(); // newline
+        TestInsertion(tree); // run test passing the tree
+        Console.WriteLine("Insertion test passed!"); // print success
+        Console.WriteLine("Tree after insertion:"); // header for visual tree
+        Console.WriteLine(); // newline
+        PrintTreeVisual(tree.root); // print visual tree
+        Console.WriteLine(); // newline
+
+        // Test deletion
+        Console.WriteLine("Testing deletion..."); // testing...
+        TestDeletion(tree); // run test passing the tree
+        Console.WriteLine(); // newline
+        Console.WriteLine("Deletion test passed!"); // print success
+        Console.WriteLine("Tree after deletion:"); // header for visual tree
+        PrintTreeVisual(tree.root); // print visual tree
+        Console.WriteLine(); // newline
+
+        // Test search
+        Console.WriteLine("Testing search..."); // testing...
+        TestSearch(); 
+        Console.WriteLine("Search test passed!");
+        Console.WriteLine();
+
+        // Test AVL balancing
+        Console.WriteLine("Testing AVL balancing...");
+        TestAVLBalancing();
+        Console.WriteLine("AVL balancing test passed!!!");
+        Console.WriteLine("Tree after AVL balancing:");
+        PrintTreeVisual(tree.root);
+        Console.WriteLine();
 
         /*
         I run all my tests and directly report them as passed;
@@ -1062,23 +1189,14 @@ class Program // Program class, the entry point of the program
         they would all pass!
         */
 
-        DateTime startTime = DateTime.Now; // start time
-
-        TestInsertion(); // run insertion test
-        Console.WriteLine("Insertion test passed");
-        TestDeletion(); // run deletion test
-        Console.WriteLine("Deletion test passed");
-        TestSearch(); // run search test
-        Console.WriteLine("Search test passed");
-        TestAVLBalancing(); // run AVL balancing test
-        Console.WriteLine("AVL balancing test passed");
-
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
 
-        Console.WriteLine("Time-taken for AVL processing: " + elapsedTime.TotalMilliseconds + " milliseconds"); // print time taken
-
-        Console.WriteLine("--------------------");
+        Console.WriteLine(); // newline
+        Console.WriteLine("Time-taken for AVL processing: " + elapsedTime.TotalMilliseconds + " milliseconds"); // print time taken in milliseconds
+        Console.WriteLine(); // newline
+        Console.WriteLine("----------------------------");
+        Console.WriteLine(); // newline
     }
 
 
@@ -1154,10 +1272,9 @@ class Program // Program class, the entry point of the program
         Console.WriteLine();
     }
 
+    /// IF YOU HAVEN'T ALREADY, CHECK THE TOP OF THE FILE FOR A LARGE COMMENT SECTION
 
     /// ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
     /// <summary>
     /// The Main entry point into the code. Don't change anythhing here. 

@@ -75,8 +75,7 @@ using System; // Don't use anything else than System and only use C-core functio
 /// <summary>
 /// Implement a binary search tree 
 /// 
-/// Notes
-/// [x] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
+/// [x][ ] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
 /// [x] 2) If you want to add methods do this in the space indicated at the top of the Program.
 /// [x] 3) You can add fields to the structures Tree, Node, DataEntry, if you find this necessary or useful.
 /// [x] 4) Some of the method stubs have return statements that you may need to change (the code wouldn't run without return statements).

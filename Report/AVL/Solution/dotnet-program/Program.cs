@@ -1121,8 +1121,8 @@ class Program // Program class, the entry point of the program
 
         // print out the (ordered!) tree
         Console.WriteLine("Print out the (ordered!) tree");
-        PrintTree(tree.root);
-        Console.WriteLine();
+        PrintTree(tree.root); // print tree
+        Console.WriteLine(); // newline
 
         Console.WriteLine("--------------------");
 
@@ -1144,13 +1144,13 @@ class Program // Program class, the entry point of the program
             data.data = r.Next(10);
             Console.WriteLine(data.data + " was" + (!SearchTree(tree.root, data) ? " NOT" : "") + " found");
         }
-        Console.WriteLine();
+        Console.WriteLine(); // newline
         Console.WriteLine("---------- Visualising the tree while testing --------");
 
         // Print and visualise the initial tree
         Console.WriteLine("Initial tree:");
-        PrintTreeVisual(tree.root);
-        Console.WriteLine();
+        PrintTreeVisual(tree.root); // print visual tree
+        Console.WriteLine(); // newline
 
         // Test insertion
         Console.WriteLine("Testing insertion..."); // testing...
@@ -1173,17 +1173,17 @@ class Program // Program class, the entry point of the program
 
         // Test search
         Console.WriteLine("Testing search..."); // testing...
-        TestSearch(); 
+        TestSearch(); // run test for search
         Console.WriteLine("Search test passed!");
-        Console.WriteLine();
+        Console.WriteLine(); // newline
 
         // Test AVL balancing
         Console.WriteLine("Testing AVL balancing...");
-        TestAVLBalancing();
+        TestAVLBalancing(); // run test for AVL balancing
         Console.WriteLine("AVL balancing test passed!!!");
         Console.WriteLine("Tree after AVL balancing:");
         PrintTreeVisual(tree.root);
-        Console.WriteLine();
+        Console.WriteLine(); // newline
 
         /*
         I run all my tests and directly report them as passed;
@@ -1244,7 +1244,7 @@ class Program // Program class, the entry point of the program
         // Should be: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
         Console.WriteLine("Union of tree1 and tree2:");
         PrintTree(unionResult.root);
-        Console.WriteLine();
+        Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
 
         // Test to show all elements common to both trees.
@@ -1252,7 +1252,7 @@ class Program // Program class, the entry point of the program
         // Should be: 5, 9
         Console.WriteLine("Intersection of tree1 and tree2:");
         PrintTree(intersectionResult.root);
-        Console.WriteLine();
+        Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
 
         // Test to show all elements in tree1 but not in tree2.
@@ -1260,19 +1260,19 @@ class Program // Program class, the entry point of the program
         // Should be: 1, 3, 4, 7
         Console.WriteLine("Difference of tree1 and tree2:");
         PrintTree(differenceResult.root);
-        Console.WriteLine();
+        Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
 
         // Test to show all elements that are in tree1 or tree2 but not in both.
         Tree symmetricDifferenceResult = SymmetricDifference(tree1.root, tree2);
         // Should be: 1, 2, 3, 4, 6, 7, 8, 10
         Console.WriteLine("Symmetric Difference of tree1 and tree2:");
-        PrintTree(symmetricDifferenceResult.root);
-        Console.WriteLine();
+        PrintTree(symmetricDifferenceResult.root); // print the symmetric difference
+        Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
-        Console.WriteLine();
+        Console.WriteLine(); // newline
         Console.WriteLine("All tests passed successfully!"); // I first checked all tests would pass successfully; I guess I could've done this programmatically, however, I hope my manual check is sufficient.
-        Console.WriteLine();
+        Console.WriteLine(); // newline
     }
 
     /// IF YOU HAVEN'T ALREADY, CHECK THE TOP OF THE FILE FOR A LARGE COMMENT SECTION

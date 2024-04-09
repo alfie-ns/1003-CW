@@ -47,11 +47,13 @@
 
 - [X] Test the BST/AVL Functions
 - [X] Test the Set Data Type Functions
-- [ ] Print Visual AVL Tree
+- [X] Insertion testing
+- [X] Deletion testing
+- [X] Print Visual AVL Tree
 
 'Do not use object-oriented programming other than method-free classes for the data containers. Do no	t use the C# Collection library. Keep your code simple and clear. The module’s DLE page contains an introduction into the C-core of C#. There are numerous examples in the lectures and labs showing what you can use.'
 
 ### Extra Context [ ]
 
-- This program incorporates box-drawing characters to build the visual AVL tree, to learn this, the following wiki link is a good place to start:  https://en.wikipedia.org/wiki/Box-drawing_character
+- This program incorporates box-drawing characters to build the visual AVL tree, to learn this, the following wiki link is a good place to start !:  https://en.wikipedia.org/wiki/Box-drawing_character
 -

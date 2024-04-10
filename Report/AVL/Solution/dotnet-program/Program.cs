@@ -5,70 +5,80 @@ using System; // Don't use anything else than System and only use C-core functio
 
 /*
 
- Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
- I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
- way to keep track of my work on both computers. It also provides a dopamine hit when I push
- to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
- and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now.
+Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
+I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
+way to keep track of my work on both computers. It also provides a dopamine hit when I push
+to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
+and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now.
 
 
- https://github.com/alfie-ns/1003-CW
+https://github.com/alfie-ns/1003-CW
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- - A 'base case' ensures recrusion TERMINATES when a leaf node is reached, otherwise, the function could run forever!
- - The `ref` keyword is crucial for operations like insertions or deletions in this AVL tree. It allows modifications made
-   to the tree's root node within the method to directly affect the original tree. This ensures any structural changes,
-   such as rebalancing or updating node links, are preserved, keeping the tree balanced and accurate. Without `ref`, changes
-   would only apply to a local copy, leaving the actual tree unchanged and potentially unbalanced.
+A 'base case' ensures recrusion TERMINATES when a leaf node is reached, otherwise, the function could run forever, 
+causing a stack overflow.
 
- AVL Tree Context:
+The `ref` keyword is crucial for operations like insertions or deletions in this AVL tree. It allows modifications made
+to the tree's root node within the method to directly affect the original tree. This ensures any structural changes,
+such as rebalancing or updating node links, are preserved, keeping the tree balanced and accurate. Without `ref`, changes
+would only apply to a local copy, leaving the actual tree unchanged and potentially unbalanced.
 
- An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at MOST one.
- 
- In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree 
- remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time complexity 
- of O(log n). 
- 
- - The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of 
- its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node violates this 
- condition.
+AVL Tree Explanation:
+---------------------
 
- - If the balance-factor of a node is greater than 1, it means that the left subtree is too tall compared to the 
- right subtree, making the node left-heavy. Conversely, if the balance-factor is LESS than -1, it indicates that the right subtree 
- is too tall compared to the left subtree, making the node right-heavy. These situations represent an imbalance in the tree.
+An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at MOST one.
  
- - When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs 
- rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees 
- involved. In my case, after insertion or deletion operations, the program assesses the balance-factor of each node
- starting from the newly inserted or deleted node's parent up to the root. If the balance-factor indicates a 
- left-heavy imbalance (greater than 1). Conversely, for a right-heavy imbalance (less than -1), it checks the
- right subtree's balance-factor to decide between a single left rotation or a right-left double rotation. This ensures the
- tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time complexity.
+In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree 
+remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time complexity 
+of O(log n). 
  
- - By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
- as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time complexity of 
- operations like search, insertion, and deletion to O(log n).
- 
- - The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
- By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and 
- guarantee efficient operations.
- 
- - The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
- in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
- number of nodes in each subtree.
- 
- - Also, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left 
- subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true 
- (balance-factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
+The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of 
+its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node violates this 
+condition.
 
- - AVL Tree: O(log n)
- - BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree)
+If the balance-factor of a node is greater than 1, it means that the left subtree is too tall compared to the 
+right subtree, making the node left-heavy. Conversely, if the balance-factor is LESS than -1, it indicates that the right subtree 
+is too tall compared to the left subtree, making the node right-heavy. These situations represent an imbalance in the tree.
+ 
+When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs 
+rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees 
+involved. In this case, after insertion or deletion operations, the program assesses the balance-factor of each node
+starting from the newly inserted or deleted node's parent up to the root. If the balance-factor indicates a 
+left-heavy imbalance (greater than 1). Conversely, for a right-heavy imbalance (less than -1), it checks the
+right subtree's balance-factor to decide between a single left rotation or a right-left double rotation. This ensures the
+tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time complexity.
+ 
+By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
+as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time complexity of 
+operations like search, insertion, and deletion to O(log n).
+ 
+The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
+By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and 
+guarantee efficient operations.
+ 
+The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
+in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
+number of nodes in each subtree.
+ 
+Also, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left 
+subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true 
+(balance-factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
 
- If we say an AVL tree has 10 nodes, the formula for finding the average time-complexity is log2(10)=3.32,
- which rounds down to 3 since steps are integers(cannot have .32 a step!); thus, on average, it'll take 3
- steps to find a particular node in this tree. This will always be the case in an AVL tree, but not necessarily
- for a BST that could become unbalanced.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+guranteed best-case time-complexity = AVL < BST
+- AVL Tree: O(log n)
+- BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree)
+
+Thus, AVL trees GUARANTEE a time complexity of O(log n) for search, insertion, and deletion operations,
+making them much more efficient than a BST in its worst-case scenario; thus, will search for data faster
+than an unbalanced BST.
+
+If an AVL tree has 10 nodes, the formula for finding the average time-complexity is log2(10)=3.32,
+which rounds down to 3 since steps are integers(cannot have .32 a step!); thus, on average, it'll take 3
+steps to find a particular node in this tree. This will always be the case in an AVL tree, but not for a
+BST that could become unbalanced.
  
 */
 
@@ -143,7 +153,7 @@ class Program // Program class, the entry point of the program
         // ensuring that the right subtree of the new root becomes the left subtree of the current node.
         node.left = newRoot.right;
 
-        // Make the current node the left child of the new root, completing the rotation.
+        // Make current node the left child of the new root, completing the rotation.
         newRoot.right = node;
 
         /* 
@@ -588,7 +598,7 @@ class Program // Program class, the entry point of the program
                 Console.Write("└─"); // print box-drawing character 
                 indent += "  "; // += 2 spaces 
             }
-            else // Otherwise print the following
+            else // Otherwise the node is 
             {
                 Console.Write("├─"); 
                 indent += "| "; // += 1 pipe and a space
@@ -610,6 +620,10 @@ class Program // Program class, the entry point of the program
         else // Otherwise, traverse the right subtree
             return FindNode(node.right, item);
     }
+
+    /// ------------------------------------------------------------- Set Data Functions  ------------------------------------------------------------- ///
+    
+        
 
 
     /// .... (and nowhere else) [x]
@@ -915,18 +929,18 @@ class Program // Program class, the entry point of the program
     }
 
 
-    // --------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------SET FUNCTIONS-------------------------------------------------------------------------- //
 
 
-    ///!!! <remarks> !!!
-    /* SET FUNCTIONS
+    ///!!! <remarks> !!! 
+    /* 
 
-    MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION
-    BECAUSE I WAS CONFUSED REGARDING THE SCOPE OF resultTree.
-    NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE
-    AND THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION
+    MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION BECAUSE I WAS GETTING ERROS REGARDING THE SCOPE OF resultTree.
+    NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE && THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION,
+    THUS ARE PART OF THE FUNCTION ITSELF.
+
     */
-    ///!!! </remarks> !!!
+    ///!!! </remarks> !!! !!! 
 
 
     /// <summary>
@@ -1091,10 +1105,13 @@ class Program // Program class, the entry point of the program
     /// </summary>
     static void TreeTests() // some tests
     {
+        Console.WriteLine(" ----------------------------------------------------------------------------------------------------------- ");
+        Console.WriteLine(" --------------- Alfie Nurse's AVL tree Implementation and Set Data Type Functions in C# ------------------- ");
+        Console.WriteLine(" ----------------------------------------------------------------------------------------------------------- ");
+        Console.WriteLine(); // newline
 
-        Console.WriteLine("----------------------------");
         Console.WriteLine("Entering TreeTests() function");
-        Console.WriteLine("----------------------------");
+        Console.WriteLine("--------------------------------");
 
         Tree tree = new Tree(); // init tree for tests
         Random r = new Random(); // init random number generator
@@ -1124,7 +1141,7 @@ class Program // Program class, the entry point of the program
         PrintTree(tree.root); // print tree
         Console.WriteLine(); // newline
 
-        Console.WriteLine("--------------------");
+        Console.WriteLine("-------------");
 
         // print the size of the tree
         Console.WriteLine("Size of the tree: " + Size(tree)); // print size
@@ -1133,7 +1150,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else 
         Node maxNode = FindMax(tree.root); // find max value
         Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null"));
-        Console.WriteLine("--------------------");
+        Console.WriteLine("--------------------------------");
 
         // test SearchTree
         Console.WriteLine("Search for 10 random values");
@@ -1146,19 +1163,22 @@ class Program // Program class, the entry point of the program
         }
         Console.WriteLine(); // newline
         Console.WriteLine("---------- Visualising the tree while testing --------");
+        Console.WriteLine(); // newline
 
         // Print and visualise the initial tree
         Console.WriteLine("Initial tree:");
+        Console.WriteLine(); // newline
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
 
         // Test insertion
+        Console.WriteLine(); // newline
         Console.WriteLine("Testing insertion..."); // testing...
         Console.WriteLine(); // newline
         TestInsertion(tree); // run test passing the tree
+        Console.WriteLine(); // newline
         Console.WriteLine("Insertion test passed!"); // print success
         Console.WriteLine("Tree after insertion:"); // header for visual tree
-        Console.WriteLine(); // newline
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
 
@@ -1171,7 +1191,8 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Deletion test passed!"); // print success
         Console.WriteLine(); // newline
 
-        // Test search
+        // Test search - I NEED TO IMPROVE THIS TEST [ ]
+
         Console.WriteLine("Testing search..."); // testing...
         TestSearch(); // run test for search
         Console.WriteLine("Search test passed!");
@@ -1187,9 +1208,9 @@ class Program // Program class, the entry point of the program
 
         /*
         I run all my tests and directly report them as passed;
-        as the assert function throws an exception if the condition is false;
-        e.g. the test fails. Prior to reporting success, I made sure that 
-        they would all pass!
+        as the assert function throws an exception if the condition
+        is false; e.g. the test fails. Prior to reporting success,
+        I checked all tests would pass!
         */
 
         DateTime endTime = DateTime.Now; // end time

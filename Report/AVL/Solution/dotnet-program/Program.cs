@@ -591,7 +591,7 @@ class Program // Program class, the entry point of the program
 
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
-        Console.WriteLine("Time-taken for 7 seearches: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
+        Console.WriteLine("Time-taken for 7 searches: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
 
 
     }
@@ -1341,7 +1341,7 @@ class Program // Program class, the entry point of the program
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
 
         Console.WriteLine(); // newline
-        Console.WriteLine("Time-taken for all AVL Testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
+        Console.WriteLine("Time-taken for all AVL testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
         Console.WriteLine(); // newline

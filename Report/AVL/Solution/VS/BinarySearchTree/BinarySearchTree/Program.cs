@@ -582,16 +582,16 @@ class Program // Program class, the entry point of the program
 
         Console.WriteLine("Searching for 100...");
         Assert(!SearchTree(tree.root, new DataEntry { data = 100 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
-        Console.WriteLine("NOT FOUND"); // print NOT FOUND
+        Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND  
 
         Console.WriteLine("Searching for 0...");
         Assert(!SearchTree(tree.root, new DataEntry { data = 0 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
-        Console.WriteLine("NOT FOUND"); // print NOT FOUND
+        Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND
         
 
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
-        Console.WriteLine("Time-taken to searches: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
+        Console.WriteLine("Time-taken for 7 searches: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
 
 
     }
@@ -1341,7 +1341,7 @@ class Program // Program class, the entry point of the program
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
 
         Console.WriteLine(); // newline
-        Console.WriteLine("Time-taken for all AVL Testing: " + elapsedTime.TotalMilliseconds + " ms"); // print time taken in milliseconds
+        Console.WriteLine("Time-taken for all AVL testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
         Console.WriteLine(); // newline

@@ -91,6 +91,8 @@ Notebook
     ARE BALANCED AS THE HEIGHTS DON'T DIFFER BY MORE THAN 1, AND THE TREE IS SORTED, SO IT IS
     BALANCED I THINK, JUST NOT PERFECTLY BALANCED, WHICH IS FINE, AS LONG AS IT'S BALANCED
 
+
+
 - [x] Make an inverted assert functionality to report sucessful tests???
 - [x] Give a smart explanation of how to calculate heights -> balancing-factor: ...
 - [ ] perhaps I need to insert random nodes into the test trees
@@ -597,13 +599,8 @@ class Program // Program class, the entry point of the program
     static void Assert(bool condition, string message)
     {
         if (!condition)
-        {
             throw new Exception("Assertion failed: " + message); // print exception
-        }
-        else
-        {
-            Console.WriteLine("Assertion passed! "); // print success
-        }
+        
     }
 
     static void TestAVLBalancing()

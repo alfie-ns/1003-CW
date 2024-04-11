@@ -47,7 +47,7 @@
 
 - [X] Test the BST/AVL Functions
 - [X] Test the Set Data Type Functions
-- [ ] Insertion testing
+- [X] Insertion testing
 - [X] Deletion testing
 - [X] Print Visual AVL Tree
 

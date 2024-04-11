@@ -86,10 +86,11 @@ BST that could become unbalanced.
 
 Notebook
 --------
-[x] SORTED? - THE VISUAL TREE SOMETIMES LOOKS UNBALANCED, HOWEVER THE ASSERTION TESTS SHOW
-    THAT THE TREE IS INDEED BALANCED??? EVEN THO THEY'RE NOT THE PERFECT BALANCE, THEY STILL
+[x] THE VISUAL TREE SOMETIMES LOOKS UNBALANCED, HOWEVER THE ASSERTION TESTS SHOW
+    THAT THE TREE IS INDEED BALANCED??? SORTED -> EVEN THO THEY'RE NOT THE PERFECT BALANCE, THEY STILL
     ARE BALANCED AS THE HEIGHTS DON'T DIFFER BY MORE THAN 1, AND THE TREE IS SORTED, SO IT IS
-    BALANCED I THINK, JUST NOT PERFECTLY BALANCED, WHICH IS FINE, AS LONG AS IT'S BALANCED
+    BALANCED I THINK, JUST NOT PERFECTLY BALANCED, WHICH IS FINE, AS LONG AS IT'S BALANCED.
+    I THOUGHT IT WAS WRONG BECAUSE THEY WEREN'T PERFECTLY BALANCED, BUT THEY ARE BALANCED I THINK.
 
 
 
@@ -566,10 +567,29 @@ class Program // Program class, the entry point of the program
         int[] sortedArray = new int[Size(tree)]; // Create an array to store the sorted elements
         // pass the root of the tree and a lambda function to store the node's data in the array
 
-        int index = 0; // Initialize the index to 0
-
+        int index = 0; // Initialise the index to 0
+        InOrderTraversal(tree.root, (int value) => { sortedArray[index++] = value; });
         // Lambda function = 
-        InOrderTraversal(tree.root, (int value) => { sortedArray[index++] = value; }); // Perform in-order traversal to store the elements in the array
+        /*
+            The lambda function stores the node's data in the array during in-order traversal.
+            The way this lambda function works is:
+            1. Takes an integer 'value' as input, which represents the data of the current node being visited during the traversal.
+            2. Stores the 'value' in the 'sortedArray' at the current 'index' position.
+            3. Increments 'index' using the post-increment operator (index++) to move to the next position in the array.
+
+            ++index would increment the index before the value is stored, whereas index++ increments the index after the value is stored.
+        
+            By performing an in-order traversal and using this lambda function, the elements of the tree are stored in the 'sortedArray'
+            in ascending order. This is because an in-order traversal of a binary search tree visits the nodes in ascending order of their values.
+        
+            After the traversal is complete, the 'sortedArray' will contain all the elements of the tree in sorted order.
+            The 'IsSorted' method then iterates over the 'sortedArray' and checks if each element is greater than or equal to the previous element.
+            If any element is found to be smaller than its previous element, it means the tree is not sorted, and the method returns 'false'.
+            Otherwise, if the entire array is iterated without finding any violations, the tree is considered sorted, and the method returns 'true'.
+        
+            This lambda function, used in conjunction with the in-order traversal, allows for efficient checking of whether the tree is sorted
+            without modifying the original tree structure.
+        */
 
         for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array
         {

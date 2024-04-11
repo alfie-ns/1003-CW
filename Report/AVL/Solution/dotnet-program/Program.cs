@@ -529,8 +529,11 @@ class Program // Program class, the entry point of the program
     static bool IsSorted(Tree tree)
     {
         int[] sortedArray = new int[Size(tree)]; // Create an array to store the sorted elements
+        // pass the root of the tree and a lambda function to store the node's data in the array
+
         int index = 0; // Initialize the index to 0
 
+        // Lambda function = 
         InOrderTraversal(tree.root, (int value) => { sortedArray[index++] = value; }); // Perform in-order traversal to store the elements in the array
 
         for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array

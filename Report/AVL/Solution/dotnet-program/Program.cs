@@ -564,6 +564,7 @@ class Program // Program class, the entry point of the program
 
     static bool IsSorted(Tree tree)
     {
+        // By using a single array, this avoids complex manipulations or additional data structures that could be inefficient or error-prone.
         int[] sortedArray = new int[Size(tree)]; // Create an array to store the sorted elements
         // pass the root of the tree and a lambda function to store the node's data in the array
 

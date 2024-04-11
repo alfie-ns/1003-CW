@@ -548,15 +548,51 @@ class Program // Program class, the entry point of the program
     static void TestSearch()
     {
         Tree tree = new Tree(); // init test tree
-        int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
 
-        foreach (int element in elements) // for EVERY element in elements array
+        int[] largeDataSet = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50}; // init large dataset
+
+        foreach (int element in largeDataSet) // for EVERY element in elements array
         {
             InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
         }
 
+        DateTime startTime = DateTime.Now; // start time
+
+        Console.WriteLine("Searching for 5...");
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
-        Assert(!SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Console.WriteLine("FOUND"); // print FOUND
+        
+        Console.WriteLine("Searching for 3");
+        Assert(SearchTree(tree.root, new DataEntry { data = 3 }), "Search test: Existing element not found"); // check if existing element is found
+        Console.WriteLine("FOUND"); // print FOUND
+
+        Console.WriteLine("Searching for 23...");
+        Assert(SearchTree(tree.root, new DataEntry { data = 23 }), "Search test: Existing element not found"); // check if existing element is found
+        Console.WriteLine("FOUND"); // print FOUND
+
+        Console.WriteLine("Searching for 6...");
+        Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Console.WriteLine("FOUND"); // print FOUND
+
+        Console.WriteLine("Searching for 1...");
+        Assert(SearchTree(tree.root, new DataEntry { data = 1 }), "Search test: Existing element not found"); // check if existing element is found
+        Console.WriteLine("FOUND"); // print FOUND
+
+        // CHECK IT DOESN'T FIND NON-EXISTING ELEMENTS
+
+        Console.WriteLine("Searching for 100...");
+        Assert(!SearchTree(tree.root, new DataEntry { data = 100 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Console.WriteLine("NOT FOUND"); // print NOT FOUND
+
+        Console.WriteLine("Searching for 0...");
+        Assert(!SearchTree(tree.root, new DataEntry { data = 0 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Console.WriteLine("NOT FOUND"); // print NOT FOUND
+        
+
+        DateTime endTime = DateTime.Now; // end time
+        TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
+        Console.WriteLine("Time-taken to searches: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
+
 
     }
 
@@ -1255,6 +1291,7 @@ class Program // Program class, the entry point of the program
         // Test insertion
         Console.WriteLine(); // newline
         Console.WriteLine("Testing insertion..."); // testing...
+        Console.WriteLine("------------------"); // underline
         Console.WriteLine(); // newline
         TestInsertion(tree); // run test passing the tree
         Console.WriteLine(); // newline
@@ -1265,22 +1302,26 @@ class Program // Program class, the entry point of the program
 
         // Test deletion
         Console.WriteLine("Testing deletion..."); // testing...
+        Console.WriteLine("------------------"); // underline
         TestDeletion(tree); // run test passing the tree
         Console.WriteLine(); // newline
         Console.WriteLine("Tree after deletion:"); // header for visual tree
         PrintTreeVisual(tree.root); // print visual tree
+        Console.WriteLine(); // newline
         Console.WriteLine("Deletion test passed!"); // print success
         Console.WriteLine(); // newline
 
         // Test search - I NEED TO IMPROVE THIS TEST [ ]
 
         Console.WriteLine("Testing search..."); // testing...
+        Console.WriteLine("------------------"); // underline
         TestSearch(); // run test for search
         Console.WriteLine("Search test passed!");
         Console.WriteLine(); // newline
 
         // Test AVL balancing
         Console.WriteLine("Testing AVL balancing...");
+        Console.WriteLine("------------------");
         TestAVLBalancing(); // run test for AVL balancing
         Console.WriteLine("AVL balancing test passed!!!");
         Console.WriteLine("Tree after AVL balancing:");
@@ -1291,14 +1332,16 @@ class Program // Program class, the entry point of the program
         I run all my tests and directly report them as passed;
         as the assert function throws an exception if the condition
         is false; e.g. the test fails. Prior to reporting success,
-        I checked all tests would pass!
+        I checked all tests would pass successfully; I guess I could've
+        done this programmatically, however, I hope my manual check is
+        sufficient.
         */
 
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
 
         Console.WriteLine(); // newline
-        Console.WriteLine("Time-taken for AVL processing: " + elapsedTime.TotalMilliseconds + " milliseconds"); // print time taken in milliseconds
+        Console.WriteLine("Time-taken for all AVL Testing: " + elapsedTime.TotalMilliseconds + " ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
         Console.WriteLine(); // newline
@@ -1373,7 +1416,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
         Console.WriteLine(); // newline
-        Console.WriteLine("All tests passed successfully!"); // I first checked all tests would pass successfully; I guess I could've done this programmatically, however, I hope my manual check is sufficient.
+        Console.WriteLine("All tests passed successfully!"); // maunal confirmation of success
         Console.WriteLine(); // newline
     }
 

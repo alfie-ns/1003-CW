@@ -5,70 +5,106 @@ using System; // Don't use anything else than System and only use C-core functio
 
 /*
 
- Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
- I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
- way to keep track of my work on both computers. It also provides a dopamine hit when I push
- to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
- and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now.
+Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
+I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
+way to keep track of my work on both computers. It also provides a dopamine hit when I push
+to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
+and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now.
 
 
- https://github.com/alfie-ns/1003-CW
+https://github.com/alfie-ns/1003-CW
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- - A 'base case' ensures recrusion TERMINATES when a leaf node is reached, otherwise, the function could run forever!
- - The `ref` keyword is crucial for operations like insertions or deletions in this AVL tree. It allows modifications made
-   to the tree's root node within the method to directly affect the original tree. This ensures any structural changes,
-   such as rebalancing or updating node links, are preserved, keeping the tree balanced and accurate. Without `ref`, changes
-   would only apply to a local copy, leaving the actual tree unchanged and potentially unbalanced.
+A 'base case' ensures recrusion TERMINATES when a leaf node is reached, otherwise, the function could run forever, 
+causing a stack overflow.
 
- AVL Tree Context:
+The `ref` keyword is crucial for operations like insertions or deletions in this AVL tree. It allows modifications made
+to the tree's root node within the method to directly affect the original tree. This ensures any structural changes,
+such as rebalancing or updating node links, are preserved, keeping the tree balanced and accurate. Without `ref`, changes
+would only apply to a local copy, leaving the actual tree unchanged and potentially unbalanced.
 
- An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at MOST one.
- 
- In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree 
- remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time complexity 
- of O(log n). 
- 
- - The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of 
- its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node violates this 
- condition.
+AVL Tree Explanation:
+---------------------
 
- - If the balance-factor of a node is greater than 1, it means that the left subtree is too tall compared to the 
- right subtree, making the node left-heavy. Conversely, if the balance-factor is LESS than -1, it indicates that the right subtree 
- is too tall compared to the left subtree, making the node right-heavy. These situations represent an imbalance in the tree.
+An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at MOST one.
  
- - When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs 
- rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees 
- involved. In my case, after insertion or deletion operations, the program assesses the balance-factor of each node
- starting from the newly inserted or deleted node's parent up to the root. If the balance-factor indicates a 
- left-heavy imbalance (greater than 1). Conversely, for a right-heavy imbalance (less than -1), it checks the
- right subtree's balance-factor to decide between a single left rotation or a right-left double rotation. This ensures the
- tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time complexity.
+In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree 
+remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time complexity 
+of O(log n). 
  
- - By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
- as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time complexity of 
- operations like search, insertion, and deletion to O(log n).
- 
- - The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
- By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and 
- guarantee efficient operations.
- 
- - The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
- in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
- number of nodes in each subtree.
- 
- - Also, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left 
- subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true 
- (balance-factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
+The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of 
+its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node violates this 
+condition.
 
- - AVL Tree: O(log n)
- - BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree)
+If the balance-factor of a node is greater than 1, it means that the left subtree is too tall compared to the 
+right subtree, making the node left-heavy. Conversely, if the balance-factor is LESS than -1, it indicates that the right subtree 
+is too tall compared to the left subtree, making the node right-heavy. These situations represent an imbalance in the tree.
+ 
+When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs 
+rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees 
+involved. In this case, after insertion or deletion operations, the program assesses the balance-factor of each node
+starting from the newly inserted or deleted node's parent up to the root. If the balance-factor indicates a 
+left-heavy imbalance (greater than 1). Conversely, for a right-heavy imbalance (less than -1), it checks the
+right subtree's balance-factor to decide between a single left rotation or a right-left double rotation. This ensures the
+tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time complexity.
+ 
+By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
+as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time complexity of 
+operations like search, insertion, and deletion to O(log n).
+ 
+The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
+By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and 
+guarantee efficient operations.
+ 
+The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
+in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
+number of nodes in each subtree.
+ 
+Also, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left 
+subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true 
+(balance-factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
 
- If we say an AVL tree has 10 nodes, the formula for finding the average time-complexity is log2(10)=3.32,
- which rounds down to 3 since steps are integers(cannot have .32 a step!); thus, on average, it'll take 3
- steps to find a particular node in this tree. This will always be the case in an AVL tree, but not necessarily
- for a BST that could become unbalanced.
+The height of a node is the length of the longest path from that node to a leaf node... {AMEND THIS}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+guranteed best-case time-complexity = AVL < BST
+- AVL Tree: O(log n)
+- BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree)
+
+Thus, AVL trees GUARANTEE a time complexity of O(log n) for search, insertion, and deletion operations,
+making them much more efficient than a BST in its worst-case scenario; thus, will search for data faster
+than an unbalanced BST.
+
+If an AVL tree has 10 nodes, the formula for finding the average time-complexity is log2(10)=3.32,
+which rounds down to 3 since steps are integers(cannot have .32 a step!); thus, on average, it'll take 3
+steps to find a particular node in this tree. This will always be the case in an AVL tree, but not for a
+BST that could become unbalanced.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Notebook
+--------
+[x] THE VISUAL TREE SOMETIMES LOOKS UNBALANCED, HOWEVER THE ASSERTION TESTS SHOW
+    THAT THE TREE IS INDEED BALANCED??? SORTED -> EVEN THO THEY'RE NOT THE PERFECT BALANCE, THEY STILL
+    ARE BALANCED AS THE HEIGHTS DON'T DIFFER BY MORE THAN 1, AND THE TREE IS SORTED, SO IT IS
+    BALANCED I THINK, JUST NOT PERFECTLY BALANCED, WHICH IS FINE, AS LONG AS IT'S BALANCED.
+    I THOUGHT IT WAS WRONG BECAUSE THEY WEREN'T PERFECTLY BALANCED, BUT THEY ARE BALANCED I THINK.
+
+
+
+- [x] Make an inverted assert functionality to report sucessful tests???
+- [x] Give a smart explanation of how to calculate heights -> balancing-factor: ...
+- [ ] perhaps I need to insert random nodes into the test trees?
+- [ ] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
+- [ ] Show more testing for the Searches
+- [ ] More tests that tree is indeed Balanced after every operation
+- [ ] perhap I need need insert random nodes into the tree when testing insertion, instead of only inserting nodes that are bigger than all the other ones
+- [ ] Comment explaining why I used 'ref' for the treesize when deleting(to make sure size is updated after deletion)
+- [ ] Make sure it all uses one testTree for every test, defined and function to create a generated random tree and then search for each node
+- [ ] Define a large test tree of random elements/nodes
+- [ ] verify tree is indeed balanced after every operation
  
 */
 
@@ -107,7 +143,7 @@ class Node
     public Node right;
     public Node left;
     public int Height; // This is for AVL tree, as one needs to keep track of the height of the tree to balance it
-} // Must store the height in each node means that the tree to perform rotations and rebalancing efficiently
+} // Get the height from node.left and node.right, then add 1 to the max of the two to get the height of the current node
 
 
 /// <summary>
@@ -131,7 +167,7 @@ class Program // Program class, the entry point of the program
 
     /// ------------------------------------------------------------- AVL Tree Functions ------------------------------------------------------------- ///
 
-    /// ------------------------------------------------------------- AVL Rotations ------------------------------------------------------------- ///
+    /// ------------------------------------------------------------- AVL Rotation Functions ------------------------------------------------------------- ///
     static Node RotateRight(Node node)
     {
         // This function performs a right rotation on the given node in an AVL tree.
@@ -143,7 +179,7 @@ class Program // Program class, the entry point of the program
         // ensuring that the right subtree of the new root becomes the left subtree of the current node.
         node.left = newRoot.right;
 
-        // Make the current node the left child of the new root, completing the rotation.
+        // Make current node the left child of the new root, completing the rotation.
         newRoot.right = node;
 
         /* 
@@ -197,18 +233,118 @@ class Program // Program class, the entry point of the program
         return RotateLeft(node);
     }
 
-    // -------------------------------------------------------------------------------------------------------------------------------------------------------------
-  
+    /// ------------------------------------------------------------- Balance-factor Functions ------------------------------------------------------------- ///
+    
+    static int GetHeight(Node node)
+    { // get the height of a trees
+        if (node == null) return 0; // Base case: If the node is null, return 0
+        int leftHeight = GetHeight(node.left); // Recursively calculate the height of the left subtree
+        int rightHeight = GetHeight(node.right); // Recursively calculate the height of the right subtree
+        return 1 + Math.Max(leftHeight, rightHeight); //you get the max of either left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
+    }
+
+    static int GetBalanceFactor(Node node)
+    {
+        if (node == null) return 0; // Base case: If the node is null, immediately return 0
+
+        return GetHeight(node.left) - GetHeight(node.right);
+        // The balance-factor is calculated by subtracting the height of the right subtree from the height of the left subtree
+    }
+
+    static bool CheckAVLBalancing(Node node)
+    {
+        if (node == null) return true; // Base case: If the node is null, return true, as an empty tree is balanced
+
+        bool leftBalanced = CheckAVLBalancing(node.left); // Recursively check if the left subtree is balanced
+        bool rightBalanced = CheckAVLBalancing(node.right); // Recursively check if the right subtree is balanced
+        int currentBalanceFactor = GetBalanceFactor(node); // Get the balance factor of the current node
+
+        // Node is balanced if the left and right subtrees are balanced, and the current node's balance factor is between -1 and 1
+        return leftBalanced && rightBalanced && Math.Abs(currentBalanceFactor) <= 1;
+    }
+    // Second function to test balance of a tree
+    static bool IsBalanced(Node node)
+    {
+        if (node == null) return true;
+        /*
+        A null node IS considered balanced because it represents an empty subtree.
+        In an AVL tree, an empty subtree is always balanced as it has a height of 0
+        Returning true for null nodes ensures that the base case of the recursive
+        function is handled correctly.
+        */
+
+        int leftHeight = GetHeight(node.left); // Get the height of the left subtree
+        int rightHeight = GetHeight(node.right); // Get the height of the right subtree
+
+        if (Math.Abs(leftHeight - rightHeight) > 1) return false; // If the absolute difference between the heights of the left and right subtrees is greater than 1, thus the tree is unbalanced, return false
+
+        bool isLeftBalanced = IsBalanced(node.left); // Recursively check if the left subtree is balanced
+        bool isRightBalanced = IsBalanced(node.right); // Recursively check if the right subtree is balanced
+
+        return isLeftBalanced && isRightBalanced; // Return true if both subtrees are balanced, false if EITHER subtree is unbalanced
+    }
+
+
+    /// ------------------------------------------------------------- AVL/BST Operationa Functions ------------------------------------------------------------- ///
+        
+    static Node InsertTreeHelper(Node node, Node newNode)
+    { // First, perform the standard BST insertion
+        if (node == null) { // Base case: If the node is null, return the new node and a height of 1 accounting for that single node
+            newNode.Height = 1; // Set the height as 1 for the single node thats been inserted
+            return newNode; // Return the new node
+        }
+        if (IsSmaller(newNode, node)) // If the new node is smaller than the current node
+            node.left = InsertTreeHelper(node.left, newNode); // Recursively insert the new node into the left subtree
+        else if (IsSmaller(node, newNode)) // Elif the new node is larger than the current node
+            node.right = InsertTreeHelper(node.right, newNode); // Recursively insert the new node into the right subtree
+        else
+        {
+            // otherwise, the new node MUST equal the current node, thus discard the duplicate
+            return node;
+        }
+
+        // Then, update the height of the current node, +1 to account for the node being inserted
+        node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
+
+        // Check the balance factor to see if the tree is unbalanced, and if needed, perform rebalance rotations
+        int balanceFactor = GetBalanceFactor(node);
+
+        /*
+            If the balance factor is greater than 1, the tree is left-heavy, thus need to rotate right,
+            Conversely, if the balance factor is less than -1, the tree is right-heavy, thus need to
+            rotate left.
+        
+        */
+
+        // Left-heavy cases
+        if (balanceFactor > 1)
+        {
+            if (GetBalanceFactor(node.left) < 0) // Left-Right case(if the left child is right-heavy)
+                node = RotateLeftRight(node); // Perform a left-right double rotation
+            else 
+                node = RotateRight(node); // otherwise, perform a right rotation
+        }
+        // Right-heavy cases
+        if (balanceFactor < -1)
+        {
+            if (GetBalanceFactor(node.right) > 0) // Right-Left case(if the right child is left-heavy)
+                node = RotateRightLeft(node); // Perform a right-left double rotation
+            else
+                node = RotateLeft(node); // otherwise, perform a left rotation
+        }
+
+        return node; // return the root of the subtree after insertion and balancing, to the caller function, this allows the caller function to update the NEW root's reference
+    }
 
     static Node DeleteNode(Node node, Node item, ref int treeSize)
     {
         if (node == null) return null; // Base case: If the node is null, return null immediately
 
-        if (IsSmaller(item, node)) // If the item is smaller than the current node, search in the left subtree
+        if (IsSmaller(item, node)) // If the item is SMALLER than the current node, search in the left subtree
         {
             node.left = DeleteNode(node.left, item, ref treeSize); // Recursively search in the left subbtree
         }
-        else if (IsSmaller(node, item)) // If the item is larger than the current node, search in the right subtree
+        else if (IsSmaller(node, item)) // If the item is LARGER than the current node, search in the right subtree
         {
             node.right = DeleteNode(node.right, item, ref treeSize); // Recursively search in the right subtree
         }
@@ -315,7 +451,7 @@ class Program // Program class, the entry point of the program
 
         //Console.WriteLine("FindMin: Current node value: " + tree.data.data); // TESTING
 
-        while (tree.left != null)
+        while (tree.left != null) // while NOT at the left-most(smallest) node
         {
             tree = tree.left;
             //Console.WriteLine("FindMin: Moving to left child, value: " + tree.data.data); // TESTING
@@ -325,66 +461,13 @@ class Program // Program class, the entry point of the program
         return tree;
     }
 
-    static Node InsertTreeHelper(Node node, Node newNode)
-    { // First, perform the standard BST insertion
-        if (node == null) // Base case: If the node is null, e.g tree is empty, Insert the node node, giving the single node tree a height of 1
-        {
-            newNode.Height = 1; // Set the height as 1 for the single node thats been inserted
-            return newNode; // Return the new node
-        }
-        if (IsSmaller(newNode, node)) // If the new node is smaller than the current node
-            node.left = InsertTreeHelper(node.left, newNode); // Recursively insert the new node into the left subtree
-        else if (IsSmaller(node, newNode)) // Elif the new node is larger than the current node
-            node.right = InsertTreeHelper(node.right, newNode); // Recursively insert the new node into the right subtree
-        else
-        {
-            // otherwise, the new node MUST equal the current node, thus discard the duplicate
-            return node;
-        }
 
-        // Then, update the height of the current node, +1 to account for the new node
-        node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
+    /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
+    
+    // First function to test balance of a tree
+    
 
-        // Check the balance factor to see if the tree is unbalanced, and if needed, perform rebalance rotations
-        int balanceFactor = GetBalanceFactor(node);
-
-        // Left-heavy cases
-        if (balanceFactor > 1)
-        {
-            if (GetBalanceFactor(node.left) < 0) // Left-Right case(if the left child is right-heavy)
-                node = RotateLeftRight(node); // Perform a left-right double rotation
-            else 
-                node = RotateRight(node); // otherwise, perform a right rotation
-        }
-        // Right-heavy cases
-        if (balanceFactor < -1)
-        {
-            if (GetBalanceFactor(node.right) > 0) // Right-Left case(if the right child is left-heavy)
-                node = RotateRightLeft(node); // Perform a right-left double rotation
-            else
-                node = RotateLeft(node); // otherwise, perform a left rotation
-        }
-
-        return node; // return the root of the subtree after insertion and balancing, to the caller function, this allows the caller function to update the NEW root's reference
-    }
-
-    /// ------------------------------------------------------------- AVL Tree Test Functions ------------------------------------------------------------- ///
-
-    static int GetBalanceFactor(Node node)
-    {
-        if (node == null) return 0; // Base case: If the node is null, immediately return 0
-
-        return GetHeight(node.left) - GetHeight(node.right);
-        // The balance-factor is calculated by subtracting the height of the right subtree from the height of the left subtree
-    }
-
-    static int GetHeight(Node node)
-    { // get the height of a trees
-        if (node == null) return 0; // Base case: If the node is null, return 0
-        int leftHeight = GetHeight(node.left); // Recursively calculate the height of the left subtree
-        int rightHeight = GetHeight(node.right); // Recursively calculate the height of the right subtree
-        return 1 + Math.Max(leftHeight, rightHeight); //you get the max of either left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
-    }
+    
 
     static void TestInsertion(Tree testTree)
     {
@@ -398,21 +481,23 @@ class Program // Program class, the entry point of the program
         */
 
         int[] elements = { 11, 12, 13 }; // init the particular elements into the tree that I want to delete
-        
+        //int[] randomElements = new int[10]; // init an empty array to store random elements
+
         int initialSize = Size(testTree); // get the initial size of the testTree
         Console.WriteLine("Initial tree size: " + initialSize); // print the size BEFORE insertion
 
         int uniqueElementsInserted = 0; // init a counter for unique elements inserted
-        
+
         foreach (int element in elements) // for EVERY element in elements array
         {
-            if (!SearchTree(testTree.root, new DataEntry { data = element }))
+            if (!SearchTree(testTree.root, new DataEntry { data = element })) // if the element is NOT already in the tree
             {
                 InsertTree(testTree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
                 uniqueElementsInserted++; // increment counter
             }
             Console.WriteLine("Inserted element: " + element); // print the element that was inserted
             Console.WriteLine("Tree size after insertion: " + Size(testTree)); // print the size AFTER insertion
+            PrintTreeVisual(testTree.root); // print the tree visually
         }
         
         Console.WriteLine("Final tree size: " + Size(testTree)); // print the size AFTER ALL insertions
@@ -432,13 +517,6 @@ class Program // Program class, the entry point of the program
             duplicate WON'T get discarded when I randomly
             insert it prior to when I can delete it.
         */
-
-        int[] elements = { 11, 12, 13 }; // init the particular elements into the tree that I want to delete, otherwise it would be random, thus I don't know what to delete
-        
-        foreach (int element in elements) // for EVERY element in elements array
-        {
-            InsertTree(testTree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
-        }
 
         int initialSize = Size(testTree); // get the initial size of the testTree from the randomly generated elements outside of the function
         Console.WriteLine("Initial tree size: " + initialSize);
@@ -470,44 +548,85 @@ class Program // Program class, the entry point of the program
     static void TestSearch()
     {
         Tree tree = new Tree(); // init test tree
-        int[] elements = { 5, 3, 7, 1, 9 }; // init elements to insert as an array
 
-        foreach (int element in elements) // for EVERY element in elements array
+        int[] largeDataSet = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50}; // init large dataset
+
+        foreach (int element in largeDataSet) // for EVERY element in elements array
         {
             InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
         }
 
+        DateTime startTime = DateTime.Now; // start time
+
+        Console.WriteLine("Searching for 5...");
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
-        Assert(!SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Console.WriteLine("FOUND"); // print FOUND
+        
+        Console.WriteLine("Searching for 3");
+        Assert(SearchTree(tree.root, new DataEntry { data = 3 }), "Search test: Existing element not found"); // check if existing element is found
+        Console.WriteLine("FOUND"); // print FOUND
+
+        Console.WriteLine("Searching for 23...");
+        Assert(SearchTree(tree.root, new DataEntry { data = 23 }), "Search test: Existing element not found"); // check if existing element is found
+        Console.WriteLine("FOUND"); // print FOUND
+
+        Console.WriteLine("Searching for 6...");
+        Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Console.WriteLine("FOUND"); // print FOUND
+
+        Console.WriteLine("Searching for 1...");
+        Assert(SearchTree(tree.root, new DataEntry { data = 1 }), "Search test: Existing element not found"); // check if existing element is found
+        Console.WriteLine("FOUND"); // print FOUND
+
+        // CHECK IT DOESN'T FIND NON-EXISTING ELEMENTS
+
+        Console.WriteLine("Searching for 100...");
+        Assert(!SearchTree(tree.root, new DataEntry { data = 100 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Console.WriteLine("NOT FOUND"); // print NOT FOUND
+
+        Console.WriteLine("Searching for 0...");
+        Assert(!SearchTree(tree.root, new DataEntry { data = 0 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Console.WriteLine("NOT FOUND"); // print NOT FOUND
+        
+
+        DateTime endTime = DateTime.Now; // end time
+        TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
+        Console.WriteLine("Time-taken to searches: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
+
+
     }
 
-    static bool IsBalanced(Node node)
-    {
-        if (node == null) return true;
-        /*
-        A null node IS considered balanced because it represents an empty subtree.
-        In an AVL tree, an empty subtree is always balanced as it has a height of 0
-        Returning true for null nodes ensures that the base case of the recursive
-        function is handled correctly.
-        */
-
-        int leftHeight = GetHeight(node.left); // Get the height of the left subtree
-        int rightHeight = GetHeight(node.right); // Get the height of the right subtree
-
-        if (Math.Abs(leftHeight - rightHeight) > 1) return false; // If the absolute difference between the heights of the left and right subtrees is greater than 1, thus the tree is unbalanced, return false
-
-        bool isLeftBalanced = IsBalanced(node.left); // Recursively check if the left subtree is balanced
-        bool isRightBalanced = IsBalanced(node.right); // Recursively check if the right subtree is balanced
-
-        return isLeftBalanced && isRightBalanced; // Return true if both subtrees are balanced, false if EITHER subtree is unbalanced
-    }
+    
 
     static bool IsSorted(Tree tree)
     {
+        // By using a single array, this avoids complex manipulations or additional data structures that could be inefficient or error-prone.
         int[] sortedArray = new int[Size(tree)]; // Create an array to store the sorted elements
-        int index = 0; // Initialize the index to 0
+        // pass the root of the tree and a lambda function to store the node's data in the array
 
-        InOrderTraversal(tree.root, (int value) => { sortedArray[index++] = value; }); // Perform in-order traversal to store the elements in the array
+        int index = 0; // Initialise the index to 0
+        InOrderTraversal(tree.root, (int value) => { sortedArray[index++] = value; });
+        // Lambda function = 
+        /*
+            The lambda function stores the node's data in the array during in-order traversal.
+            The way this lambda function works is:
+            1. Takes an integer 'value' as input, which represents the data of the current node being visited during the traversal.
+            2. Stores the 'value' in the 'sortedArray' at the current 'index' position.
+            3. Increments 'index' using the post-increment operator (index++) to move to the next position in the array.
+
+            ++index would increment the index before the value is stored, whereas index++ increments the index after the value is stored.
+        
+            By performing an in-order traversal and using this lambda function, the elements of the tree are stored in the 'sortedArray'
+            in ascending order. This is because an in-order traversal of a binary search tree visits the nodes in ascending order of their values.
+        
+            After the traversal is complete, the 'sortedArray' will contain all the elements of the tree in sorted order.
+            The 'IsSorted' method then iterates over the 'sortedArray' and checks if each element is greater than or equal to the previous element.
+            If any element is found to be smaller than its previous element, it means the tree is not sorted, and the method returns 'false'.
+            Otherwise, if the entire array is iterated without finding any violations, the tree is considered sorted, and the method returns 'true'.
+        
+            This lambda function, used in conjunction with the in-order traversal, allows for efficient checking of whether the tree is sorted
+            without modifying the original tree structure.
+        */
 
         for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array
         {
@@ -536,8 +655,10 @@ class Program // Program class, the entry point of the program
     }
 
     static void Assert(bool condition, string message)
-    { // This function, akin to Debug.Assert used for debugging, was custom-made by me due to restrictions on only being allowed to use C-core functionality.
-        if (!condition) throw new Exception("Assertion failed"); // If the condition is false, throw an exception with the specified message
+    {
+        if (!condition)
+            throw new Exception("Assertion failed: " + message); // print exception
+        
     }
 
     static void TestAVLBalancing()
@@ -580,6 +701,10 @@ class Program // Program class, the entry point of the program
 
         */
 
+        // [ ] REVISE THIS FUNCTION TO GIVE A BETTER VISUAL REPRESENTATION OF THE TREE
+        // [x][ ] USE BOX-DRAWING CHARACTERS TO REPRESENT THE TREE STRUCTURE
+        // [ ] USE CORRECT INDENTATION TO SHOW THE HIERARCHY OF NODES
+
         if (node != null) // If node is NOT null
         {
             Console.Write(indent); // Write the indent(ident==""), which is a string of nothing, so it's just a space
@@ -588,7 +713,7 @@ class Program // Program class, the entry point of the program
                 Console.Write("└─"); // print box-drawing character 
                 indent += "  "; // += 2 spaces 
             }
-            else // Otherwise print the following
+            else // Otherwise the node is 
             {
                 Console.Write("├─"); 
                 indent += "| "; // += 1 pipe and a space
@@ -610,6 +735,10 @@ class Program // Program class, the entry point of the program
         else // Otherwise, traverse the right subtree
             return FindNode(node.right, item);
     }
+
+    /// ------------------------------------------------------------- Set Data Functions  ------------------------------------------------------------- ///
+    
+        
 
 
     /// .... (and nowhere else) [x]
@@ -711,7 +840,7 @@ class Program // Program class, the entry point of the program
     static void InsertTree(Tree tree, Node item)
     {
         
-        tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the item to insert
+        tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the element to insert into the tree, starting from the root
     }
 
 
@@ -915,18 +1044,18 @@ class Program // Program class, the entry point of the program
     }
 
 
-    // --------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------SET FUNCTIONS-------------------------------------------------------------------------- //
 
 
-    ///!!! <remarks> !!!
-    /* SET FUNCTIONS
+    ///!!! <remarks> !!! 
+    /* 
 
-    MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION
-    BECAUSE I WAS CONFUSED REGARDING THE SCOPE OF resultTree.
-    NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE
-    AND THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION
+    MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION BECAUSE I WAS GETTING ERROS REGARDING THE SCOPE OF resultTree.
+    NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE && THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION,
+    THUS ARE PART OF THE FUNCTION ITSELF.
+
     */
-    ///!!! </remarks> !!!
+    ///!!! </remarks> !!! !!! 
 
 
     /// <summary>
@@ -1091,10 +1220,13 @@ class Program // Program class, the entry point of the program
     /// </summary>
     static void TreeTests() // some tests
     {
+        Console.WriteLine(" ----------------------------------------------------------------------------------------------------------- ");
+        Console.WriteLine(" --------------- Alfie Nurse's AVL tree Implementation and Set Data Type Functions in C# ------------------- ");
+        Console.WriteLine(" ----------------------------------------------------------------------------------------------------------- ");
+        Console.WriteLine(); // newline
 
-        Console.WriteLine("----------------------------");
         Console.WriteLine("Entering TreeTests() function");
-        Console.WriteLine("----------------------------");
+        Console.WriteLine("--------------------------------");
 
         Tree tree = new Tree(); // init tree for tests
         Random r = new Random(); // init random number generator
@@ -1124,7 +1256,7 @@ class Program // Program class, the entry point of the program
         PrintTree(tree.root); // print tree
         Console.WriteLine(); // newline
 
-        Console.WriteLine("--------------------");
+        Console.WriteLine("-------------");
 
         // print the size of the tree
         Console.WriteLine("Size of the tree: " + Size(tree)); // print size
@@ -1133,7 +1265,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else 
         Node maxNode = FindMax(tree.root); // find max value
         Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null"));
-        Console.WriteLine("--------------------");
+        Console.WriteLine("--------------------------------");
 
         // test SearchTree
         Console.WriteLine("Search for 10 random values");
@@ -1146,39 +1278,50 @@ class Program // Program class, the entry point of the program
         }
         Console.WriteLine(); // newline
         Console.WriteLine("---------- Visualising the tree while testing --------");
+        Console.WriteLine(); // newline
 
         // Print and visualise the initial tree
         Console.WriteLine("Initial tree:");
+        Console.WriteLine(); // newline
+        Console.WriteLine("Checking if tree is balanced after initial insertions...");  
+        Assert(CheckAVLBalancing(tree.root), "Initial tree is not balanced!");
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
 
         // Test insertion
+        Console.WriteLine(); // newline
         Console.WriteLine("Testing insertion..."); // testing...
+        Console.WriteLine("------------------"); // underline
         Console.WriteLine(); // newline
         TestInsertion(tree); // run test passing the tree
+        Console.WriteLine(); // newline
         Console.WriteLine("Insertion test passed!"); // print success
         Console.WriteLine("Tree after insertion:"); // header for visual tree
-        Console.WriteLine(); // newline
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
 
         // Test deletion
         Console.WriteLine("Testing deletion..."); // testing...
+        Console.WriteLine("------------------"); // underline
         TestDeletion(tree); // run test passing the tree
         Console.WriteLine(); // newline
         Console.WriteLine("Tree after deletion:"); // header for visual tree
         PrintTreeVisual(tree.root); // print visual tree
+        Console.WriteLine(); // newline
         Console.WriteLine("Deletion test passed!"); // print success
         Console.WriteLine(); // newline
 
-        // Test search
+        // Test search - I NEED TO IMPROVE THIS TEST [ ]
+
         Console.WriteLine("Testing search..."); // testing...
+        Console.WriteLine("------------------"); // underline
         TestSearch(); // run test for search
         Console.WriteLine("Search test passed!");
         Console.WriteLine(); // newline
 
         // Test AVL balancing
         Console.WriteLine("Testing AVL balancing...");
+        Console.WriteLine("------------------");
         TestAVLBalancing(); // run test for AVL balancing
         Console.WriteLine("AVL balancing test passed!!!");
         Console.WriteLine("Tree after AVL balancing:");
@@ -1187,16 +1330,18 @@ class Program // Program class, the entry point of the program
 
         /*
         I run all my tests and directly report them as passed;
-        as the assert function throws an exception if the condition is false;
-        e.g. the test fails. Prior to reporting success, I made sure that 
-        they would all pass!
+        as the assert function throws an exception if the condition
+        is false; e.g. the test fails. Prior to reporting success,
+        I checked all tests would pass successfully; I guess I could've
+        done this programmatically, however, I hope my manual check is
+        sufficient.
         */
 
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
 
         Console.WriteLine(); // newline
-        Console.WriteLine("Time-taken for AVL processing: " + elapsedTime.TotalMilliseconds + " milliseconds"); // print time taken in milliseconds
+        Console.WriteLine("Time-taken for all AVL Testing: " + elapsedTime.TotalMilliseconds + " ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
         Console.WriteLine(); // newline
@@ -1271,7 +1416,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
         Console.WriteLine(); // newline
-        Console.WriteLine("All tests passed successfully!"); // I first checked all tests would pass successfully; I guess I could've done this programmatically, however, I hope my manual check is sufficient.
+        Console.WriteLine("All tests passed successfully!"); // maunal confirmation of success
         Console.WriteLine(); // newline
     }
 

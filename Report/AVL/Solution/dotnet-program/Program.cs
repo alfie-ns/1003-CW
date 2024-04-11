@@ -79,6 +79,20 @@ If an AVL tree has 10 nodes, the formula for finding the average time-complexity
 which rounds down to 3 since steps are integers(cannot have .32 a step!); thus, on average, it'll take 3
 steps to find a particular node in this tree. This will always be the case in an AVL tree, but not for a
 BST that could become unbalanced.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Notebook
+--------
+
+- [ ] Give a smart explanation of how to calculate heights -> balancing-factor
+- [ ] Make a 'rebalance' function, which is called after every operations to check and then reblance accordingly
+- [ ] Show more testing for the Searches
+- [ ] More tests that tree is indeed BS
+- [ ] Comment explaining why I used 'ref' for the treesize when deleting(to make sure size is updated after deletion)
+- [ ] Make sure it all uses one testTree for every test, defined and function to create a generated random tree and then search for each node
+- [ ] Define a large test tree of random elements/nodes
+- [ ] verify tree is indeed balanced after every operation
  
 */
 
@@ -590,6 +604,10 @@ class Program // Program class, the entry point of the program
 
         */
 
+        // [ ] REVISE THIS FUNCTION TO GIVE A BETTER VISUAL REPRESENTATION OF THE TREE
+        // [x][ ] USE BOX-DRAWING CHARACTERS TO REPRESENT THE TREE STRUCTURE
+        // [ ] USE CORRECT INDENTATION TO SHOW THE HIERARCHY OF NODES
+
         if (node != null) // If node is NOT null
         {
             Console.Write(indent); // Write the indent(ident==""), which is a string of nothing, so it's just a space
@@ -725,7 +743,7 @@ class Program // Program class, the entry point of the program
     static void InsertTree(Tree tree, Node item)
     {
         
-        tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the item to insert
+        tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the element to insert into the tree, starting from the root
     }
 
 

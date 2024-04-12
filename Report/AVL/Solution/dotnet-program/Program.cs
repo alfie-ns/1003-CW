@@ -96,15 +96,13 @@ Notebook
 
 - [x] Make an inverted assert functionality to report sucessful tests???
 - [x] Give a smart explanation of how to calculate heights -> balancing-factor: ...
-- [ ] perhaps I need to insert random nodes into the test trees?
-- [ ] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
-- [ ] Show more testing for the Searches
-- [ ] More tests that tree is indeed Balanced after every operation
-- [ ] perhap I need need insert random nodes into the tree when testing insertion, instead of only inserting nodes that are bigger than all the other ones
-- [ ] Comment explaining why I used 'ref' for the treesize when deleting(to make sure size is updated after deletion)
-- [ ] Make sure it all uses one testTree for every test, defined and function to create a generated random tree and then search for each node
-- [ ] Define a large test tree of random elements/nodes
-- [ ] verify tree is indeed balanced after every operation
+- NO[X] perhaps I need to insert random nodes into the test trees?
+- [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
+- [X] Show more testing for the Searches
+- [X] More tests that tree is indeed Balanced after every operation
+- [X] Comment explaining why I used 'ref' for the treesize when deleting(to make sure size is updated after deletion)
+- [X] Define a large test tree
+- [X] verify tree is indeed balanced after every operation
  
 */
 

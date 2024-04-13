@@ -60,7 +60,7 @@ The balance-factor is calculated based on the heights of the subtrees, NOT the a
 in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
 number of nodes in each subtree.
  
-Also, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left 
+Again, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left 
 subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true 
 (balance-factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
 

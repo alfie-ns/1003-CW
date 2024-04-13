@@ -11,7 +11,6 @@ way to keep track of my work on both computers. It also provides a dopamine hit 
 to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
 and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now.
 
-
 https://github.com/alfie-ns/1003-CW
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -19,7 +18,7 @@ https://github.com/alfie-ns/1003-CW
 A 'base case' ensures recrusion TERMINATES when a leaf node is reached, otherwise, the function could run forever, 
 causing a stack overflow.
 
-The `ref` keyword is crucial for operations like insertions or deletions in this AVL tree. It allows modifications made
+The `ref` keyword is CRUCIALfor operations like insertions or deletions in this AVL tree. It allows modifications made
 to the tree's root node within the method to directly affect the original tree. This ensures any structural changes,
 such as rebalancing or updating node links, are preserved, keeping the tree balanced and accurate. Without `ref`, changes
 would only apply to a local copy, leaving the actual tree unchanged and potentially unbalanced.
@@ -30,7 +29,7 @@ AVL Tree Explanation:
 An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at MOST one.
  
 In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree 
-remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time complexity 
+remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time-complexity 
 of O(log n). 
  
 The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of 
@@ -47,10 +46,10 @@ involved. In this case, after insertion or deletion operations, the program asse
 starting from the newly inserted or deleted node's parent up to the root. If the balance-factor indicates a 
 left-heavy imbalance (greater than 1). Conversely, for a right-heavy imbalance (less than -1), it checks the
 right subtree's balance-factor to decide between a single left rotation or a right-left double rotation. This ensures the
-tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time complexity.
+tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time-complexity.
  
 By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
-as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time complexity of 
+as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time-complexity of 
 operations like search, insertion, and deletion to O(log n).
  
 The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
@@ -73,7 +72,7 @@ guranteed best-case time-complexity = AVL < BST
 - AVL Tree: O(log n)
 - BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree)
 
-Thus, AVL trees GUARANTEE a time complexity of O(log n) for search, insertion, and deletion operations,
+Thus, AVL trees GUARANTEE a time-complexity of O(log n) for search, insertion, and deletion operations,
 making them much more efficient than a BST in its worst-case scenario; thus, will search for data faster
 than an unbalanced BST.
 
@@ -96,15 +95,13 @@ Notebook
 
 - [x] Make an inverted assert functionality to report sucessful tests???
 - [x] Give a smart explanation of how to calculate heights -> balancing-factor: ...
-- [ ] perhaps I need to insert random nodes into the test trees?
-- [ ] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
-- [ ] Show more testing for the Searches
-- [ ] More tests that tree is indeed Balanced after every operation
-- [ ] perhap I need need insert random nodes into the tree when testing insertion, instead of only inserting nodes that are bigger than all the other ones
-- [ ] Comment explaining why I used 'ref' for the treesize when deleting(to make sure size is updated after deletion)
-- [ ] Make sure it all uses one testTree for every test, defined and function to create a generated random tree and then search for each node
-- [ ] Define a large test tree of random elements/nodes
-- [ ] verify tree is indeed balanced after every operation
+- NO[X] perhaps I need to insert random nodes into the test trees?
+- [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
+- [X] Show more testing for the Searches
+- [X] More tests that tree is indeed Balanced after every operation
+- [X] Comment explaining why I used 'ref' for the treesize when deleting(to make sure size is updated after deletion)
+- [X] Define a large test tree
+- [X] verify tree is indeed balanced after every operation
  
 */
 
@@ -1283,26 +1280,26 @@ class Program // Program class, the entry point of the program
         // Print and visualise the initial tree
         Console.WriteLine("Initial tree:");
         Console.WriteLine(); // newline
-        Console.WriteLine("Checking if tree is balanced after initial insertions...");  
-        Assert(CheckAVLBalancing(tree.root), "Initial tree is not balanced!");
+        Console.WriteLine("Checking if tree is indeed balanced initially..."); // check if tree is balanced
+        Assert(CheckAVLBalancing(tree.root), "Initial tree is not balanced!"); // check if tree is indeed balanced
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
 
         // Test insertion
         Console.WriteLine(); // newline
-        Console.WriteLine("Testing insertion..."); // testing...
-        Console.WriteLine("------------------"); // underline
+        Console.WriteLine("----------Testing insertion...----------"); // testing...
         Console.WriteLine(); // newline
         TestInsertion(tree); // run test passing the tree
         Console.WriteLine(); // newline
-        Console.WriteLine("Insertion test passed!"); // print success
         Console.WriteLine("Tree after insertion:"); // header for visual tree
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
+        Console.WriteLine("Insertion test passed!"); // print success
+        Console.WriteLine(); // newline
 
         // Test deletion
-        Console.WriteLine("Testing deletion..."); // testing...
-        Console.WriteLine("------------------"); // underline
+        Console.WriteLine("----------Testing deletion...----------"); // testing...
+        Console.WriteLine(); // newline
         TestDeletion(tree); // run test passing the tree
         Console.WriteLine(); // newline
         Console.WriteLine("Tree after deletion:"); // header for visual tree
@@ -1313,15 +1310,16 @@ class Program // Program class, the entry point of the program
 
         // Test search - I NEED TO IMPROVE THIS TEST [ ]
 
-        Console.WriteLine("Testing search..."); // testing...
-        Console.WriteLine("------------------"); // underline
+        Console.WriteLine("----------Testing search...----------"); // testing...
+        Console.WriteLine(); // newline
         TestSearch(); // run test for search
+        Console.WriteLine(); // newline
         Console.WriteLine("Search test passed!");
         Console.WriteLine(); // newline
 
         // Test AVL balancing
-        Console.WriteLine("Testing AVL balancing...");
-        Console.WriteLine("------------------");
+        Console.WriteLine("----------Testing AVL balancing...----------"); // testing...
+        Console.WriteLine(); // newline
         TestAVLBalancing(); // run test for AVL balancing
         Console.WriteLine("AVL balancing test passed!!!");
         Console.WriteLine("Tree after AVL balancing:");
@@ -1416,7 +1414,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
         Console.WriteLine(); // newline
-        Console.WriteLine("All tests passed successfully!"); // maunal confirmation of success
+        Console.WriteLine("All tests passed successfully!"); // manual confirmation of success
         Console.WriteLine(); // newline
     }
 

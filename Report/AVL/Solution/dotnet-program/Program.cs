@@ -1281,26 +1281,26 @@ class Program // Program class, the entry point of the program
         // Print and visualise the initial tree
         Console.WriteLine("Initial tree:");
         Console.WriteLine(); // newline
-        Console.WriteLine("Checking if tree is balanced after initial insertions...");  
-        Assert(CheckAVLBalancing(tree.root), "Initial tree is not balanced!");
+        Console.WriteLine("Checking if tree is indeed balanced initially..."); // check if tree is balanced
+        Assert(CheckAVLBalancing(tree.root), "Initial tree is not balanced!"); // check if tree is indeed balanced
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
 
         // Test insertion
         Console.WriteLine(); // newline
-        Console.WriteLine("Testing insertion..."); // testing...
-        Console.WriteLine("------------------"); // underline
+        Console.WriteLine("----------Testing insertion...----------"); // testing...
         Console.WriteLine(); // newline
         TestInsertion(tree); // run test passing the tree
         Console.WriteLine(); // newline
-        Console.WriteLine("Insertion test passed!"); // print success
         Console.WriteLine("Tree after insertion:"); // header for visual tree
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
+        Console.WriteLine("Insertion test passed!"); // print success
+        Console.WriteLine(); // newline
 
         // Test deletion
-        Console.WriteLine("Testing deletion..."); // testing...
-        Console.WriteLine("------------------"); // underline
+        Console.WriteLine("----------Testing deletion...----------"); // testing...
+        Console.WriteLine(); // newline
         TestDeletion(tree); // run test passing the tree
         Console.WriteLine(); // newline
         Console.WriteLine("Tree after deletion:"); // header for visual tree
@@ -1311,15 +1311,16 @@ class Program // Program class, the entry point of the program
 
         // Test search - I NEED TO IMPROVE THIS TEST [ ]
 
-        Console.WriteLine("Testing search..."); // testing...
-        Console.WriteLine("------------------"); // underline
+        Console.WriteLine("----------Testing search...----------"); // testing...
+        Console.WriteLine(); // newline
         TestSearch(); // run test for search
+        Console.WriteLine(); // newline
         Console.WriteLine("Search test passed!");
         Console.WriteLine(); // newline
 
         // Test AVL balancing
-        Console.WriteLine("Testing AVL balancing...");
-        Console.WriteLine("------------------");
+        Console.WriteLine("----------Testing AVL balancing...----------"); // testing...
+        Console.WriteLine(); // newline
         TestAVLBalancing(); // run test for AVL balancing
         Console.WriteLine("AVL balancing test passed!!!");
         Console.WriteLine("Tree after AVL balancing:");

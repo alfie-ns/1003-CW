@@ -9,7 +9,7 @@
 # Visual Studio Code
 .vscode/
 
-# DotNet - the trailing slash is sufficient to recursively ignore all files in the directory, these are directories, not files 
+# DotNet - Just use a trailing slash to specify directories; this recursively ignores all files within these directories 
 bin/
 obj/
 

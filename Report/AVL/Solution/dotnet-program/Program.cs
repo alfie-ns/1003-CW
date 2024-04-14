@@ -1130,6 +1130,11 @@ class Program // Program class, the entry point of the program
     /// <returns>The values of the set difference tree1/tree2 in a new Tree.</returns>
     static Tree Difference(Tree tree1, Tree tree2)
     {
+        /*
+            This function computes the set difference
+            of the values in the two trees (tree1 - tree2)
+            and returns a new tree with the resulting values.
+        */
 
         Tree resultTree = new Tree(); // Create an empty result tree
 
@@ -1163,6 +1168,13 @@ class Program // Program class, the entry point of the program
     /// <returns>The values of the symmetric difference tree1/tree2 in a new Tree.</returns>
     static Tree SymmetricDifference(Node tree1, Tree tree2)
     {
+
+        /*
+            This function computes the symmetric difference
+            of the values in the two trees (tree1 XOR tree2)
+            and returns a new tree with the resulting values.
+        */
+
         Tree resultTree = new Tree(); // Create an empty result tree
 
         void SymDiffHelper(Node node, Tree currentTree, Tree otherTree)

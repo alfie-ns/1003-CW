@@ -68,18 +68,19 @@ The height of a node is the length of the longest path from that node to a leaf 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-guranteed best-case time-complexity = AVL < BST
+Guaranteed best-case time-complexity = AVL < BST:
 - AVL Tree: O(log n)
-- BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree)
+- BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree).
 
-Thus, AVL trees GUARANTEE a time-complexity of O(log n) for search, insertion, and deletion operations,
-making them much more efficient than a BST in its worst-case scenario; thus, will search for data faster
-than an unbalanced BST.
+Thus, AVL trees guarantee a time-complexity of O(log n) for search, insertion,
+and deletion operations, making them much more efficient than a BST in its
+worst-case scenario; thus, they will search for data faster than an unbalanced BST.
 
-If an AVL tree has 10 nodes, the formula for finding the average time-complexity is log2(10)=3.32,
-which rounds down to 3 since steps are integers(cannot have .32 a step!); thus, on average, it'll take 3
-steps to find a particular node in this tree. This will always be the case in an AVL tree, but not for a
-BST that could become unbalanced.
+If an AVL tree has 10 nodes, the formula for finding the average time-complexity is
+log2(10) = 3.32, which rounds down to 3, since steps are integers (one cannot have
+0.32 of a step!); thus, on average, it will take 3 steps to find a particular node
+in this tree. This will always be the case in an AVL tree, but not for a BST that
+could become unbalanced.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -90,7 +91,6 @@ Notebook
     ARE BALANCED AS THE HEIGHTS DON'T DIFFER BY MORE THAN 1, AND THE TREE IS SORTED, SO IT IS
     BALANCED, JUST NOT PERFECTLY BALANCED, WHICH IS FINE, AS LONG AS IT'S BALANCED.
     I THOUGHT IT WAS WRONG BECAUSE THEY WEREN'T PERFECTLY BALANCED, 
-
 
 
 - [X] Make an inverted assert functionality to report sucessful tests???
@@ -1346,6 +1346,7 @@ class Program // Program class, the entry point of the program
 
         Console.WriteLine("Entering SetTests() function");
         Console.WriteLine("----------------------------");
+        Console.WriteLine(); // newline
 
         // Create sample/test trees for set operations
         Tree tree1 = new Tree();

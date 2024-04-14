@@ -86,15 +86,15 @@ BST that could become unbalanced.
 Notebook
 --------
 [x] THE VISUAL TREE SOMETIMES LOOKS UNBALANCED, HOWEVER THE ASSERTION TESTS SHOW
-    THAT THE TREE IS INDEED BALANCED??? SORTED -> EVEN THO THEY'RE NOT THE PERFECT BALANCE, THEY STILL
+    THAT THE TREE IS INDEED BALANCED && SORTED -> EVEN THO THEY'RE NOT THE PERFECT BALANCE, THEY STILL
     ARE BALANCED AS THE HEIGHTS DON'T DIFFER BY MORE THAN 1, AND THE TREE IS SORTED, SO IT IS
-    BALANCED I THINK, JUST NOT PERFECTLY BALANCED, WHICH IS FINE, AS LONG AS IT'S BALANCED.
-    I THOUGHT IT WAS WRONG BECAUSE THEY WEREN'T PERFECTLY BALANCED, BUT THEY ARE BALANCED I THINK.
+    BALANCED, JUST NOT PERFECTLY BALANCED, WHICH IS FINE, AS LONG AS IT'S BALANCED.
+    I THOUGHT IT WAS WRONG BECAUSE THEY WEREN'T PERFECTLY BALANCED, 
 
 
 
-- [x] Make an inverted assert functionality to report sucessful tests???
-- [x] Give a smart explanation of how to calculate heights -> balancing-factor: ...
+- [X] Make an inverted assert functionality to report sucessful tests???
+- [X] Give a smart explanation of how to calculate heights -> balancing-factor:
 - NO[X] perhaps I need to insert random nodes into the test trees?
 - [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
 - [X] Show more testing for the Searches
@@ -108,8 +108,8 @@ Notebook
 /// <summary>
 /// Implement a binary search tree 
 /// 
-/// [x][ ] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
-/// [x] 2) If you want to add methods do this in the space indicated at the top of the Program.
+/// [x][x] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
+/// [x][x] 2) If you want to add methods do this in the space indicated at the top of the Program.
 /// [x] 3) You can add fields to the structures Tree, Node, DataEntry, if you find this necessary or useful.
 /// [x] 4) Some of the method stubs have return statements that you may need to change (the code wouldn't run without return statements).
 /// 
@@ -179,10 +179,8 @@ class Program // Program class, the entry point of the program
         // Make current node the left child of the new root, completing the rotation.
         newRoot.right = node;
 
-        /* 
-        Consequently, this updates the heights of the nodes involved in the rotation;
-        the height of a node is calculated as 1 plus the maximum height of its left and right subtrees.
-        */
+        // Consequently, this updates the heights of the nodes involved in the rotation;
+        // the height of a node is calculated as 1 plus the maximum height of its left and right subtrees.
 
         // Then, update the respective heights of the current node and the new root node.
 
@@ -409,12 +407,8 @@ class Program // Program class, the entry point of the program
 
     static Node FindParentHelper(Node current, Node node)
     {
-        if (current == null)
-        {
-            // Base case: If the current node is null, return null
-            return null;
-        }
-
+        if (current == null) return null; // Base case: If the current node is null, return null
+        
         // Check if the current node is the parent of the given node
         if (current.left == node || current.right == node) // if current node is left or right child of node
         {
@@ -460,11 +454,6 @@ class Program // Program class, the entry point of the program
 
 
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
-    
-    // First function to test balance of a tree
-    
-
-    
 
     static void TestInsertion(Tree testTree)
     {
@@ -472,7 +461,7 @@ class Program // Program class, the entry point of the program
             This test function shows that the tree is
             INSERTING and rebalanceing itself correctly.
             I need to pick elements that definitely WON'T
-            be trandomly generated, in TestTrees() so a
+            be trandomly generated, in TestTrees() so the
             duplicate WON'T get discarded when I randomly
             insert it prior to when I can delete it.
         */
@@ -698,28 +687,29 @@ class Program // Program class, the entry point of the program
 
         */
 
-        // [ ] REVISE THIS FUNCTION TO GIVE A BETTER VISUAL REPRESENTATION OF THE TREE
-        // [x][ ] USE BOX-DRAWING CHARACTERS TO REPRESENT THE TREE STRUCTURE
-        // [ ] USE CORRECT INDENTATION TO SHOW THE HIERARCHY OF NODES
-
         if (node != null) // If node is NOT null
         {
-            Console.Write(indent); // Write the indent(ident==""), which is a string of nothing, so it's just a space
-            if (last)
+            Console.Write(indent); // Write the indent. Initially, 'indent' is an empty string, effectively adding no extra space before the root node.
+
+            if (last) // if it's the last child in the sibling group
             {
-                Console.Write("└─"); // print box-drawing character 
-                indent += "  "; // += 2 spaces 
+                Console.Write("└─"); // print box-drawing indicating it's the last child 
+                indent += "  "; // += 2 spaces to the indent for alignment since no vertical line is needed below this node 
             }
-            else // Otherwise the node is 
+            else // Otherwise the node is NOT the last child
             {
-                Console.Write("├─"); 
-                indent += "| "; // += 1 pipe and a space
+                Console.Write("├─"); // print box-drawing character indicating it has siblings below it
+                indent += "| "; // Add a vertical line followed by a space to the indent for correct visual alignment of its children
+
             }
 
             Console.WriteLine(node.data.data); // Write the node's data to the console
 
             PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==false this time round
             PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last==true this time round
+            
+            // the recursive search for the left child is set to false because the left child won't be the last child in the BST.
+            
         }
     }
 
@@ -732,11 +722,6 @@ class Program // Program class, the entry point of the program
         else // Otherwise, traverse the right subtree
             return FindNode(node.right, item);
     }
-
-    /// ------------------------------------------------------------- Set Data Functions  ------------------------------------------------------------- ///
-    
-        
-
 
     /// .... (and nowhere else) [x]
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
@@ -837,7 +822,7 @@ class Program // Program class, the entry point of the program
     static void InsertTree(Tree tree, Node item)
     {
         
-        tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the element to insert into the tree, starting from the root
+        tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the element to insert into the tree
     }
 
 

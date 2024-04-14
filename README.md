@@ -3,7 +3,7 @@
 ## Report
 
 - [X] **Create a VS C# command line project called BinarySearchTree.** The implementation **must use the Program.cs file** available on the DLE in the Assessment section. This file has been modified from the implementation provided for the worksheet on Binary Search Trees.
-- [X] Test final codebase compiles on VS !!!
+- [X] Test codebase compiles on VS !!!
 
 ### BST/AVL Functions 58 Marks [X]
 
@@ -52,8 +52,3 @@
 - [X] Print Visual AVL Tree
 
 'Do not use object-oriented programming other than method-free classes for the data containers. Do no	t use the C# Collection library. Keep your code simple and clear. The module’s DLE page contains an introduction into the C-core of C#. There are numerous examples in the lectures and labs showing what you can use.'
-
-### Extra Context [ ]
-
-- This program incorporates box-drawing characters to build the visual AVL tree, to learn this, the following wiki link is a good place to start !:  https://en.wikipedia.org/wiki/Box-drawing_character
--

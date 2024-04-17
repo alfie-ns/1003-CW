@@ -1292,7 +1292,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Tree after insertion:"); // header for visual tree
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
-        Console.WriteLine("Insertion test passed!"); // print success
+        Console.WriteLine("Insertion test PASSED!"); // print success
         Console.WriteLine(); // newline
 
         // Test deletion
@@ -1303,7 +1303,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Tree after deletion:"); // header for visual tree
         PrintTreeVisual(tree.root); // print visual tree
         Console.WriteLine(); // newline
-        Console.WriteLine("Deletion test passed!"); // print success
+        Console.WriteLine("Deletion test PASSED!"); // print success
         Console.WriteLine(); // newline
 
         // Test search - I NEED TO IMPROVE THIS TEST [ ]
@@ -1312,20 +1312,20 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         TestSearch(); // run test for search
         Console.WriteLine(); // newline
-        Console.WriteLine("Search test passed!");
+        Console.WriteLine("Search test PASSED!");
         Console.WriteLine(); // newline
 
         // Test AVL balancing
         Console.WriteLine("----------Testing AVL balancing...----------"); // testing...
         Console.WriteLine(); // newline
         TestAVLBalancing(); // run test for AVL balancing
-        Console.WriteLine("AVL balancing test passed!!!");
+        Console.WriteLine("AVL balancing test PASSED!!!");
         Console.WriteLine("Tree after AVL balancing:");
         PrintTreeVisual(tree.root);
         Console.WriteLine(); // newline
 
         /*
-        I run all my tests and directly report them as passed;
+        I run all my tests and directly report them as PASSED;
         as the assert function throws an exception if the condition
         is false; e.g. the test fails. Prior to reporting success,
         I checked all tests would pass successfully; I guess I could've
@@ -1413,7 +1413,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
         Console.WriteLine(); // newline
-        Console.WriteLine("All tests passed successfully!"); // manual confirmation of success
+        Console.WriteLine("All tests PASSED successfully!"); // manual confirmation of success
         Console.WriteLine(); // newline
     }
 

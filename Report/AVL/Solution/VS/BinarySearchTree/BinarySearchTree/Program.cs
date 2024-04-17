@@ -18,7 +18,7 @@ https://github.com/alfie-ns/1003-CW
 A 'base case' ensures recursion TERMINATES when a leaf node is reached, otherwise, the function could run forever, 
 causing a stack overflow.
 
-The `ref` keyword is CRUCIALfor operations like insertions or deletions in this AVL tree. It allows modifications made
+The `ref` keyword is CRUCIAL for operations like insertions or deletions in this AVL tree. It allows modifications made
 to the tree's root node within the method to directly affect the original tree. This ensures any structural changes,
 such as rebalancing or updating node links, are preserved, keeping the tree balanced and accurate. Without `ref`, changes
 would only apply to a local copy, leaving the actual tree unchanged and potentially unbalanced.

@@ -49,7 +49,7 @@ right subtree's balance-factor to decide between a single left rotation or a rig
 tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time-complexity.
  
 By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
-as possible. This balance minimizes the maximum depth of the tree, which in turn reduces the worst-case time-complexity of 
+as possible. This balance minimises the maximum depth of the tree, which in turn reduces the worst-case time-complexity of 
 operations like search, insertion, and deletion to O(log n).
  
 The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
@@ -485,6 +485,7 @@ class Program // Program class, the entry point of the program
             Console.WriteLine("Tree size after insertion: " + Size(testTree)); // print the size AFTER insertion
             PrintTreeVisual(testTree.root); // print the tree visually
         }
+        Console.WriteLine(); // newline
         
         Console.WriteLine("Final tree size: " + Size(testTree)); // print the size AFTER ALL insertions
 
@@ -1271,7 +1272,7 @@ class Program // Program class, the entry point of the program
             Console.WriteLine(data.data + " was" + (!SearchTree(tree.root, data) ? " NOT" : "") + " found");
         }
         Console.WriteLine(); // newline
-        Console.WriteLine("---------- Visualising the tree while testing --------");
+        Console.WriteLine("---------- Alfie Nurse - Visualising the tree while testing --------");
         Console.WriteLine(); // newline
 
         // Print and visualise the initial tree

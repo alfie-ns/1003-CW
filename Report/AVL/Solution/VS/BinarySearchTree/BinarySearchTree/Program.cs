@@ -15,7 +15,7 @@ https://github.com/alfie-ns/1003-CW
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-A 'base case' ensures recursion. TERMINATES when a leaf node is reached, otherwise, the function could run forever, 
+A 'base case' ensures recursion TERMINATES when a leaf node is reached, otherwise, the function could run forever, 
 causing a stack overflow.
 
 The `ref` keyword is CRUCIALfor operations like insertions or deletions in this AVL tree. It allows modifications made

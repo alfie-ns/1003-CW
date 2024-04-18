@@ -1,4 +1,4 @@
-# This .gitignore file ignores the files that don't need to be tracked by git; '*' means don't track files also beneath the directory the .gitignore file is in
+# This .gitignore file ignores the files that don't need to be tracked by git; '*' means don't track those files also beneath the directory the .gitignore file is in
 
 # Windows
 *.desktop.ini

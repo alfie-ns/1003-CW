@@ -593,7 +593,6 @@ class Program // Program class, the entry point of the program
 
         int index = 0; // Initialise the index to 0
         InOrderTraversal(tree.root, (int value) => { sortedArray[index++] = value; });
-        // Lambda function = 
         /*
             The lambda function stores the node's data in the array during in-order traversal.
             The way this lambda function works is:

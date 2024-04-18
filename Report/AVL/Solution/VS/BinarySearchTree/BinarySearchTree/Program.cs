@@ -1319,7 +1319,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("----------Testing AVL balancing...----------"); // testing...
         Console.WriteLine(); // newline
         TestAVLBalancing(); // run test for AVL balancing
-        Console.WriteLine("AVL balancing test PASSED!!!");
+        Console.WriteLine("AVL balancing test PASSED!");
         Console.WriteLine("Tree after AVL balancing:");
         PrintTreeVisual(tree.root);
         Console.WriteLine(); // newline

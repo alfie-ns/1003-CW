@@ -1271,7 +1271,7 @@ class Program // Program class, the entry point of the program
             Console.WriteLine(data.data + " was" + (!SearchTree(tree.root, data) ? " NOT" : "") + " found");
         }
         Console.WriteLine(); // newline
-        Console.WriteLine("---------- Alfie Nurse - Visualising the tree while testing --------");
+        Console.WriteLine("---------- Alfie Nurse: Visualising the tree while testing --------");
         Console.WriteLine(); // newline
 
         // Print and visualise the initial tree

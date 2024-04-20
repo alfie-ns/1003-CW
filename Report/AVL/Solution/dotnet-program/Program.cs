@@ -18,9 +18,10 @@ https://github.com/alfie-ns/1003-CW
 A 'base case' ensures recursion TERMINATES when a leaf node is reached, otherwise, the function could run forever, 
 causing a stack overflow.
 
-The 'ref' keyword is used for the 'treeSize' parameter to ensure that the tree's size is correctly updated after a node is deleted.
-By passing 'treeSize' by reference, any modifications made to it inside the 'DeleteNode' method will directly affect the original 'tree.size' value.
+The 'ref' keyword is used for the 'treeSize' parameter in the 'DeleteNode' method to ensure that the tree's size is correctly updated after a node is deleted.
+By passing 'treeSize' by reference, any modifications made to it inside the method will directly affect the original 'tree.size' value in the calling code.
 This ensures that the tree's size is accurately maintained and synchronised with the actual number of nodes in the tree after the deletion operation.
+Without using 'ref', the changes made to 'treeSize' inside the 'DeleteNode' method would not be visible to the calling code, and the tree's size would remain unchanged.
 
 AVL Tree Explanation:
 ---------------------

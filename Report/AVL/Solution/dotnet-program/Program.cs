@@ -466,7 +466,7 @@ class Program // Program class, the entry point of the program
             insert it prior to when I can delete it.
         */
 
-        int[] elements = { 11, 12, 13 }; // init the particular elements into the tree that I want to delete
+        int[] elements = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 }; // init the particular elements into the tree that I want to delete
         //int[] randomElements = new int[10]; // init an empty array to store random elements
 
         int initialSize = Size(testTree); // get the initial size of the testTree
@@ -508,20 +508,20 @@ class Program // Program class, the entry point of the program
         int initialSize = Size(testTree); // get the initial size of the testTree from the randomly generated elements outside of the function
         Console.WriteLine("Initial tree size: " + initialSize);
 
-        Console.WriteLine("Deleting 11...");
-        DeleteItem(testTree, new Node { data = new DataEntry { data = 11 } }); // delete 11 from the tree
+        Console.WriteLine("Deleting 10...");
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 10 } }); // delete 11 from the tree
         Console.WriteLine("Tree size after deleting 11: " + Size(testTree)); // print the size AFTER deletion
         PrintTreeVisual(testTree.root); // print the tree visually
         Console.WriteLine(); // newline
 
-        Console.WriteLine("Deleting 12...");
-        DeleteItem(testTree, new Node { data = new DataEntry { data = 12 } }); // delete 12 from the tree
+        Console.WriteLine("Deleting 50...");
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 50 } }); // delete 12 from the tree
         Console.WriteLine("Tree size after deleting 12: " + Size(testTree)); // print the size AFTER deletion
         PrintTreeVisual(testTree.root); // print the tree visually
         Console.WriteLine(); // newline
 
-        Console.WriteLine("Deleting 13...");
-        DeleteItem(testTree, new Node { data = new DataEntry { data = 13 } }); // delete 13 from the tree
+        Console.WriteLine("Deleting 90...");
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 90 } }); // delete 13 from the tree
         Console.WriteLine("Tree size after deleting 13: " + Size(testTree)); // print the size AFTER deletion
         PrintTreeVisual(testTree.root); // print the tree visually
         Console.WriteLine(); // newline

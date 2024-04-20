@@ -235,7 +235,7 @@ class Program // Program class, the entry point of the program
         if (node == null) return 0; // Base case: If the node is null, return 0
         int leftHeight = GetHeight(node.left); // Recursively calculate the height of the left subtree
         int rightHeight = GetHeight(node.right); // Recursively calculate the height of the right subtree
-        return 1 + Math.Max(leftHeight, rightHeight); //you get the max of either left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
+        return 1 + Math.Max(leftHeight, rightHeight); //you get the max of EITHER left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
     }
 
     static int GetBalanceFactor(Node node)
@@ -268,13 +268,14 @@ class Program // Program class, the entry point of the program
         function is handled correctly.
         */
 
-        int leftHeight = GetHeight(node.left); // Get the height of the left subtree
-        int rightHeight = GetHeight(node.right); // Get the height of the right subtree
+        // Traverse the subtrees recursively and check the height difference
+        int leftHeight = GetHeight(node.left); 
+        int rightHeight = GetHeight(node.right); 
 
         if (Math.Abs(leftHeight - rightHeight) > 1) return false; // If the absolute difference between the heights of the left and right subtrees is greater than 1, thus the tree is unbalanced, return false
 
-        bool isLeftBalanced = IsBalanced(node.left); // Recursively check if the left subtree is balanced
-        bool isRightBalanced = IsBalanced(node.right); // Recursively check if the right subtree is balanced
+        bool isLeftBalanced = IsBalanced(node.left); // Recursively check if the left subtree isBalanced
+        bool isRightBalanced = IsBalanced(node.right); // Recursively check if the right subtree is isBalanced
 
         return isLeftBalanced && isRightBalanced; // Return true if both subtrees are balanced, false if EITHER subtree is unbalanced
     }
@@ -432,7 +433,7 @@ class Program // Program class, the entry point of the program
             return parentInRight;
         }
 
-        // If the parent is not found in either subtree, return null
+        // If the parent is not found in EITHER subtree, return null
         return null;
     }
 
@@ -885,7 +886,7 @@ class Program // Program class, the entry point of the program
 
         // this is in-order traversal, to search the left subtree first
 
-        // If the item is not found in either subtree, it is not in the tree at all
+        // If the item is not found in EITHER subtree, it is not in the tree at all
         return false;
     }
 
@@ -949,7 +950,7 @@ class Program // Program class, the entry point of the program
         int leftDepth = Depth(tree.left);
         int rightDepth = Depth(tree.right);
 
-        // Return the max depth, either left or right subtree, plus 1 for the current node
+        // Return the max depth, EITHER left or right subtree, plus 1 for the current node
         int depth = Math.Max(leftDepth, rightDepth) + 1;
 
         return depth;

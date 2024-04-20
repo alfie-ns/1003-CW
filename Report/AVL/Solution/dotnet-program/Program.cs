@@ -1,5 +1,5 @@
 
-using System; // Don't use anything else than System and only use C-core functionality; read the specs! [x]
+using System; // Don't use anything else than System and only use C-core functionality; read the specs! [X]
 
 // DON'T CHANGE
 
@@ -25,6 +25,7 @@ Without using 'ref', the changes made to 'treeSize' inside the 'DeleteNode' meth
 
 AVL Tree Explanation:
 ---------------------
+
 
 An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at MOST one.
  

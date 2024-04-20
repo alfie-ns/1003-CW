@@ -20,7 +20,7 @@ causing a stack overflow.
 
 The 'ref' keyword is used for the 'treeSize' parameter to ensure that the tree's size is correctly updated after a node is deleted.
 By passing 'treeSize' by reference, any modifications made to it inside the 'DeleteNode' method will directly affect the original 'tree.size' value.
-This ensures that the tree's size is accurately maintained and synchronized with the actual number of nodes in the tree after the deletion operation.
+This ensures that the tree's size is accurately maintained and synchronised with the actual number of nodes in the tree after the deletion operation.
 
 AVL Tree Explanation:
 ---------------------

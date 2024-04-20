@@ -548,32 +548,39 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Searching for 5...");
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
         Console.WriteLine("FOUND"); // print FOUND
+        Console.WriteLine(); // newline
         
         Console.WriteLine("Searching for 3");
         Assert(SearchTree(tree.root, new DataEntry { data = 3 }), "Search test: Existing element not found"); // check if existing element is found
         Console.WriteLine("FOUND"); // print FOUND
+        Console.WriteLine(); // newline
 
         Console.WriteLine("Searching for 23...");
         Assert(SearchTree(tree.root, new DataEntry { data = 23 }), "Search test: Existing element not found"); // check if existing element is found
         Console.WriteLine("FOUND"); // print FOUND
+        Console.WriteLine(); // newline
 
         Console.WriteLine("Searching for 6...");
         Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
         Console.WriteLine("FOUND"); // print FOUND
+        Console.WriteLine(); // newline
 
         Console.WriteLine("Searching for 1...");
         Assert(SearchTree(tree.root, new DataEntry { data = 1 }), "Search test: Existing element not found"); // check if existing element is found
         Console.WriteLine("FOUND"); // print FOUND
+        Console.WriteLine(); // newline
 
         // CHECK IT DOESN'T FIND NON-EXISTING ELEMENTS
 
-        Console.WriteLine("Searching for 100...");
+        Console.WriteLine("Searching for 101...");
         Assert(!SearchTree(tree.root, new DataEntry { data = 101 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
         Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND  
+        Console.WriteLine(); // newline
 
-        Console.WriteLine("Searching for 0...");
+        Console.WriteLine("Searching for -1...");
         Assert(!SearchTree(tree.root, new DataEntry { data = -1 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
         Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND
+        Console.WriteLine(); // newline
         
 
         DateTime endTime = DateTime.Now; // end time
@@ -641,7 +648,7 @@ class Program // Program class, the entry point of the program
     }
 
     static void Assert(bool condition, string message)
-    {
+    { // custom assert function: if boolean passed to function is NOT true, throw an exception with the specified message
         if (!condition)
             throw new Exception("Assertion failed: " + message); // print exception
         

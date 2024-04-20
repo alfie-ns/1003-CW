@@ -1305,7 +1305,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Deletion test PASSED!"); // print success
         Console.WriteLine(); // newline
 
-        // Test search - I NEED TO IMPROVE THIS TEST [ ]
+        // Test search - I NEED TO IMPROVE THIS TEST [X]
 
         Console.WriteLine("----------Testing search...----------"); // testing...
         Console.WriteLine(); // newline

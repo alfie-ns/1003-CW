@@ -568,11 +568,11 @@ class Program // Program class, the entry point of the program
         // CHECK IT DOESN'T FIND NON-EXISTING ELEMENTS
 
         Console.WriteLine("Searching for 100...");
-        Assert(!SearchTree(tree.root, new DataEntry { data = 100 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Assert(!SearchTree(tree.root, new DataEntry { data = 101 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
         Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND  
 
         Console.WriteLine("Searching for 0...");
-        Assert(!SearchTree(tree.root, new DataEntry { data = 0 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Assert(!SearchTree(tree.root, new DataEntry { data = -1 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
         Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND
         
 

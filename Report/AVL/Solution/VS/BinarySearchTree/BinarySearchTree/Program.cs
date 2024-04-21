@@ -101,7 +101,9 @@ Notebook
 
 [MESSAGE] I assume now that it MUST be balanced regardless of how it looks due to the asert functions verifying
           balance. The IsBalanced function starts at the root of the tree and recursively checks each subtree to
-          ensure balance across the entire tree. I call IsBalanced consistently after each operation to verify
+          ensure balance across the entire tree. I call IsBalanced consistently after each operation to verify, in
+          terms of efficiency, it would be better NOT to check this much, but for the sake of the assignment, I
+          done the most checks possible to ensure it's indeed balanced.
 
 
 - [X] Make an inverted assert functionality to report sucessful tests???

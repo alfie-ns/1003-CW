@@ -319,7 +319,7 @@ class Program // Program class, the entry point of the program
         if (node == null) return 0; // Base case: If the node is null, immediately return 0(balance-factor of an empty tree is 0)
 
         return GetHeight(node.left) - GetHeight(node.right);
-        // The balance-factor is calculated by subtracting the height of the right subtree from the height of the left subtree
+        // The balance-factor = subtracting the height of the right subtree from the height of the left subtree
     }
 
     // Second function to test balance of a tree

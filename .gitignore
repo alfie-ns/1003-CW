@@ -1,17 +1,23 @@
-# This .gitignore file ignores the files that don't need to be tracked by git; '*' means don't track those files also beneath the directory the .gitignore file is in
+# A .gitignore file ignores the files that don't need to be tracked by git
 
-# Windows
+# Ignore all chosen files within every directory by using '*' wildcard before the file name
+# ------------------------------------------------------------------------------------------
+
+# Windows files
 *.desktop.ini
 
-# Visual Studio
+# Mac OS X files
+*.DS_Store
+
+# Use a trailing slash to specify directories; this recursively ignore all files within these directories 
+# ------------------------------------------------------------------------------------------------------
+
+# Visual Studio directories
 .vs/
 
-# Visual Studio Code
+# Visual Studio Code directories
 .vscode/
 
-# DotNet - Just use a trailing slash to specify directories; this recursively ignores all files within these directories 
+# .NET project output directories
 bin/
 obj/
-
-# Mac OS X
-*.DS_Store

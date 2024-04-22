@@ -493,6 +493,7 @@ class Program // Program class, the entry point of the program
 
         int initialSize = Size(testTree); // get the initial size of the testTree
         Console.WriteLine("Initial tree size: " + initialSize); // print the size BEFORE insertion
+        Console.WriteLine(); // newline
 
         int uniqueElementsInserted = 0; // init a counter for unique elements inserted
 
@@ -535,6 +536,7 @@ class Program // Program class, the entry point of the program
 
         int initialSize = Size(testTree); // get the initial size of the testTree from the randomly generated elements outside of the function
         Console.WriteLine("Initial tree size: " + initialSize);
+        Console.WriteLine(); // newline
 
         Console.WriteLine("Deleting 10...");
         DeleteItem(testTree, new Node { data = new DataEntry { data = 10 } }); // delete 11 from the tree
@@ -1360,18 +1362,18 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         tree.root = Rebalance(tree.root); // rebalance the tree
         TestAVLBalancing(); // run test for AVL balancing
-        Console.WriteLine("AVL balancing test PASSED!");
         Console.WriteLine("Tree after AVL balancing:");
         PrintTreeVisual(tree.root);
         Console.WriteLine(); // newline
+        Console.WriteLine("AVL balancing test PASSED!");
 
         /*
         I run all my tests and directly report them as PASSED;
         as the assert function throws an exception if the condition
         is false; e.g. the test fails. Prior to reporting success,
-        I checked all tests would pass successfully; I guess I could've
-        done this programmatically, however, I hope my manual check is
-        sufficient.
+        I checked all Assertion tests would pass successfully; I guess
+        I could've done this programmatically, however, I hope my manual
+        check is sufficient.
         */
 
         DateTime endTime = DateTime.Now; // end time

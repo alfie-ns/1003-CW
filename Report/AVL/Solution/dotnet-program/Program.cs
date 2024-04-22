@@ -105,6 +105,10 @@ Notebook
           terms of efficiency, it would be better NOT to check this much, but for the sake of the assignment, I
           done the most checks possible to ensure it's indeed balanced.
 
+[MESSAGE] I also have made a testTree, this tree is used for MY testing, so the original tree doesn't get 
+          altered in these test processes, testTree also serves an argument to pass to the test functions 
+         
+
 
 - [X] Make an inverted assert functionality to report sucessful tests???
 - [X] Give a smart explanation of how to calculate heights -> balancing-factor:
@@ -179,6 +183,13 @@ class Program // Program class, the entry point of the program
     
     static Node Rebalance(Node node)
     {
+
+        /*
+            This function serves as a single function which'll first get the balance factor
+            from GetBalanceFactor function then handle all rotations necessary to rebalance 
+            the AVL tree for optimal time-complexity. 
+        */
+
         // 1. Calculate the balance factor of the current node.
         int balanceFactor = GetBalanceFactor(node);
 
@@ -477,7 +488,7 @@ class Program // Program class, the entry point of the program
             insert it prior to when I can delete it.
         */
 
-        int[] elements = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 }; // init the particular elements into the tree that I want to delete, that definetely won't be randomly generated thus discarded
+        int[] elements = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 }; // init the particular elements into the tree that I want to delete, that definetely won't be randomly generated thus discarded before I can insert it
         //int[] randomElements = new int[10]; // init an empty array to store random elements
 
         int initialSize = Size(testTree); // get the initial size of the testTree
@@ -485,6 +496,7 @@ class Program // Program class, the entry point of the program
 
         int uniqueElementsInserted = 0; // init a counter for unique elements inserted
 
+        DateTime startTime = DateTime.Now; // start time
         foreach (int element in elements) // for EVERY element in elements array
         {
             if (!SearchTree(testTree.root, new DataEntry { data = element })) // if the element is NOT already in the tree
@@ -500,6 +512,10 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         
         Console.WriteLine("Final tree size: " + Size(testTree)); // print the size AFTER ALL insertions
+
+        DateTime endTime = DateTime.Now; // end time
+        TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL insertions
+        Console.WriteLine("Time-taken for 10 insertions: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
 
         Assert(Size(testTree) == initialSize + uniqueElementsInserted, "Insertion test: Tree size is incorrect"); // check if tree size is correct
         Assert(IsBalanced(testTree.root), "Insertion test: Tree is not balanced"); // check if tree is balanced, start from the root
@@ -635,6 +651,7 @@ class Program // Program class, the entry point of the program
             This lambda function, used in conjunction with the in-order traversal, allows for efficient checking of whether the tree is sorted
             without modifying the original tree structure.
         */
+    
 
         for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array
         {

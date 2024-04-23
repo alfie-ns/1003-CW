@@ -30,7 +30,6 @@ Without using 'ref', the changes made to 'treeSize' inside the 'DeleteNode' meth
 AVL Tree Explanation:
 ---------------------
 
-
 An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at MOST one.
  
 In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree 
@@ -99,7 +98,7 @@ Notebook
 [MESSAGE] Although recursive rebalancing may not be the most efficient approach, I have done it this way
           to sensure it definitey is balanced after every operation.
 
-[MESSAGE] I assume now that it MUST be balanced regardless of how it looks due to the asert functions verifying
+[MESSAGE] I assume now that it MUST be balanced regardless of how it looks due to the assert functions verifying
           balance. The IsBalanced function starts at the root of the tree and recursively checks each subtree to
           ensure balance across the entire tree. I call IsBalanced consistently after each operation to verify, in
           terms of efficiency, it would be better NOT to check this much, but for the sake of the assignment, I
@@ -322,7 +321,6 @@ class Program // Program class, the entry point of the program
         // The balance-factor = subtracting the height of the right subtree from the height of the left subtree
     }
 
-    // Second function to test balance of a tree
     static bool IsBalanced(Node node)
     {
         if (node == null) return true;
@@ -569,7 +567,7 @@ class Program // Program class, the entry point of the program
     {
         Tree tree = new Tree(); // init test tree
 
-        int[] largeDataSet = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50}; // init large dataset
+        int[] largeDataSet = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50}; // init large-ish dataset
 
         foreach (int element in largeDataSet) // for EVERY element in largeDataSet array
         {

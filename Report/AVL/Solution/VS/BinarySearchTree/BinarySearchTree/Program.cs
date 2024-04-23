@@ -1260,6 +1260,7 @@ class Program // Program class, the entry point of the program
 
         Console.WriteLine("Entering TreeTests() function");
         Console.WriteLine("--------------------------------");
+        Console.WriteLine(); // newline
 
         Tree tree = new Tree(); // init tree for tests
         Random r = new Random(); // init random number generator

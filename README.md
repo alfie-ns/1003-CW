@@ -18,7 +18,7 @@
 - [X] static int Depth(Node tree)
 - [X] static Node Parent(Tree tree, Node node)
 - [X] static Node FindMax(Node tree)
-- [X] staticvoid DeleteMin(Tree tree)
+- [X] static void DeleteMin(Tree tree)
 
 *'Extend the implementation from a) by adding a tree balancing mechanism. Specifically, make your trees AVL Trees. Do not use another balancing mechanism. This is an advanced task and only recommended if you are a confident programmer. The same methods as in part a) are requested but with an AVL-type balancing mechanism. This will need extensions to the data structures defined in a) as well as, most likely, some auxiliary functions.*
 
@@ -40,7 +40,7 @@
 ### Extra 30 marks [X]
 
 - [X] An additional 10 marks are allocated for good and efficient use of data structures and algorithms. Try to make your implementation as efficient as possible.
-- [X] An additional 10 marks are allocated for some error checking and/or handling of special cases, as well as some testing of your functions. Use the method stubs in the file Program.cs for this. Do not change the Main() method. (If useful, you are allowed to program individual test functions in the area in the Program between the lines THIS LINE and THAT LINE and call these in TreeTests() or SetTests().)
+- [X] An additional 10 marks are allocated for some error checking and/or handling of special cases, as well as some testing of your functions. Use the method stubs in the file Program.cs for this. Do not change the Main() method. (If useful, you are allowed to program individual test functions in the area in the Program between the lines THIS LINE and THAT LINE and call these in TreeTests() or SetTests().
 - [X] An additional 10 marks are allocated for good programming style, like proper layout, readability, identifier names, commenting, modularisation, and the like.
 
 ### Testing [X]

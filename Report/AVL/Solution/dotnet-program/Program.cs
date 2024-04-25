@@ -151,12 +151,12 @@ class DataEntry
 /// A single node in the tree;
 /// </summary>
 class Node
-{
+{ // Get the height from node's subtrees, add 1 to the max of the two, and set it as the height of the node
     public DataEntry data;
     public Node right;
     public Node left;
     public int Height; // This is for AVL tree, as one needs to keep track of the height of the tree to balance it
-} // Get the height from node's subtrees, add 1 to the max of the two, and set it as the height of the node
+} 
 
 
 /// <summary>
@@ -257,9 +257,9 @@ class Program // Program class, the entry point of the program
         // this then updates the heights of the nodes involved in the rotation;
         // the height of a node is calculated as 1 plus the maximum height of its left and right subtrees.
 
-        // Then, update the respective heights of the current node and the new root node.
+        // Then: update respective heights of the current node and the new root node.
 
-        // Calculate the height of the current node as 1 plus the maximum height of its left and right subtrees.
+        // Calculate the height of the current node as 1 + maximum height of its left and right subtrees.
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
 
         // Calculate the height of the new root node as 1 plus the maximum height of its left and right subtrees.
@@ -306,10 +306,10 @@ class Program // Program class, the entry point of the program
     /// ------------------------------------------------------------- Balance-factor Functions ------------------------------------------------------------- ///
     
     static int GetHeight(Node node)
-    { // get the height of a trees
+    { // get the height of trees
         if (node == null) return -1; // Base case: If the node is null, return -1 (learnt from: https://www.youtube.com/watch?v=_pnqMz5nrRs)
-        int leftHeight = GetHeight(node.left); // Recursively calculate the height of the left subtree
-        int rightHeight = GetHeight(node.right); // Recursively calculate the height of the right subtree
+        int leftHeight = GetHeight(node.left); // Recursively calculate height of the left subtree
+        int rightHeight = GetHeight(node.right); // Recursively calculate height of the right subtree
         return Math.Max(leftHeight, rightHeight) + 1; //you get the max of EITHER left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
     }
 
@@ -318,7 +318,7 @@ class Program // Program class, the entry point of the program
         if (node == null) return 0; // Base case: If the node is null, immediately return 0(balance-factor of an empty tree is 0)
 
         return GetHeight(node.left) - GetHeight(node.right);
-        // The balance-factor = subtracting the height of the right subtree from the height of the left subtree
+        // The balance-factor = subtracting right subtree height from the left subtree height
     }
 
     static bool IsBalanced(Node node)
@@ -326,6 +326,7 @@ class Program // Program class, the entry point of the program
         if (node == null) return true;
         /*
         A null node IS considered balanced because it represents an empty subtree.
+
         In an AVL tree, an empty subtree is always balanced as it has a height of 0
         Returning true for null nodes ensures that the base case of the recursive
         function is handled correctly.
@@ -761,7 +762,7 @@ class Program // Program class, the entry point of the program
             return FindNode(node.right, item);
     }
 
-    /// .... (and nowhere else) [x]
+    /// .... (and nowhere else) [X]
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
 
 
@@ -965,15 +966,14 @@ class Program // Program class, the entry point of the program
     static int Depth(Node tree)
     {
         /*
-        First null check, then recursively calculate the depth of the left and right subtrees. 
-        The depth is the length of the longest path from the root to a leaf node. It first checks
-        the leftDepth then rightDepth, then returns the max depth of the left or right subtree, plus 1
-        accounting for the current node.
+          First, null check, then recursively calculate the depth of the left and right subtrees. 
+          The depth is the length of the longest path from the root to a leaf node. It first checks
+          the leftDepth then rightDepth, then returns the max depth of the left or right subtree, plus 1
+          accounting for the current node.
         */
 
         // Base case: If the tree is empty (root is null), return 0 (no depth) immediately
-        if (tree == null)
-            return 0;
+        if (tree == null) return 0;
 
         // Else, recursively calculate the depth of the left or right subtree's
         int leftDepth = Depth(tree.left);
@@ -1066,15 +1066,15 @@ class Program // Program class, the entry point of the program
     // --------------------------------------------------------------------------SET FUNCTIONS-------------------------------------------------------------------------- //
 
 
-    ///!!! <remarks> !!! 
+    ///!!! <remarks> !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! 
     /* 
 
-    MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION BECAUSE I WAS GETTING ERROS REGARDING THE SCOPE OF resultTree.
+    MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION BECAUSE I WAS ENCOUNTERING ERROR REGARDING THE SCOPE OF resultTree.
     NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE && THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION,
     THUS ARE PART OF THE FUNCTION ITSELF.
 
     */
-    ///!!! </remarks> !!! !!! 
+    ///!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! 
 
 
     /// <summary>

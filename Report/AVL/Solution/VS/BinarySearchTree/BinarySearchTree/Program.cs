@@ -686,6 +686,24 @@ class Program // Program class, the entry point of the program
             throw new Exception("Assertion failed: " + message); // print exception
     }
 
+    static void TestBalancedInsertionAndVisual()
+    {
+        Tree tree = new Tree();
+
+        // Insert integers 1 to 50 into the tree
+        for (int i = 1; i <= 50; i++)
+        {
+            InsertTree(tree, new Node { data = new DataEntry { data = i } });
+        }
+
+        // Rebalance the tree after insertions
+        tree.root = Rebalance(tree.root);
+
+        // Print the visual representation of the balanced tree
+        Console.WriteLine("Balanced tree after inserting integers 1 to 50:");
+        PrintTreeVisual(tree.root);
+    }
+
     static void TestAVLBalancing()
     {
         /*
@@ -1316,8 +1334,6 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
 
         // Print and visualise the initial tree
-        Console.WriteLine("Initial tree:");
-        Console.WriteLine(); // newline
         Console.WriteLine("Checking if tree is indeed balanced initially..."); // check if tree is balanced
         tree.root = Rebalance(tree.root); // rebalance the tree
         Assert(IsBalanced(tree.root), "Initial tree is not balanced!"); // check if tree is indeed balanced
@@ -1332,6 +1348,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Console.WriteLine("Tree after insertion:"); // header for visual tree
         PrintTreeVisual(tree.root); // print visual tree
+        TestBalancedInsertionAndVisual();
         Console.WriteLine(); // newline
         Console.WriteLine("Insertion test PASSED!"); // print success
         Console.WriteLine(); // newline

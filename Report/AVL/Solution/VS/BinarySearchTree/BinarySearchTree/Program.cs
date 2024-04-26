@@ -538,22 +538,22 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
 
         Console.WriteLine("Deleting 10...");
-        DeleteItem(testTree, new Node { data = new DataEntry { data = 10 } }); // delete 11 from the tree
-        Console.WriteLine("Tree size after deleting 11: " + Size(testTree)); // print the size AFTER deletion
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 10 } }); // delete 10 from the tree
+        Console.WriteLine("Tree size after deleting 10: " + Size(testTree)); // print the size AFTER deletion
         PrintTreeVisual(testTree.root); // print the tree visually
         Assert(IsBalanced(testTree.root), "Deletion test: Tree is not balanced after deletion"); // more verification
         Console.WriteLine(); // newline
 
         Console.WriteLine("Deleting 50...");
-        DeleteItem(testTree, new Node { data = new DataEntry { data = 50 } }); // delete 12 from the tree
-        Console.WriteLine("Tree size after deleting 12: " + Size(testTree)); // print the size AFTER deletion
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 50 } }); // delete 50 from the tree
+        Console.WriteLine("Tree size after deleting 50: " + Size(testTree)); // print the size AFTER deletion
         PrintTreeVisual(testTree.root); // print the tree visually
         Assert(IsBalanced(testTree.root), "Deletion test: Tree is not balanced after deletion"); // more verification
         Console.WriteLine(); // newline
 
         Console.WriteLine("Deleting 90...");
         DeleteItem(testTree, new Node { data = new DataEntry { data = 90 } }); // delete 13 from the tree
-        Console.WriteLine("Tree size after deleting 13: " + Size(testTree)); // print the size AFTER deletion
+        Console.WriteLine("Tree size after deleting 90: " + Size(testTree)); // print the size AFTER deletion
         PrintTreeVisual(testTree.root); // print the tree visually
         Assert(IsBalanced(testTree.root), "Deletion test: Tree is not balanced after deletion"); // more verification
         Console.WriteLine(); // newline

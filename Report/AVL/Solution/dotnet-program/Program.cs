@@ -556,7 +556,6 @@ class Program // Program class, the entry point of the program
 
         DateTime startTime = DateTime.Now; // start time
 
-       // checkmark
         // Insert integers 1 to 50 into the tree
         for (int i = 1; i <= 50; i++)
         {
@@ -566,11 +565,6 @@ class Program // Program class, the entry point of the program
 
         // Rebalance the tree after insertions
         tree.root = Rebalance(tree.root);
-
-        // Print the visual representation of the balanced tree
-        Console.WriteLine("Balanced tree after inserting integers 1 to 50:");
-        PrintTreeVisual(tree.root);
-        
 
         Console.WriteLine("Searching for 5...");
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
@@ -1269,8 +1263,6 @@ class Program // Program class, the entry point of the program
 
             InsertTree(tree, current);
         }
-
-        tree.root = Rebalance(tree.root); // rebalance the tree finally
 
         // print out the (ordered!) tree
         Console.WriteLine("Print out the (ordered!) tree");

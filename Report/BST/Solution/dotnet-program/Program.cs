@@ -53,8 +53,11 @@ class Program
 
     /// Your methods go here  
     
+    // In this CW u do lots of recursion, which means where the function has a part where it calls itself, to 'traverse' through a whole subtree or a tree 
+    
     // [ ] Method for handling duplicate values in the tree?
-
+    // [ ] Helper function for finding size
+    // [ ] Helper function for finding parent
 
 
     
@@ -123,6 +126,7 @@ class Program
 
     }
 
+    // THOMAS' FUNCTION
     
     /// Insert a Node into a Tree 
     
@@ -133,10 +137,6 @@ class Program
     /// <param name="item">The item to insert</param>
     static void InsertItem(ref Node tree, Node item)
     {
-        /* 
-           This is a recursive function that 
-           inserts a Node into a Tree
-        */
         if (tree == null) // if tree Node is empty,
         {
             tree = item; // insert item into tree
@@ -165,16 +165,6 @@ class Program
     /// <param name="tree">The Tree (not a Node as in InsertItem())</param>
     /// <param name="item">The Node to insert</param>
     static void InsertTree(Tree tree, Node item) { 
-        /*
-
-          Idk if this works [ ]
-
-          This, an auxiliary(helper) function, expects a Tree structure,
-          it always inserts on the toplevel and 
-          is NOT recursive.
-
-          Essentially, this wrapper function calls the recursisve InsertItem() function
-        */ 
     
         if (tree.root == null) // Base case: If the tree is empty
         {
@@ -185,21 +175,6 @@ class Program
         Node current = tree.root; // the current node is the root of the tree
         while (true) // while there is a current node
         {
-            /* TRUE? [x] 
-            If the item is smaller than the current node and the current node's left child is null,
-            the left child of the current node becomes the item, if the item is larger
-            and the current node's right child is null, the right child becomes the item. If the item
-            is neither smaller nor larger (implying equality), we do not insert the item, effectively
-            ignoring duplicates.
-            */
-
-
-            /*
-                If the item is smaller than the current node,
-                and the current node's left child is null,
-                left child of the current node becomes the item. 
-            */
-
             if (IsSmaller(item, current)) // if item < tree.root
             {
                 if (current.left == null) // if left child is empty
@@ -237,7 +212,6 @@ class Program
     /// <returns>True if the value is found and false otherwise.</returns>
    static bool SearchTree(Node tree, DataEntry value) {
 
-        // Base case: If the current node is null, the value isn't found.
         if (tree == null)
         {
             return false;
@@ -272,10 +246,6 @@ class Program
     /// <returns>True if the Node is found, false otherwise.</returns>
     static bool SearchTreeItem(Node tree, Node item)
     {
-        /*
-            This function compares Node references not data values.
-            It recursively searches for a Node/Item in a tree.
-        */
 
         if (tree == null) { // if the tree is empty, return false
             return false;
@@ -303,24 +273,12 @@ class Program
     /// <param name="item">The Node to remove</param>
     static void DeleteItem(Tree tree, Node item)
     {
-        /* 
-            [ ] [ ] [ ]
 
-            3 different things could happen, 
-            [x] 1. delete a leaf node(node with no children), 
-            [x] 2. delete a node with one child,
-            [x] 3. delete a node with two children
+        Node current = tree.root; 
+        Node parent = null; 
+        bool isLeftChild = false; 
 
-            1. if the item is a leaf node, just delete it
-            2. if the item has one child, replace the item with its child
-            3. if the item has two children, replace the item with the smallest node in the right subtree
-        */
-
-        Node current = tree.root; // tree.root is the entry point to access every other node in the tree.
-        Node parent = null; // parent node begins as null
-        bool isLeftChild = false; // the isLeftChild flag determines if a node is a left child; if false, it's a right child by default.
-
-        // First, find the node and its parent
+        
         while (current != null && !IsEqual(current, item)) // while current node is NOT null AND the current node is NOT equal to the item
         {
             parent = current; // the parent node becomes the current node WHY
@@ -338,14 +296,14 @@ class Program
 
         if (current == null) return; // Item not found
 
-        // Case 1: Node with no children (leaf node)
+        
         if (current.left == null && current.right == null)
         {
             if (current == tree.root) tree.root = null;
             else if (isLeftChild) parent.left = null;
             else parent.right = null;
         }
-        // Case 2: Node with one child
+        
         else if (current.right == null)
         {
             if (current == tree.root) tree.root = current.left;
@@ -358,23 +316,23 @@ class Program
             else if (isLeftChild) parent.left = current.right;
             else parent.right = current.right;
         }
-        // Case 3: Node with two children
+        
         else
         {
             Node successor = current.right;
             Node successorParent = current;
 
-            // Find the in-order successor (leftmost child of right subtree)
+            
             while (successor.left != null)
             {
                 successorParent = successor;
                 successor = successor.left;
             }
 
-            // Replace current data with successor's data
+            
             current.data = successor.data;
 
-            // Delete the successor now that its data has been copied
+            
             if (successorParent == current) successorParent.right = successor.right;
             else successorParent.left = successor.right;
         }
@@ -387,20 +345,14 @@ class Program
     /// <returns>The number of items in the tree.</returns>
     static int Size(Node node)
     {
-        /*
-            This function first checks if the tree is empty, if it's not,
-            it recursively counts each node in the tree. It returns the sum
-            of these nodes, +1 accounting for the current node before it 
-            proceedes to recursively explore and count the nodes in its left and right subtrees
-        */
         
-        if (node == null) // if reaches leaf node
+        if (node == null) 
         {
-            return 0; // Base case: For empty tree, return 0
+            return 0; 
         }
         else
         {
-            // Count the current node plus the size of the left and right subtrees
+            
             return 1 + Size(node.left) + Size(node.right);
         }
     }

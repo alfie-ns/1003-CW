@@ -90,23 +90,9 @@ could become unbalanced.
 
 Notebook
 --------
-[MESSAGE] THE VISUAL TREE SOMETIMES LOOKS UNBALANCED, HOWEVER THE ASSERTION TESTS PROVE
-          THAT THE TREE IS INDEED BALANCED && SORTED -> EVEN THO THEY'RE NOT PERFECT BALANCED, THEY STILL
-          ARE BALANCED AS THE HEIGHTS DON'T DIFFER BY MORE THAN 1, AND THE TREE IS SORTED.
-          I THOUGHT IT WAS WRONG BECAUSE THEY WEREN'T PERFECTLY BALANCED. 
 
 [MESSAGE] Although recursive rebalancing may not be the most efficient approach, I have done it this way
           to sensure it definitey is balanced after every operation.
-
-[MESSAGE] I assume now that it MUST be balanced regardless of how it looks due to the assert functions verifying
-          balance. The IsBalanced function starts at the root of the tree and recursively checks each subtree to
-          ensure balance across the entire tree. I call IsBalanced consistently after each operation to verify, in
-          terms of efficiency, it would be better NOT to check this much, but for the sake of the assignment, I
-          done the most checks possible to ensure it's indeed balanced.
-
-[MESSAGE] I also have made a testTree, this tree is used for MY testing, so the original tree doesn't get 
-          altered in these test processes, testTree also serves an argument to pass to the test functions 
-         
 
 
 - [X] Make an inverted assert functionality to report sucessful tests???
@@ -568,14 +554,23 @@ class Program // Program class, the entry point of the program
     {
         Tree tree = new Tree(); // init test tree
 
-        int[] largeDataSet = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50}; // init large-ish dataset
+        DateTime startTime = DateTime.Now; // start time
 
-        foreach (int element in largeDataSet) // for EVERY element in largeDataSet array
+       // checkmark
+        // Insert integers 1 to 50 into the tree
+        for (int i = 1; i <= 50; i++)
         {
-            InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
+            InsertTree(tree, new Node { data = new DataEntry { data = i } });
+            Assert(IsBalanced(tree.root), "Balanced insertion test: Tree is not balanced after insertion");
         }
 
-        DateTime startTime = DateTime.Now; // start time
+        // Rebalance the tree after insertions
+        tree.root = Rebalance(tree.root);
+
+        // Print the visual representation of the balanced tree
+        Console.WriteLine("Balanced tree after inserting integers 1 to 50:");
+        PrintTreeVisual(tree.root);
+        
 
         Console.WriteLine("Searching for 5...");
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
@@ -686,47 +681,20 @@ class Program // Program class, the entry point of the program
             throw new Exception("Assertion failed: " + message); // print exception
     }
 
-    static void TestBalancedInsertionAndVisual()
+    static void TestAVLBalancing()
     {
-        Tree tree = new Tree();
+        Tree tree = new Tree(); // Create a test AVL tree
 
-        // Insert integers 1 to 50 into the tree
+        // loop through 50 elements 1 to 50
         for (int i = 1; i <= 50; i++)
         {
             InsertTree(tree, new Node { data = new DataEntry { data = i } });
+            Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after insertion");
         }
-
-        // Rebalance the tree after insertions
-        tree.root = Rebalance(tree.root);
 
         // Print the visual representation of the balanced tree
-        Console.WriteLine("Balanced tree after inserting integers 1 to 50:");
+        Console.WriteLine("Balanced AVL Tree with elements 1 to 50:");
         PrintTreeVisual(tree.root);
-    }
-
-    static void TestAVLBalancing()
-    {
-        /*
-        This function tests whether the AVL tree remains balanced after insertion and deletion operations.
-        First, it creates a new test tree and defines an array of elements to insert into the tree; it then
-        iterates over each element in the array, inserting them into the tree. After each insertion, it checks
-        whether the tree is indeed balanced. Subsequently, it deletes an element from the tree and verifies if the
-        tree remains balanced. The assert function is one I had to custom make, due to only being able to use
-        C-core functionality and not being able to use any other libraries. The assert function checks if the
-        condition is true, if not, it throws an exception with the specified message.
-        */
-
-        Tree tree = new Tree(); // Create a test AVL tree
-        int[] elements = { 1, 2, 3, 4, 5, 6, 7 }; // Define an array of elements to insert into the tree
-
-        foreach (int element in elements) // for EVERY element in the elements array
-        {
-            InsertTree(tree, new Node { data = new DataEntry { data = element } }); // insert the element into the tree
-            Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after insertion"); // If IsBalanced returns false, throw an exception
-        }
-
-        DeleteItem(tree, new Node { data = new DataEntry { data = 4 } }); // Delete an element, specifically 4, from the tree
-        Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after deletion"); // Check if the tree remains balanced after deletion
     }
 
     static void PrintTreeVisual(Node node, string indent = "", bool last = true) 
@@ -1012,6 +980,7 @@ class Program // Program class, the entry point of the program
     static Node Parent(Tree tree, Node node)
     {
         /* 
+
         This function should 1st check if the node is
         null or root of the tree(thus no parents). Then
         init parent as an empty value, then check if the 
@@ -1348,7 +1317,6 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Console.WriteLine("Tree after insertion:"); // header for visual tree
         PrintTreeVisual(tree.root); // print visual tree
-        TestBalancedInsertionAndVisual();
         Console.WriteLine(); // newline
         Console.WriteLine("Insertion test PASSED!"); // print success
         Console.WriteLine(); // newline
@@ -1378,8 +1346,6 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         tree.root = Rebalance(tree.root); // rebalance the tree
         TestAVLBalancing(); // run test for AVL balancing
-        Console.WriteLine("Tree after AVL balancing:");
-        PrintTreeVisual(tree.root);
         Console.WriteLine(); // newline
         Console.WriteLine("AVL balancing test PASSED!");
 

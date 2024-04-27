@@ -682,8 +682,8 @@ class Program // Program class, the entry point of the program
         // loop through 50 elements 1 to 50
         for (int i = 1; i <= 50; i++)
         {
-            InsertTree(tree, new Node { data = new DataEntry { data = i } });
-            Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after insertion");
+            InsertTree(tree, new Node { data = new DataEntry { data = i } }); // Insert each element into the tree
+            Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after insertion"); // Check if stays balanced after each insertion
         }
 
         // Print the visual representation of the balanced tree

@@ -582,7 +582,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
 
         Console.WriteLine("Searching for 6...");
-        Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+        Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Existing element not found"); // check if non-existing element is NOT found
         Console.WriteLine("FOUND"); // print FOUND
         Console.WriteLine(); // newline
 

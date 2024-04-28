@@ -68,7 +68,8 @@ Again, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a
 subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true 
 (balance-factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
 
-The height of a node is the length of the longest path from that node to a leaf node... {AMEND THIS}
+The height of a node is the length of the longest path from that node to a leaf node, with box-drawing characters used in my implementation,
+one can visually see if the heights are indeed balanced to AVL tree standards.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

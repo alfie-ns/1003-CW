@@ -1,4 +1,3 @@
-
 using System; // Don't use anything else than System and only use C-core functionality; read the specs! [X]
 
 // DON'T CHANGE
@@ -15,11 +14,11 @@ https://github.com/alfie-ns/1003-CW
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-A 'base case' ensures recursion TERMINATES when a leaf node is reached, otherwise, the function could run forever, 
+A 'base case' ensures recursion TERMINATES when a leaf node is reached, otherwise, the function could run forever,
 causing a stack overflow.
 
 - checks for a specific condition (e.g. if the node is null) to stop further recursive calls.
-- also by halting recursion at leaf nodes, it ensures that each node is only processed once, 
+- also by halting recursion at leaf nodes, it ensures that each node is only processed once,
   maintaining efficiency and preventing runtime errors.
 
 The 'ref' keyword is used for the 'treeSize' parameter in the 'DeleteNode' method to ensure that the tree's size is correctly updated after a node is deleted.
@@ -32,40 +31,40 @@ AVL Tree Explanation:
 
 An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of any node differ by at MOST one.
  
-In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree 
-remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time-complexity 
-of O(log n). 
+In an AVL tree, the heights of the left and right subtrees of any node differ by at MOST 1. This property guarantees that the tree
+remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time-complexity
+of O(log n).
  
-The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of 
-its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node violates this 
+The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of
+its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node violates this
 condition.
 
-If the balance-factor of a node is greater than 1, it means that the left subtree is too tall compared to the 
-right subtree, making the node left-heavy. Conversely, if the balance-factor is LESS than -1, it indicates that the right subtree 
+If the balance-factor of a node is greater than 1, it means that the left subtree is too tall compared to the
+right subtree, making the node left-heavy. Conversely, if the balance-factor is LESS than -1, it indicates that the right subtree
 is too tall compared to the left subtree, making the node right-heavy. These situations represent an imbalance in the tree.
  
-When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs 
-rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees 
+When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs
+rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees
 involved. In this case, after insertion or deletion operations, the program assesses the balance-factor of each node
-starting from the newly inserted or deleted node's parent up to the root. If the balance-factor indicates a 
+starting from the newly inserted or deleted node's parent up to the root. If the balance-factor indicates a
 left-heavy imbalance (greater than 1). Conversely, for a right-heavy imbalance (less than -1), it checks the
 right subtree's balance-factor to decide between a single left rotation or a right-left double rotation. This ensures the
 tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time-complexity.
  
-By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close 
-as possible. This balance minimises the maximum depth of the tree, which in turn reduces the worst-case time-complexity of 
+By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close
+as possible. This balance minimises the maximum depth of the tree, which in turn reduces the worst-case time-complexity of
 operations like search, insertion, and deletion to O(log n).
  
-The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree. 
-By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and 
+The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree.
+By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and
 guarantee efficient operations.
  
-The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes 
-in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the 
+The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes
+in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the
 number of nodes in each subtree.
  
-Again, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left 
-subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true 
+Again, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left
+subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true
 (balance-factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
 
 The height of a node is the length of the longest path from that node to a leaf node, with box-drawing characters used in my implementation,
@@ -82,10 +81,11 @@ and deletion operations, making them much more efficient than a BST in its
 worst-case scenario; thus, they will search for data faster than an unbalanced BST.
 
 If an AVL tree has 10 nodes, the formula for finding the average time-complexity is
-log2(10) = 3.32, which rounds down to 3, since steps are integers (one cannot have
-0.32 of a step!); thus, on average, it will take 3 steps to find a particular node
-in this tree. This will always be the case in an AVL tree, but not for a BST that
-could become unbalanced.
+log2(10) = 3.32. While this suggests 3 steps, in algorithm analysis, we round up to
+4 to ensure coverage of the worst-case scenario, since steps are integers (one cannot
+have 0.32 of a step!); thus, on average, it will take 4 steps to find a particular node
+in this tree. This will always be the case in an AVL tree, but not for a BST that could
+become unbalanced.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -109,23 +109,23 @@ Notebook
 */
 
 /// <summary>
-/// Implement a binary search tree 
-/// 
+/// Implement a binary search tree
+///
 /// [x][x] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
 /// [x][x] 2) If you want to add methods do this in the space indicated at the top of the Program.
 /// [x] 3) You can add fields to the structures Tree, Node, DataEntry, if you find this necessary or useful.
 /// [x] 4) Some of the method stubs have return statements that you may need to change (the code wouldn't run without return statements).
-/// 
+///
 /// You can ignore MOST warnings - many of them result from requirements of Object-Orientated Programming or other constraints
 /// unimportant for COMP1003.
-/// 
+///
 /// </summary>
 
 
 
 /// <summary>
 /// Declare what sort of data we store in the tree.
-/// 
+///
 /// We use simple integers for convenience, but this could be anything sortable in general.
 /// </summary>
 class DataEntry
@@ -143,7 +143,7 @@ class Node
     public Node right;
     public Node left;
     public int Height; // This is for AVL tree, as one needs to keep track of the height of the tree to balance it
-} 
+}
 
 
 /// <summary>
@@ -153,12 +153,12 @@ class Tree
 {
     public Node root; // The root node of the tree
     public int size; // The number of elements in the tree, used to keep track of the tree's size
-    
+   
 }
 
 
 
-class Program // Program class, the entry point of the program 
+class Program // Program class, the entry point of the program
 {
 
     /// THIS LINE: If you want to add methods add them between THIS LINE and THAT LINE
@@ -166,14 +166,14 @@ class Program // Program class, the entry point of the program
     /// Your methods go here:
 
     /// ------------------------------------------------------------- AVL Tree Functions ------------------------------------------------------------- ///
-    
+   
     static Node Rebalance(Node node)
     {
 
         /*
             This function serves as a single function which'll first get the balance factor
-            from GetBalanceFactor function then handle all rotations necessary to rebalance 
-            the AVL tree for optimal time-complexity. 
+            from GetBalanceFactor function then handle all rotations necessary to rebalance
+            the AVL tree for optimal time-complexity.
         */
 
         // 1. Calculate the balance factor of the current node.
@@ -291,7 +291,7 @@ class Program // Program class, the entry point of the program
     }
 
     /// ------------------------------------------------------------- Balance-factor Functions ------------------------------------------------------------- ///
-    
+   
     static int GetHeight(Node node)
     { // get the height of trees
         if (node == null) return -1; // Base case: If the node is null, return -1 (learnt from: https://www.youtube.com/watch?v=_pnqMz5nrRs)
@@ -320,8 +320,8 @@ class Program // Program class, the entry point of the program
         */
 
         // Traverse and get the heights of the left and right subtrees
-        int leftHeight = GetHeight(node.left); 
-        int rightHeight = GetHeight(node.right); 
+        int leftHeight = GetHeight(node.left);
+        int rightHeight = GetHeight(node.right);
 
         if (Math.Abs(leftHeight - rightHeight) > 1) return false; // If the absolute difference between the heights of the left and right subtrees is greater than 1, thus the tree is unbalanced, return false
 
@@ -333,7 +333,7 @@ class Program // Program class, the entry point of the program
 
 
     /// ------------------------------------------------------------- AVL/BST Operationa Functions ------------------------------------------------------------- ///
-        
+       
     static Node InsertTreeHelper(Node node, Node newNode)
     { // First, perform the standard BST insertion
         if (node == null) { // Base case: If the node is null, return the new node and a height of 1 accounting for that single node
@@ -393,7 +393,7 @@ class Program // Program class, the entry point of the program
         }
 
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right)); // Update the height of the current node
-        
+       
         return Rebalance(node); // return the rebalanced node
     }
 
@@ -416,7 +416,7 @@ class Program // Program class, the entry point of the program
     static Node FindParentHelper(Node current, Node node)
     {
         if (current == null) return null; // Base case: If the current node is null, return null
-        
+       
         // Check if the current node is the parent of the given node
         if (current.left == node || current.right == node) // if current node is left or right child of node
         {
@@ -497,7 +497,7 @@ class Program // Program class, the entry point of the program
             Assert(IsBalanced(testTree.root), "Insertion test: Tree is not balanced after inserting " + element); // more verification
         }
         Console.WriteLine(); // newline
-        
+       
         Console.WriteLine("Final tree size: " + Size(testTree)); // print the size AFTER ALL insertions
 
         DateTime endTime = DateTime.Now; // end time
@@ -571,7 +571,7 @@ class Program // Program class, the entry point of the program
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
         Console.WriteLine("FOUND"); // print FOUND
         Console.WriteLine(); // newline
-        
+       
         Console.WriteLine("Searching for 3...");
         Assert(SearchTree(tree.root, new DataEntry { data = 3 }), "Search test: Existing element not found"); // check if existing element is found
         Console.WriteLine("FOUND"); // print FOUND
@@ -603,7 +603,7 @@ class Program // Program class, the entry point of the program
         Assert(!SearchTree(tree.root, new DataEntry { data = -1 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
         Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND
         Console.WriteLine(); // newline
-        
+       
 
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
@@ -612,7 +612,7 @@ class Program // Program class, the entry point of the program
 
     }
 
-    
+   
 
     static bool IsSorted(Tree tree)
     {
@@ -630,19 +630,19 @@ class Program // Program class, the entry point of the program
             3. Increment 'index' using the post-increment operator (index++) to move to the next position in the array.
 
             ++index would increment the index before the value is stored, whereas index++ increments the index after the value is stored.
-        
+       
             By performing an in-order traversal and using this lambda function, the elements of the tree are stored in the 'sortedArray'
             in ascending order. This is because an in-order traversal of a binary search tree visits the nodes in ascending order of their values.
-        
+       
             After the traversal is complete, the 'sortedArray' will contain all the elements of the tree in sorted order.
             The 'IsSorted' method then iterates over the 'sortedArray' and checks if each element is greater than or equal to the previous element.
             If any element is found to be smaller than its previous element, it means the tree is not sorted, and the method returns 'false'.
             Otherwise, if the entire array is iterated without finding any violations, the tree is considered sorted, and the method returns 'true'.
-        
+       
             This lambda function, used in conjunction with the in-order traversal, allows for efficient checking of whether the tree is sorted
             without modifying the original tree structure.
         */
-    
+   
 
         for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array
         {
@@ -657,9 +657,9 @@ class Program // Program class, the entry point of the program
         /*
         This function utilises an Action<int> delegate for flexible node
         data handling during in-order traversal; the null check serves as
-        a base case, ensuring recursion halts at leaf nodes. I need to use 
+        a base case, ensuring recursion halts at leaf nodes. I need to use
         a delegate to handle the node's data, when I use this function inside
-        the IsSorted function, essentially, I pass a lambda function that 
+        the IsSorted function, essentially, I pass a lambda function that
         stores the node's data in an array, that I check is indeed sorted.
         */
 
@@ -672,7 +672,7 @@ class Program // Program class, the entry point of the program
 
     static void Assert(bool condition, string message)
     { // custom assert function: if boolean passed to function is NOT true, throw an exception with the specified message
-        if (!condition) 
+        if (!condition)
             throw new Exception("Assertion failed: " + message); // print exception
     }
 
@@ -692,7 +692,7 @@ class Program // Program class, the entry point of the program
         PrintTreeVisual(tree.root);
     }
 
-    static void PrintTreeVisual(Node node, string indent = "", bool last = true) 
+    static void PrintTreeVisual(Node node, string indent = "", bool last = true)
     {
         /*
             This function prints the AVL tree in the console using box-drawing characters for structure.
@@ -713,8 +713,8 @@ class Program // Program class, the entry point of the program
 
             if (last) // if it's the last child in the sibling group
             {
-                Console.Write("└─"); // print box-drawing indicating it's the last child 
-                indent += "  "; // += 2 spaces to the indent for alignment since no vertical line is needed below this node 
+                Console.Write("└─"); // print box-drawing indicating it's the last child
+                indent += "  "; // += 2 spaces to the indent for alignment since no vertical line is needed below this node
             }
             else // Otherwise the node is NOT the last child
             {
@@ -727,16 +727,16 @@ class Program // Program class, the entry point of the program
 
             PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==false this time round
             PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last==true this time round
-            
+           
             // the recursive search for the left child is set to false because the left child won't be the last child in the BST.
-            
+           
         }
     }
 
     static Node FindNode(Node node, Node item)
     {
         if (node == null || IsEqual(node, item)) return node; // Base case: If the node is immediately found OR the tree is empty, return the node argument
-            
+           
         if (IsSmaller(item, node)) // If the item is smaller than the current node, traverse the left subtree
             return FindNode(node.left, item);
         else // Otherwise, traverse the right subtree
@@ -749,12 +749,12 @@ class Program // Program class, the entry point of the program
 
     /// <summary>
     /// Recursively traverse a tree depth-first printing data in in-fix order.
-    /// 
+    ///
     /// Note that we expect the root Node as argument, not a Tree structure.
     /// Otherwise we would need an auxiliary function as we do recursion over Nodes.
-    /// 
+    ///
     /// In fact, the method below can print any non-empty sub-tree.
-    /// 
+    ///
     /// </summary>
     /// <param name="subtree">The *root node* of the tree to traverse and print</param>
     static void PrintTree(Node tree)
@@ -772,8 +772,8 @@ class Program // Program class, the entry point of the program
 
 
     /// <summary>
-    /// Compare whether the data in one Node is smaller than data in another Node. 
-    /// 
+    /// Compare whether the data in one Node is smaller than data in another Node.
+    ///
     /// The data held in Nodes could be different from integers, but it must be sortable.
     /// This function/method defines when the data in Node item1 is smaller than in item2.
     /// As we assume Integers for convenience, the comparison is just the usual "smaller than".
@@ -788,8 +788,8 @@ class Program // Program class, the entry point of the program
 
 
     /// <summary>
-    /// Predicate that checks if two Nodes hold the same value. 
-    /// 
+    /// Predicate that checks if two Nodes hold the same value.
+    ///
     /// As we assume Integers for convenience, the comparison is just the usual "equality" on integers.
     /// Equality could be MORE complicated for other sorts of data.
     /// </summary>
@@ -804,7 +804,7 @@ class Program // Program class, the entry point of the program
 
     /// <summary>
     /// Insert a Node into a Tree
-    /// 
+    ///
     /// Note that the root node has to be provided, not the Tree reference, because we do recursion over the Nodes.
     /// The function makes use of IsSmaller and would work for other sorts of data than Integers.
     /// </summary>
@@ -827,28 +827,28 @@ class Program // Program class, the entry point of the program
             InsertItem(ref tree.right, item);       //     recursively insert into the right subtree
         }
 
-        // otherwise the item data is already in the tree and we discard it 
+        // otherwise the item data is already in the tree and we discard it
     }
 
 
     /// <summary>
     /// Insert a Node into a Tree
-    /// 
-    /// This is an auxiliary function that expects a Tree structure, in contrast to the previous method. 
+    ///
+    /// This is an auxiliary function that expects a Tree structure, in contrast to the previous method.
     /// It always inserts on the toplevel and is not recursive. It's just a wrapper.
     /// </summary>
     /// <param name="tree">The Tree (not a Node as in InsertItem())</param>
     /// <param name="item">The Node to insert</param>
     static void InsertTree(Tree tree, Node item)
     {
-        
+       
         tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the element to insert into the tree
     }
 
 
     /// <summary>
     /// Find a value in a tree.
-    /// 
+    ///
     /// This requires the IsEqual() predicate defined above for general data.
     /// </summary>
     /// <param name="tree">The root node of the Tree.</param>
@@ -870,7 +870,7 @@ class Program // Program class, the entry point of the program
 
     /// <summary>
     /// Find a Node in a tree
-    /// 
+    ///
     /// This compares Node references not data values.
     /// </summary>
     /// <param name="tree">The root node of the tree.</param>
@@ -921,7 +921,7 @@ class Program // Program class, the entry point of the program
     /// <returns>The number of items in the tree.</returns>
     static int Size(Tree tree)
     {
-        /* 
+        /*
         This function calculates the size of a tree by calling the recursive helper function SizeHelper.
         If the tree is empty (root is null), it returns 0. Otherwise, it calls the recursive helper function
         to calculate the size of the tree. The helper function traverses the tree in a depth-first manner,
@@ -939,7 +939,7 @@ class Program // Program class, the entry point of the program
 
     /// <summary>
     /// Returns the depth of a tree with root "tree"
-    /// 
+    ///
     /// Note that this function should work for any non-empty subtree
     /// </summary>
     /// <param name="tree">The root of the tree</param>
@@ -947,7 +947,7 @@ class Program // Program class, the entry point of the program
     static int Depth(Node tree)
     {
         /*
-          First, null check, then recursively calculate the depth of the left and right subtrees. 
+          First, null check, then recursively calculate the depth of the left and right subtrees.
           The depth is the length of the longest path from the root to a leaf node. It first checks
           the leftDepth then rightDepth, then returns the max depth of the left or right subtree, plus 1
           accounting for the current node.
@@ -974,15 +974,15 @@ class Program // Program class, the entry point of the program
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
     {
-        /* 
+        /*
 
         This function should 1st check if the node is
         null or root of the tree(thus no parents). Then
-        init parent as an empty value, then check if the 
+        init parent as an empty value, then check if the
         current node is the parent, if so will return that
-        value. If it's NOT, start traversing the tree, 
+        value. If it's NOT, start traversing the tree,
         going left subtree to right subtree, it does this
-        recursively, until the current node is the parent of 
+        recursively, until the current node is the parent of
         the node given to the function.
 
         */
@@ -1022,15 +1022,15 @@ class Program // Program class, the entry point of the program
 
 
     /// <summary>
-    /// Delete the Node with the smallest value from the Tree. 
+    /// Delete the Node with the smallest value from the Tree.
     /// </summary>
     /// <param name="tree">The Tree to process.</param>
     static void DeleteMin(Tree tree)
     {
-        /* 
-        This function deletes the node with the minimum value in the tree. 
-        It first checks if the tree is empty, if so, there is nothing to delete. 
-        Then, it calls the FindMin() helper function to find the node with the minimum value. 
+        /*
+        This function deletes the node with the minimum value in the tree.
+        It first checks if the tree is empty, if so, there is nothing to delete.
+        Then, it calls the FindMin() helper function to find the node with the minimum value.
         Finally, it calls the DeleteNode function to delete the node with the minimum value from the tree.
         */
 
@@ -1048,15 +1048,15 @@ class Program // Program class, the entry point of the program
     // --------------------------------------------------------------------------SET FUNCTIONS-------------------------------------------------------------------------- //
 
 
-    ///!!! <remarks> !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! 
-    /* 
+    ///!!! <remarks> !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!!
+    /*
 
     MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION BECAUSE I WAS ENCOUNTERING ERROR REGARDING THE SCOPE OF resultTree.
     NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE && THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION,
     THUS ARE PART OF THE FUNCTION ITSELF.
 
     */
-    ///!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! 
+    ///!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!!
 
 
     /// <summary>
@@ -1069,10 +1069,10 @@ class Program // Program class, the entry point of the program
     static Tree Union(Tree tree1, Tree tree2)
     {
 
-        /* 
-        This function merges the values of two trees into a new resultTree. 
-        It first creates an empty result tree. Then, it calls the InsertUnique function to insert the unique values from tree1 and tree2 into the result tree. 
-        The InsertUnique function recursively traverses the trees and inserts only the unique values into the result tree. 
+        /*
+        This function merges the values of two trees into a new resultTree.
+        It first creates an empty result tree. Then, it calls the InsertUnique function to insert the unique values from tree1 and tree2 into the result tree.
+        The InsertUnique function recursively traverses the trees and inserts only the unique values into the result tree.
         Finally, it returns the result tree with all the values from tree1 and tree2.
         */
 
@@ -1110,13 +1110,13 @@ class Program // Program class, the entry point of the program
     /// </summary>
     /// <param name="tree1">The first Tree</param>
     /// <param name="tree2">The second Tree</param>
-    /// <returns>A new Tree with all values in tree1 and tree2.</returns> 
+    /// <returns>A new Tree with all values in tree1 and tree2.</returns>
     static Tree Intersection(Tree tree1, Tree tree2)
     {
         /*
-        This function finds the intersection of the values in two trees and returns a new tree with the common values. 
-        It first creates an empty result tree. Then, it calls the IntersectionHelper function to traverse the trees and find the common values. 
-        The IntersectionHelper function recursively compares the values in the trees and inserts the common values into the result tree. 
+        This function finds the intersection of the values in two trees and returns a new tree with the common values.
+        It first creates an empty result tree. Then, it calls the IntersectionHelper function to traverse the trees and find the common values.
+        The IntersectionHelper function recursively compares the values in the trees and inserts the common values into the result tree.
         Finally, it returns the result tree with the intersection of the values from tree1 and tree2.
         */
 
@@ -1137,7 +1137,7 @@ class Program // Program class, the entry point of the program
 
         IntersectHelper(tree1.root); // Start the intersection recursive process from the root of tree1
 
-        return resultTree; 
+        return resultTree;
     }
 
 
@@ -1222,7 +1222,7 @@ class Program // Program class, the entry point of the program
 
 
 
-    /* 
+    /*
     * TESTING -----------------------------------------------------------------------------------------------------------------------------------------------------
     */
 
@@ -1277,7 +1277,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Size of the tree: " + Size(tree)); // print size
         Console.WriteLine("Depth of the tree: " + Depth(tree.root)); // print depth
         Node minNode = FindMin(tree.root); // find min value
-        Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else 
+        Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else
         Node maxNode = FindMax(tree.root); // find max value
         Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null"));
         Console.WriteLine("--------------------------------");
@@ -1440,7 +1440,7 @@ class Program // Program class, the entry point of the program
     /// ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     /// <summary>
-    /// The Main entry point into the code. Don't change anythhing here. 
+    /// The Main entry point into the code. Don't change anythhing here.
     /// </summary>
     static void Main()
     {

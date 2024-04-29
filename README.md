@@ -1,6 +1,6 @@
 # 1003-CW | Alfie Nurse
 
-## Report
+## Report [X]
 
 - [X] **Create a VS C# command line project called BinarySearchTree.** The implementation **must use the Program.cs file** available on the DLE in the Assessment section. This file has been modified from the implementation provided for the worksheet on Binary Search Trees.
 - [X] Test codebase compiles on VS !!!

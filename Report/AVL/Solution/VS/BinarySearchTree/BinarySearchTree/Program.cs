@@ -4,16 +4,6 @@ using System; // Don't use anything else than System and only use C-core functio
 
 /*
 
-Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
-I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
-way to keep track of my work on both computers. It also provides a dopamine hit when I push
-to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
-and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now.
-
-https://github.com/alfie-ns/1003-CW
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 A 'base case' ensures recursion TERMINATES when a leaf node is reached, otherwise, the function could run forever,
 causing a stack overflow.
 
@@ -80,12 +70,10 @@ Thus, AVL trees guarantee a time-complexity of O(log n) for search, insertion,
 and deletion operations, making them much more efficient than a BST in its
 worst-case scenario; thus, they will search for data faster than an unbalanced BST.
 
+
 If an AVL tree has 10 nodes, the formula for finding the average time-complexity is
-log2(10) = 3.32. While this suggests 3 steps, in algorithm analysis, we round up to
-4 to ensure coverage of the worst-case scenario, since steps are integers (one cannot
-have 0.32 of a step!); thus, on average, it will take 4 steps to find a particular node
-in this tree. This will always be the case in an AVL tree, but not for a BST that could
-become unbalanced.
+log2(10)=3.32. Thus, in the worst case, the number of steps required would be 4, as
+one needs to round up to the nearest whole number (step).
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -96,8 +84,7 @@ Notebook
           to sensure it definitey is balanced after every operation.
 
 
-- [X] Make an inverted assert functionality to report sucessful tests???
-- [X] Give a smart explanation of how to calculate heights -> balancing-factor:
+- [X] Give a smart explanation of how to work out heights
 - NO[X] perhaps I need to insert random nodes into the test trees?
 - [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
 - [X] Show more testing for the Searches
@@ -111,10 +98,10 @@ Notebook
 /// <summary>
 /// Implement a binary search tree
 ///
-/// [x][x] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
-/// [x][x] 2) If you want to add methods do this in the space indicated at the top of the Program.
-/// [x] 3) You can add fields to the structures Tree, Node, DataEntry, if you find this necessary or useful.
-/// [x] 4) Some of the method stubs have return statements that you may need to change (the code wouldn't run without return statements).
+/// [X][X] 1) Don't rename any of the method names in this file or change their arguments or return types or their order in the file.
+/// [X][X] 2) If you want to add methods do this in the space indicated at the top of the Program.
+/// [X] 3) You can add fields to the structures Tree, Node, DataEntry, if you find this necessary or useful.
+/// [X] 4) Some of the method stubs have return statements that you may need to change (the code wouldn't run without return statements).
 ///
 /// You can ignore MOST warnings - many of them result from requirements of Object-Orientated Programming or other constraints
 /// unimportant for COMP1003.
@@ -153,7 +140,7 @@ class Tree
 {
     public Node root; // The root node of the tree
     public int size; // The number of elements in the tree, used to keep track of the tree's size
-   
+
 }
 
 
@@ -166,7 +153,7 @@ class Program // Program class, the entry point of the program
     /// Your methods go here:
 
     /// ------------------------------------------------------------- AVL Tree Functions ------------------------------------------------------------- ///
-   
+
     static Node Rebalance(Node node)
     {
 
@@ -291,7 +278,7 @@ class Program // Program class, the entry point of the program
     }
 
     /// ------------------------------------------------------------- Balance-factor Functions ------------------------------------------------------------- ///
-   
+
     static int GetHeight(Node node)
     { // get the height of trees
         if (node == null) return -1; // Base case: If the node is null, return -1 (learnt from: https://www.youtube.com/watch?v=_pnqMz5nrRs)
@@ -333,10 +320,11 @@ class Program // Program class, the entry point of the program
 
 
     /// ------------------------------------------------------------- AVL/BST Operationa Functions ------------------------------------------------------------- ///
-       
+
     static Node InsertTreeHelper(Node node, Node newNode)
     { // First, perform the standard BST insertion
-        if (node == null) { // Base case: If the node is null, return the new node and a height of 1 accounting for that single node
+        if (node == null)
+        { // Base case: If the node is null, return the new node and a height of 1 accounting for that single node
             newNode.Height = 1; // Set the height as 1 for the single node thats been inserted
             return newNode; // Return the new node
         }
@@ -393,7 +381,7 @@ class Program // Program class, the entry point of the program
         }
 
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right)); // Update the height of the current node
-       
+
         return Rebalance(node); // return the rebalanced node
     }
 
@@ -416,7 +404,7 @@ class Program // Program class, the entry point of the program
     static Node FindParentHelper(Node current, Node node)
     {
         if (current == null) return null; // Base case: If the current node is null, return null
-       
+
         // Check if the current node is the parent of the given node
         if (current.left == node || current.right == node) // if current node is left or right child of node
         {
@@ -497,7 +485,7 @@ class Program // Program class, the entry point of the program
             Assert(IsBalanced(testTree.root), "Insertion test: Tree is not balanced after inserting " + element); // more verification
         }
         Console.WriteLine(); // newline
-       
+
         Console.WriteLine("Final tree size: " + Size(testTree)); // print the size AFTER ALL insertions
 
         DateTime endTime = DateTime.Now; // end time
@@ -571,7 +559,7 @@ class Program // Program class, the entry point of the program
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
         Console.WriteLine("FOUND"); // print FOUND
         Console.WriteLine(); // newline
-       
+
         Console.WriteLine("Searching for 3...");
         Assert(SearchTree(tree.root, new DataEntry { data = 3 }), "Search test: Existing element not found"); // check if existing element is found
         Console.WriteLine("FOUND"); // print FOUND
@@ -603,7 +591,7 @@ class Program // Program class, the entry point of the program
         Assert(!SearchTree(tree.root, new DataEntry { data = -1 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
         Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND
         Console.WriteLine(); // newline
-       
+
 
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
@@ -612,7 +600,7 @@ class Program // Program class, the entry point of the program
 
     }
 
-   
+
 
     static bool IsSorted(Tree tree)
     {
@@ -642,7 +630,7 @@ class Program // Program class, the entry point of the program
             This lambda function, used in conjunction with the in-order traversal, allows for efficient checking of whether the tree is sorted
             without modifying the original tree structure.
         */
-   
+
 
         for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array
         {
@@ -699,7 +687,7 @@ class Program // Program class, the entry point of the program
             The 'indent' parameter creates visual indentation, and 'last' is used to identify if a node
             is the last child, influencing the visual layout. Initially, 'last' is true for the root,
             simplifying the start of the rendering logic. This approach, inspired by a technique I
-            observed one night on YouTube, ensures consistent formatting from the 'top down'. This means
+            observed one night on the internet, ensures consistent formatting from the 'top down'. This means
             ensuring the root node sets the initial structure, and as we move to each level, we adjust
             indentations and box-drawing characters accordingly, reflecting each node's position and relation in the
             hierarchy efficiently and clearly. I copied and pasted each box-drawing character from: https://en.wikipedia.org/wiki/Box-drawing_character
@@ -727,16 +715,16 @@ class Program // Program class, the entry point of the program
 
             PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==false this time round
             PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last==true this time round
-           
+
             // the recursive search for the left child is set to false because the left child won't be the last child in the BST.
-           
+
         }
     }
 
     static Node FindNode(Node node, Node item)
     {
         if (node == null || IsEqual(node, item)) return node; // Base case: If the node is immediately found OR the tree is empty, return the node argument
-           
+
         if (IsSmaller(item, node)) // If the item is smaller than the current node, traverse the left subtree
             return FindNode(node.left, item);
         else // Otherwise, traverse the right subtree
@@ -759,7 +747,6 @@ class Program // Program class, the entry point of the program
     /// <param name="subtree">The *root node* of the tree to traverse and print</param>
     static void PrintTree(Node tree)
     {
-        if (tree == null) return; // this was needed to avoid null reference exceptions in set functions
 
         if (tree.left != null) // if left child is NOT null
             PrintTree(tree.left);
@@ -841,7 +828,7 @@ class Program // Program class, the entry point of the program
     /// <param name="item">The Node to insert</param>
     static void InsertTree(Tree tree, Node item)
     {
-       
+
         tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the element to insert into the tree
     }
 
@@ -1233,10 +1220,6 @@ class Program // Program class, the entry point of the program
     /// </summary>
     static void TreeTests() // some tests
     {
-        Console.WriteLine(" ----------------------------------------------------------------------------------------------------------- ");
-        Console.WriteLine(" --------------- Alfie Nurse's AVL tree Implementation and Set Data Type Functions in C# ------------------- ");
-        Console.WriteLine(" ----------------------------------------------------------------------------------------------------------- ");
-        Console.WriteLine(); // newline
 
         Console.WriteLine("Entering TreeTests() function");
         Console.WriteLine("--------------------------------");
@@ -1292,7 +1275,7 @@ class Program // Program class, the entry point of the program
             Console.WriteLine(data.data + " was" + (!SearchTree(tree.root, data) ? " NOT" : "") + " found");
         }
         Console.WriteLine(); // newline
-        Console.WriteLine("---------- Alfie Nurse: Visualising the tree while testing --------");
+        Console.WriteLine("---------- Visualising the tree while testing --------");
         Console.WriteLine(); // newline
 
         // Print and visualise the initial tree

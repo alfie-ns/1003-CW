@@ -4,6 +4,16 @@ using System; // Don't use anything else than System and only use C-core functio
 
 /*
 
+Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
+I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
+way to keep track of my work on both computers. It also provides a dopamine hit when I push
+to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
+and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now.
+
+https://github.com/alfie-ns/1003-CW
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 A 'base case' ensures recursion TERMINATES when a leaf node is reached, otherwise, the function could run forever,
 causing a stack overflow.
 

@@ -45,21 +45,20 @@ is too tall compared to the left subtree, making the node right-heavy. These sit
  
 When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs
 rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees
-involved. In this case, after insertion or deletion operations, the program assesses the balance-factor of each node
-starting from the newly inserted or deleted node's parent up to the root. If the balance-factor indicates a
-left-heavy imbalance (greater than 1). Conversely, for a right-heavy imbalance (less than -1), it checks the
-right subtree's balance-factor to decide between a single left rotation or a right-left double rotation. This ensures the
-tree maintains its balanced state, thereby preserving the AVL tree's guarantee of logarithmic time-complexity.
+involved. In this case, after insertion or deletion operations, the program recursively assesses the balance factor of the current node and
+performs necessary rotations as the recursive calls unwind, ensuring that the tree remains balanced. If the balance-factor indicates a
+left-heavy imbalance (greater than 1), it'll check the left subtree's balance-factor to decide between a single right rotation,
+or a left-right double rotation. Conversely, for a right-heavy imbalance (less than -1), it checks the right subtree's balance-factor
+to decide between a single left rotation or a right-left double rotation. This ensures the tree maintains its balanced state,
+thereby preserving the AVL tree's guarantee of logarithmic time-complexity.
  
-By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close
-as possible. This balance minimises the maximum depth of the tree, which in turn reduces the worst-case time-complexity of
-operations like search, insertion, and deletion to O(log n).
+By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close as possible.
+This balance minimises the maximum depth of the tree, which in turn reduces the worst-case time complexity of operations
+to O(log n).
  
 The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree.
 By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and
-guarantee efficient operations.
- 
-The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes
+guarantee efficient operations.The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes
 in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the
 number of nodes in each subtree.
  
@@ -72,7 +71,7 @@ one can visually see if the heights are indeed balanced to AVL tree standards.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Guaranteed best-case time-complexity = AVL < BST:
+Guaranteed worst-case time-complexity = AVL < BST:
 - AVL Tree: O(log n)
 - BST: O(log n) in the average case, O(n) in the worst case (unbalanced tree).
 
@@ -81,9 +80,10 @@ and deletion operations, making them much more efficient than a BST in its
 worst-case scenario; thus, they will search for data faster than an unbalanced BST.
 
 
-If an AVL tree has 10 nodes, the formula for finding the average time-complexity is
-log2(10)=3.32. Thus, in the worst case, the number of steps required would be 4, as
-one needs to round up to the nearest whole number (step).
+If an AVL tree has 10 nodes, the maximum number of comparisons required to search for
+a node is given by the formula log2(10)=3.32. Thus, in the worst case, the number of
+steps (comparisons) required would be 4, as one needs to round up to the nearest whole
+number; one cannot have .32 a step!
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -94,12 +94,12 @@ Notebook
           to sensure it definitey is balanced after every operation.
 
 
-- [X] Give a smart explanation of how to work out heights
+- [X] Give a logical explanation of how to work out heights concerning the visual tree
 - NO[X] perhaps I need to insert random nodes into the test trees?
 - [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
 - [X] Show more testing for the Searches
 - [X] More tests that tree is indeed Balanced after every operation
-- [X] Comment explaining why I used 'ref' for the treesize when deleting(to make sure size is updated after deletion)
+- [X] Comment explaining why I used 'ref' for the treesize when deleting(to make sure global size is updated after deletion)
 - [X] Define a large test tree
 - [X] verify tree is indeed balanced after every operation
  
@@ -152,7 +152,6 @@ class Tree
     public int size; // The number of elements in the tree, used to keep track of the tree's size
 
 }
-
 
 
 class Program // Program class, the entry point of the program

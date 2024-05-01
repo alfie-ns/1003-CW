@@ -692,40 +692,43 @@ class Program // Program class, the entry point of the program
     static void PrintTreeVisual(Node node, string indent = "", bool last = true)
     {
         /*
-            This function prints the AVL tree in the console using box-drawing characters for structure.
-            The 'indent' parameter creates visual indentation, and 'last' is used to identify if a node
-            is the last child, influencing the visual layout. Initially, 'last' is true for the root,
-            simplifying the start of the rendering logic. This approach, inspired by a technique I
-            observed one night on the internet, ensures consistent formatting from the 'top down'. This means
-            ensuring the root node sets the initial structure, and as we move to each level, we adjust
-            indentations and box-drawing characters accordingly, reflecting each node's position and relation in the
-            hierarchy efficiently and clearly. I copied and pasted each box-drawing character from: https://en.wikipedia.org/wiki/Box-drawing_character
-            as I couldn't work out how to type them on my keyboard, and I didn't want to spend too much time on it!
+            The function recursively traverses the tree in a depth-first manner, printing the node's data
+            next to the respective box-drawing character used to visually represent the tree structure.
+            
+            If the node has no children, it prints the '└─' box-drawing character, next
+            to the node's data, indicating there are NO more children to go in the subtree
+            after THIS node.
+            
+            If the node has children, it prints the '├─' box-drawing character, indicating that there IS
+            more children to go in the subtree after this node.
+            
+            - The 'last' parameter  starts as TRUE for the root node as it's the root of the tree so
+              has NO node before it. 
+            - The 'indent' parameter is used to create the necessary visual indentation space
+              for each level.
 
         */
 
         if (node != null) // If node is NOT null
         {
-            Console.Write(indent); // Write the indent. Initially, 'indent' is an empty string, effectively adding no extra space before the root node.
+            Console.Write(indent); // Write the indent. Initially, 'indent' starts as an EMPTY string = ""
 
-            if (last) // if it's the last child in the sibling group
+            if (last) // IF it's the last child in the sibling group
             {
                 Console.Write("└─"); // print box-drawing indicating it's the last child
-                indent += "  "; // += 2 spaces to the indent for alignment since no vertical line is needed below this node
+                indent += "  "; // += indent 2 spaces horizontally for alingment hence looks like: '└─  {data}'
             }
-            else // Otherwise the node is NOT the last child
+            else // OTHERWISE the node is NOT the last child
             {
                 Console.Write("├─"); // print box-drawing character indicating it has siblings below it
-                indent += "| "; // Add a vertical line followed by a space to the indent for correct visual alignment of its children
+                indent += "| "; // Add a vertical line following '├─' to indicate more siblings below to go
 
             }
 
-            Console.WriteLine(node.data.data); // Write the node's data to the console
+            Console.WriteLine(node.data.data); // Finally, print the node's data following the box-drawing character in this recusive level
 
-            PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==false this time round
-            PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last==true this time round
-
-            // the recursive search for the left child is set to false because the left child won't be the last child in the BST.
+            PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==false this time round, as the right subtree will be visited next
+            PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last==true this time round.
 
         }
     }
@@ -1231,7 +1234,7 @@ class Program // Program class, the entry point of the program
     {
 
         Console.WriteLine("Entering TreeTests() function");
-        Console.WriteLine("--------------------------------");
+        Console.WriteLine("-------------------------------");
         Console.WriteLine(); // newline
 
         Tree tree = new Tree(); // init tree for tests

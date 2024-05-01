@@ -94,7 +94,7 @@ Notebook
           to sensure it definitey is balanced after every operation. Also, in your tree, because I've attempted to only insert elements above
 
 
-- [X] Give a logical explanation of how to work out heights concerning the visual tree
+- [X] Give a logical explanation of how to quickly work out heights concerning the visual tree
 - NO[X] perhaps I need to insert random nodes into the test trees?
 - [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
 - [X] Show more testing for the Searches
@@ -660,7 +660,7 @@ class Program // Program class, the entry point of the program
         stores the node's data in an array, that I check is indeed sorted.
         */
 
-        if (node == null) return; // Base case: If the node is null, return immediately
+        if (node == null) return; // Base case: If the node is null, return
 
         InOrderTraversal(node.left, action); // Recursively traverse the left subtree
         action(node.data.data); // Action<int> delegate to handle the node's data. data.data = the integer value of the node
@@ -694,16 +694,16 @@ class Program // Program class, the entry point of the program
         /*
             The function recursively traverses the tree in a depth-first manner, printing the node's data
             next to the respective box-drawing character used to visually represent the tree structure.
-            
+           
             If the node has no children, it prints the '└─' box-drawing character, next
             to the node's data, indicating there are NO more children to go in the subtree
             after THIS node.
-            
+           
             If the node has children, it prints the '├─' box-drawing character, indicating that there IS
             more children to go in the subtree after this node.
-            
+           
             - The 'last' parameter  starts as TRUE for the root node as it's the root of the tree so
-              has NO node before it. 
+              has NO node before it.
             - The 'indent' parameter is used to create the necessary visual indentation space
               for each level.
 
@@ -735,7 +735,7 @@ class Program // Program class, the entry point of the program
 
     static Node FindNode(Node node, Node item)
     {
-        if (node == null || IsEqual(node, item)) return node; // Base case: If the node is immediately found OR the tree is empty, return the node argument
+        if (node == null || IsEqual(node, item)) return node; // Base case: If the node is found OR the tree is empty, return the node argument
 
         if (IsSmaller(item, node)) // If the item is smaller than the current node, traverse the left subtree
             return FindNode(node.left, item);
@@ -1080,7 +1080,7 @@ class Program // Program class, the entry point of the program
         // Helper function to insert unique nodes from a given tree into the resultTree
         void InsertUniqueFromTree(Node node)
         {
-            if (node == null) return; // Base case: If the current node is null, return immediately
+            if (node == null) return; // Base case: If the current node is null, return
 
             // Before inserting, check if the current node's value already exists in the resultTree
             if (!SearchTree(resultTree.root, node.data))
@@ -1123,7 +1123,7 @@ class Program // Program class, the entry point of the program
 
         void IntersectHelper(Node node)
         {
-            if (node == null) return; // Base case: If the current node is null, return immediately
+            if (node == null) return; // Base case: If the current node is null, return
 
             if (SearchTree(tree2.root, node.data))
             { // If nodes are in both trees, insert into result tree

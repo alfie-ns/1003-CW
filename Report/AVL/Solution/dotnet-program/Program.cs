@@ -460,6 +460,25 @@ class Program // Program class, the entry point of the program
         return tree;
     }
 
+    static bool IsBST(Node node, int minValue, int maxValue)
+    {
+        if (node == null)
+            return true;
+
+        if (node.data.data < minValue || node.data.data > maxValue)
+            return false;
+
+        return IsBST(node.left, minValue, node.data.data - 1) &&
+            IsBST(node.right, node.data.data + 1, maxValue);
+    }
+
+static void TestBSTProperty(Tree tree)
+{
+    Console.WriteLine("Testing BST property...");
+    Assert(IsBST(tree.root, int.MinValue, int.MaxValue), "BST property test: Tree is not a valid BST");
+    Console.WriteLine("BST property test PASSED!");
+}
+
 
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
 
@@ -1356,6 +1375,10 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Time-taken for all AVL testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
+        // Test BST property
+        Console.WriteLine("----------Testing BST property...----------");
+        TestBSTProperty(tree);
+        Console.WriteLine();
         Console.WriteLine(); // newline
     }
 

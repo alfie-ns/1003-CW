@@ -91,7 +91,7 @@ Notebook
 --------
 
 [MESSAGE] Although recursive rebalancing may not be the most efficient approach, I have done it this way
-          to sensure it definitey is balanced after every operation.
+          to sensure it definitey is balanced after every operation. Also, in your tree, because I've attempted to only insert elements above
 
 
 - [X] Give a logical explanation of how to work out heights concerning the visual tree
@@ -471,7 +471,7 @@ class Program // Program class, the entry point of the program
             insert it prior to when I can delete it.
         */
 
-        int[] elements = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 }; // init the particular elements into the tree that I want to delete, that definetely won't be randomly generated thus discarded before I can insert it
+        int[] elements = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, }; // init elements into the tree that I want to delete, that definetely won't be randomly generated thus discarded before I can insert it
         //int[] randomElements = new int[10]; // init an empty array to store random elements
 
         int initialSize = Size(testTree); // get the initial size of the testTree
@@ -521,28 +521,28 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Initial tree size: " + initialSize);
         Console.WriteLine(); // newline
 
-        Console.WriteLine("Deleting 10...");
-        DeleteItem(testTree, new Node { data = new DataEntry { data = 10 } }); // delete 10 from the tree
-        Console.WriteLine("Tree size after deleting 10: " + Size(testTree)); // print the size AFTER deletion
+        Console.WriteLine("Deleting 11...");
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 11 } }); // delete 11 from the tree
+        Console.WriteLine("Tree size after deleting 11: " + Size(testTree)); // print the size AFTER deletion
         PrintTreeVisual(testTree.root); // print the tree visually
         Assert(IsBalanced(testTree.root), "Deletion test: Tree is not balanced after deletion"); // more verification
         Console.WriteLine(); // newline
 
-        Console.WriteLine("Deleting 50...");
-        DeleteItem(testTree, new Node { data = new DataEntry { data = 50 } }); // delete 50 from the tree
-        Console.WriteLine("Tree size after deleting 50: " + Size(testTree)); // print the size AFTER deletion
+        Console.WriteLine("Deleting 15...");
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 15 } }); // delete 15 from the tree
+        Console.WriteLine("Tree size after deleting 15: " + Size(testTree)); // print the size AFTER deletion
         PrintTreeVisual(testTree.root); // print the tree visually
         Assert(IsBalanced(testTree.root), "Deletion test: Tree is not balanced after deletion"); // more verification
         Console.WriteLine(); // newline
 
-        Console.WriteLine("Deleting 90...");
-        DeleteItem(testTree, new Node { data = new DataEntry { data = 90 } }); // delete 13 from the tree
-        Console.WriteLine("Tree size after deleting 90: " + Size(testTree)); // print the size AFTER deletion
+        Console.WriteLine("Deleting 20...");
+        DeleteItem(testTree, new Node { data = new DataEntry { data = 20 } }); // delete 20 from the tree
+        Console.WriteLine("Tree size after deleting 20: " + Size(testTree)); // print the size AFTER deletion
         PrintTreeVisual(testTree.root); // print the tree visually
         Assert(IsBalanced(testTree.root), "Deletion test: Tree is not balanced after deletion"); // more verification
         Console.WriteLine(); // newline
 
-        int expectedSize = initialSize - 3; // calculate the expected size after deletion of 11, 12, and 13
+        int expectedSize = initialSize - 3; // calculate the expected size after deletion of 11, 15, and 20
         Assert(Size(testTree) == expectedSize, "Deletion test: Tree size is incorrect"); // check if tree size is correct
         Assert(IsBalanced(testTree.root), "Deletion test: Tree is not balanced"); // check if tree is balanced
         Assert(IsSorted(testTree), "Deletion test: Tree is not sorted"); // check if tree is sorted
@@ -1340,7 +1340,7 @@ class Program // Program class, the entry point of the program
         is false, e.g. the test fails. Prior to reporting success,
         I checked all Assertion tests would pass successfully; I
         I could've done this programmatically, however, I hope my manual
-        check is sufficient. 
+        check is sufficient.
         */
 
         DateTime endTime = DateTime.Now; // end time

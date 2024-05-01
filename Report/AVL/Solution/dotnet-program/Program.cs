@@ -653,7 +653,7 @@ class Program // Program class, the entry point of the program
     {
         /*
         This function utilises an Action<int> delegate for flexible node
-        data handling during in-order traversal; the null check serves as
+        data handling during in-order traversal, the null check serves as
         a base case, ensuring recursion halts at leaf nodes. I need to use
         a delegate to handle the node's data, when I use this function inside
         the IsSorted function, essentially, I pass a lambda function that
@@ -1337,10 +1337,10 @@ class Program // Program class, the entry point of the program
         /*
         I run all my tests and directly report them as PASSED;
         as the assert function throws an exception if the condition
-        is false; e.g. the test fails. Prior to reporting success,
-        I checked all Assertion tests would pass successfully; I guess
+        is false, e.g. the test fails. Prior to reporting success,
+        I checked all Assertion tests would pass successfully; I
         I could've done this programmatically, however, I hope my manual
-        check is sufficient.
+        check is sufficient. 
         */
 
         DateTime endTime = DateTime.Now; // end time

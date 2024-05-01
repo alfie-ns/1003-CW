@@ -91,7 +91,9 @@ Notebook
 --------
 
 [MESSAGE] Although recursive rebalancing may not be the most efficient approach, I have done it this way
-          to sensure it definitey is balanced after every operation. Also, in your tree, because I've attempted to only insert elements above
+          to sensure it definitey is balanced after every operation. Also, in your tree, because I've 
+          attempted to only insert elements above the value of 10, to not get mixed up with the randomly
+          generated elements.
 
 
 - [X] Give a logical explanation of how to quickly work out heights concerning the visual tree

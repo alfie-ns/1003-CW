@@ -96,7 +96,7 @@ Notebook
           generated elements.
 
 
-- [X] Give a logical explanation of how to quickly work out heights concerning the visual tree
+- [X] Give a logical explanation of how to quickly work out heights of nodes in an AVL tree.
 - NO[X] perhaps I need to insert random nodes into the test trees?
 - [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
 - [X] Show more testing for the Searches
@@ -259,6 +259,7 @@ class Program // Program class, the entry point of the program
         // The logic is the same as RotateRight, but mirrored
         Node newRoot = node.right;
         node.right = newRoot.left;
+
         newRoot.left = node;
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
         newRoot.Height = 1 + Math.Max(GetHeight(newRoot.left), GetHeight(newRoot.right));
@@ -335,7 +336,7 @@ class Program // Program class, the entry point of the program
     static Node InsertTreeHelper(Node node, Node newNode)
     { // First, perform the standard BST insertion
         if (node == null)
-        { // Base case: If the node is null, return the new node and a height of 1 accounting for that single node
+        { // Base case: If the node is null, return the new node and a height of 1 accounting for that node
             newNode.Height = 1; // Set the height as 1 for the single node thats been inserted
             return newNode; // Return the new node
         }
@@ -357,7 +358,7 @@ class Program // Program class, the entry point of the program
 
     static Node DeleteNode(Node node, Node item, ref int treeSize)
     {
-        if (node == null) return null; // Base case: If the node is null, return null immediately
+        if (node == null) return null; // Base case: If the node is null, return null
 
         if (IsSmaller(item, node)) // If the item is SMALLER than the current node, search in the left subtree
         {

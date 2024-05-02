@@ -463,46 +463,52 @@ class Program // Program class, the entry point of the program
 
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
 
-    static void TestParent()
-    {
-        // Create a sample tree, where the names of the nodes represent the values they hold
-        Tree tree = new Tree();
-        Node root = new Node { data = new DataEntry { data = 4 } };
-        Node node2 = new Node { data = new DataEntry { data = 2 } };
-        Node node6 = new Node { data = new DataEntry { data = 6 } };
-        Node node1 = new Node { data = new DataEntry { data = 1 } };
-        Node node3 = new Node { data = new DataEntry { data = 3 } };
-        Node node5 = new Node { data = new DataEntry { data = 5 } };
-        Node node7 = new Node { data = new DataEntry { data = 7 } };
+    static void TestParent() {
+        try {
+            // Create a sample tree, where the names of the nodes represent the values they hold
+            Tree tree = new Tree();
+            Node root = new Node { data = new DataEntry { data = 4 } };
+            Node node2 = new Node { data = new DataEntry { data = 2 } };
+            Node node6 = new Node { data = new DataEntry { data = 6 } };
+            Node node1 = new Node { data = new DataEntry { data = 1 } };
+            Node node3 = new Node { data = new DataEntry { data = 3 } };
+            Node node5 = new Node { data = new DataEntry { data = 5 } };
+            Node node7 = new Node { data = new DataEntry { data = 7 } };
 
-        // Construct tree sructure, so we know where the parent of each node should be
-        tree.root = root;
-        root.left = node2;
-        root.right = node6;
-        node2.left = node1;
-        node2.right = node3;
-        node6.left = node5;
-        node6.right = node7;
+            // Construct tree structure, so we know where the parent of each node should be
+            tree.root = root;
+            root.left = node2;
+            root.right = node6;
+            node2.left = node1;
+            node2.right = node3;
+            node6.left = node5;
+            node6.right = node7;
 
-        // Test Case 1: Find parent of the root node (should be null)
-        Node parent1 = Parent(tree, root);
-        Assert(parent1 == null, "Parent of the root node should be null");
+            // Test Case 1: Find parent of the root node (should be null)
+            Node parent1 = Parent(tree, root);
+            Assert(parent1 == null, "Parent of the root node should be null");
 
-        // Test Case 2: Find parent of a leaf node
-        Node parent2 = Parent(tree, node1);
-        Assert(parent2 == node2, "Parent of node1 should be node2");
+            // Test Case 2: Find parent of a leaf node
+            Node parent2 = Parent(tree, node1);
+            Assert(parent2 == node2, "Parent of node1 should be node2");
 
-        // Test Case 3: Find parent of an intermediate node
-        Node parent3 = Parent(tree, node6);
-        Assert(parent3 == root, "Parent of node6 should be the root node");
+            // Test Case 3: Find parent of an intermediate node
+            Node parent3 = Parent(tree, node6);
+            Assert(parent3 == root, "Parent of node6 should be the root node");
 
-        // Test Case 4: Find parent of a node that doesn't exist in the tree
-        Node nonExistentNode = new Node { data = new DataEntry { data = 10 } };
-        Node parent4 = Parent(tree, nonExistentNode);
-        Assert(parent4 == null, "Parent of a non-existent node should be null");
+            // Test Case 4: Find parent of a node that doesn't exist in the tree
+            Node nonExistentNode = new Node { data = new DataEntry { data = 10 } };
+            Node parent4 = Parent(tree, nonExistentNode);
+            Assert(parent4 == null, "Parent of a non-existent node should be null");
 
-        Console.WriteLine("Parent function tests passed!");
+            // If all assertions pass, print this success message
+            Console.WriteLine("All parent function tests passed successfully!");
+        } catch (Exception ex) {
+            // If an assertion fails, the error will be caught here
+            Console.WriteLine(ex.Message);
+        }
     }
+
 
     static void TestInsertion(Tree testTree)
     {

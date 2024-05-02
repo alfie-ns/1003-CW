@@ -463,7 +463,8 @@ class Program // Program class, the entry point of the program
 
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
 
-    static void TestParent() {
+    static void TestParent() 
+    {
         try {
             // Create a sample tree, where the names of the nodes represent the values they hold
             Tree tree = new Tree();
@@ -488,11 +489,11 @@ class Program // Program class, the entry point of the program
             Node parent1 = Parent(tree, root);
             Assert(parent1 == null, "Parent of the root node should be null");
 
-            // Test Case 2: Find parent of a leaf node
+            // Test Case 2: Find the parent of a leaf node (node1) which has a sibling but no children.
             Node parent2 = Parent(tree, node1);
             Assert(parent2 == node2, "Parent of node1 should be node2");
 
-            // Test Case 3: Find parent of an intermediate node
+            // Test Case 3: Find the parent of an intermediate node (node6), eg, a node situated between the root and a leaf node.
             Node parent3 = Parent(tree, node6);
             Assert(parent3 == root, "Parent of node6 should be the root node");
 
@@ -502,7 +503,7 @@ class Program // Program class, the entry point of the program
             Assert(parent4 == null, "Parent of a non-existent node should be null");
 
             // If all assertions pass, print this success message
-            Console.WriteLine("All parent function tests passed successfully!");
+            Console.WriteLine("Parent test PASSED - No Exceptions were thrown");
         } catch (Exception ex) {
             // If an assertion fails, the error will be caught here
             Console.WriteLine(ex.Message);
@@ -1023,13 +1024,7 @@ class Program // Program class, the entry point of the program
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
     {
-       
-
-        if (node == null || node == tree.root)
-        {
-            // If node is null or the root of the tree, has no parent, so return null immediately
-            return null;
-        }
+        if (node == null || node == tree.root) return null; // If node is null or the root of the tree, it has no parent, so return null immediately
 
         // Call the recursive helper function to find the parent
         return FindParentHelper(tree.root, node);
@@ -1387,7 +1382,11 @@ class Program // Program class, the entry point of the program
         is false, e.g. the test fails. Prior to reporting success,
         I checked all Assertion tests would pass successfully; I
         I could've done this programmatically, however, I hope my manual
-        check is sufficient.
+        check is sufficient. 
+        
+        Later, I do indeed programmatically
+        check the assert functions pass with a try-catch block in the
+        TestParent() function.
         */
 
         DateTime endTime = DateTime.Now; // end time

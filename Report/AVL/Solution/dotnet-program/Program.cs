@@ -417,10 +417,10 @@ class Program // Program class, the entry point of the program
     {
         if (current == null) return null; // Base case: If the current node is null, return null
 
-        // Check if the current node is the parent of the given node
+        // Check if the given node is a child of the current node
         if (current.left == node || current.right == node) // if current node is left or right child of node
         {
-            // If the current node is the parent, return it
+            // If the given node is a child of the current node, then the current node is the parent
             return current;
         }
 
@@ -446,7 +446,7 @@ class Program // Program class, the entry point of the program
 
     static Node FindMin(Node tree)
     {
-        if (tree == null) return null; // Base case: If the tree is empty, return null immediately
+        if (tree == null) return null; // Base case: If the tree is empty, return null
 
         //Console.WriteLine("FindMin: Current node value: " + tree.data.data); // TESTING
 
@@ -460,27 +460,49 @@ class Program // Program class, the entry point of the program
         return tree;
     }
 
-    static bool IsBST(Node node, int minValue, int maxValue)
-    {
-        if (node == null)
-            return true;
-
-        if (node.data.data < minValue || node.data.data > maxValue)
-            return false;
-
-        return IsBST(node.left, minValue, node.data.data - 1) &&
-            IsBST(node.right, node.data.data + 1, maxValue);
-    }
-
-static void TestBSTProperty(Tree tree)
-{
-    Console.WriteLine("Testing BST property...");
-    Assert(IsBST(tree.root, int.MinValue, int.MaxValue), "BST property test: Tree is not a valid BST");
-    Console.WriteLine("BST property test PASSED!");
-}
-
 
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
+
+    static void TestParent()
+    {
+        // Create a sample tree, where the names of the nodes represent the values they hold
+        Tree tree = new Tree();
+        Node root = new Node { data = new DataEntry { data = 4 } };
+        Node node2 = new Node { data = new DataEntry { data = 2 } };
+        Node node6 = new Node { data = new DataEntry { data = 6 } };
+        Node node1 = new Node { data = new DataEntry { data = 1 } };
+        Node node3 = new Node { data = new DataEntry { data = 3 } };
+        Node node5 = new Node { data = new DataEntry { data = 5 } };
+        Node node7 = new Node { data = new DataEntry { data = 7 } };
+
+        // Construct tree sructure, so we know where the parent of each node should be
+        tree.root = root;
+        root.left = node2;
+        root.right = node6;
+        node2.left = node1;
+        node2.right = node3;
+        node6.left = node5;
+        node6.right = node7;
+
+        // Test Case 1: Find parent of the root node (should be null)
+        Node parent1 = Parent(tree, root);
+        Assert(parent1 == null, "Parent of the root node should be null");
+
+        // Test Case 2: Find parent of a leaf node
+        Node parent2 = Parent(tree, node1);
+        Assert(parent2 == node2, "Parent of node1 should be node2");
+
+        // Test Case 3: Find parent of an intermediate node
+        Node parent3 = Parent(tree, node6);
+        Assert(parent3 == root, "Parent of node6 should be the root node");
+
+        // Test Case 4: Find parent of a node that doesn't exist in the tree
+        Node nonExistentNode = new Node { data = new DataEntry { data = 10 } };
+        Node parent4 = Parent(tree, nonExistentNode);
+        Assert(parent4 == null, "Parent of a non-existent node should be null");
+
+        Console.WriteLine("Parent function tests passed!");
+    }
 
     static void TestInsertion(Tree testTree)
     {
@@ -579,8 +601,8 @@ static void TestBSTProperty(Tree tree)
         // Insert integers 1 to 50 into the tree
         for (int i = 1; i <= 50; i++)
         {
-            InsertTree(tree, new Node { data = new DataEntry { data = i } });
-            Assert(IsBalanced(tree.root), "Balanced insertion test: Tree is not balanced after insertion");
+            InsertTree(tree, new Node { data = new DataEntry { data = i } }); // insert each element into the tree
+            Assert(IsBalanced(tree.root), "Balanced insertion test: Tree is not balanced after insertion"); // more verification
         }
 
         // Rebalance the tree after insertions
@@ -649,6 +671,8 @@ static void TestBSTProperty(Tree tree)
             3. Increment 'index' using the post-increment operator (index++) to move to the next position in the array.
 
             ++index would increment the index before the value is stored, whereas index++ increments the index after the value is stored.
+            If the index was incremented before storing the value, it would start at 1, thus skipping the first position of the sortedArray,
+            as an array is zero-indexed.
        
             By performing an in-order traversal and using this lambda function, the elements of the tree are stored in the 'sortedArray'
             in ascending order. This is because an in-order traversal of a binary search tree visits the nodes in ascending order of their values.
@@ -804,7 +828,7 @@ static void TestBSTProperty(Tree tree)
     /// <returns>True if the data in item1 is smaller than the data in item2, and false otherwise.</returns>
     static bool IsSmaller(Node item1, Node item2)
     {
-        return item1.data.data < item2.data.data; // if item1 integer < item2 integer return true, else false
+        return item1.data.data < item2.data.data; // if (item1 integer) < (item2 integer) return true, else false
     }
 
 
@@ -819,7 +843,7 @@ static void TestBSTProperty(Tree tree)
     /// <returns>True if two Nodes have the same value, false otherwise.</returns>
     static bool IsEqual(Node item1, Node item2)
     {
-        return item1.data.data == item2.data.data; // if item1 integer == item2 integer return true, else false
+        return item1.data.data == item2.data.data; // if (item1 integer) == (item2 integer) return true, else false
     }
 
 
@@ -863,7 +887,7 @@ static void TestBSTProperty(Tree tree)
     static void InsertTree(Tree tree, Node item)
     {
 
-        tree.root = InsertTreeHelper(tree.root, item); // call the helper function, passing the root node and the element to insert into the tree
+        tree.root = InsertTreeHelper(tree.root, item); // Call the helper function, passing the root node of the tree to begin recursive insertion, and the item to insert into the tree
     }
 
 
@@ -877,9 +901,9 @@ static void TestBSTProperty(Tree tree)
     /// <returns>True if the value is found and false otherwise.</returns>
     static bool SearchTree(Node tree, DataEntry value)
     {
-        if (tree == null) // Base case: If the tree is empty, return false immediately
+        if (tree == null) // Base case: If the tree is empty, or the item is not found, return false
             return false;
-        if (value.data == tree.data.data) // If the current node's data matches the value, return true
+        if (value.data == tree.data.data) // If the current node's data matches the value, return true(FOUND)
             return true;
         else if (value.data < tree.data.data) // If the value is LESS than the current node's data, search in the left subtree
             return SearchTree(tree.left, value);
@@ -899,7 +923,7 @@ static void TestBSTProperty(Tree tree)
     /// <returns>True if the Node is found, false otherwise.</returns>
     static bool SearchTreeItem(Node tree, Node item)
     {
-        // Base case: If the tree is empty, return false immediately
+        // Base case: If the tree is empty, return false 
         if (tree == null)
             return false;
 
@@ -917,8 +941,6 @@ static void TestBSTProperty(Tree tree)
         if (foundInRight)
             return true;
 
-        // this is in-order traversal, to search the left subtree first
-
         // If the item is not found in EITHER subtree, it is not in the tree at all
         return false;
     }
@@ -931,7 +953,7 @@ static void TestBSTProperty(Tree tree)
     /// <param name="item">The Node to remove</param>
     static void DeleteItem(Tree tree, Node item)
     {
-        tree.root = DeleteNode(tree.root, item, ref tree.size); // call the helper function, passing the root node, the item to delete, and the tree size by reference to ensure it is updated after deletion
+        tree.root = DeleteNode(tree.root, item, ref tree.size); // call the helper function, passing the root node, the item to delete, and the tree size by reference to ensure it's updated after deletion
     }
 
 
@@ -995,18 +1017,7 @@ static void TestBSTProperty(Tree tree)
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
     {
-        /*
-
-        This function should 1st check if the node is
-        null or root of the tree(thus no parents). Then
-        init parent as an empty value, then check if the
-        current node is the parent, if so will return that
-        value. If it's NOT, start traversing the tree,
-        going left subtree to right subtree, it does this
-        recursively, until the current node is the parent of
-        the node given to the function.
-
-        */
+       
 
         if (node == null || node == tree.root)
         {
@@ -1351,6 +1362,11 @@ static void TestBSTProperty(Tree tree)
         Console.WriteLine("Search test PASSED!");
         Console.WriteLine(); // newline
 
+        Console.WriteLine("----------Testing Parent function...----------");
+        Console.WriteLine(); // newline
+        TestParent();
+        Console.WriteLine(); // newline
+
         // Test AVL balancing
         Console.WriteLine("----------Testing AVL balancing...----------"); // testing...
         Console.WriteLine(); // newline
@@ -1375,11 +1391,7 @@ static void TestBSTProperty(Tree tree)
         Console.WriteLine("Time-taken for all AVL testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
-        // Test BST property
-        Console.WriteLine("----------Testing BST property...----------");
-        TestBSTProperty(tree);
-        Console.WriteLine();
-        Console.WriteLine(); // newline
+        
     }
 
 

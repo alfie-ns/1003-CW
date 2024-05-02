@@ -91,7 +91,7 @@ Notebook
 --------
 
 [MESSAGE] Although recursive rebalancing may not be the most efficient approach, I have done it this way
-          to sensure it definitey is balanced after every operation. Also, in your tree, because I've
+          to sensure it definitey is balanced after every operation. Also, in your tree, because I've 
           attempted to only insert elements above the value of 10, to not get mixed up with the randomly
           generated elements.
 
@@ -752,8 +752,8 @@ class Program // Program class, the entry point of the program
     /// ------------------------------------------------------------- Latest Test Functions ------------------------------------------------------------- ///
 
     /*
-        These new test functions I made in May now use try-catch blocks to
-        programmatically confirm the assertion tests pass, a pre-set strucutred
+        These new test functions I made in May now use try-catch blocks to 
+        programmatically confirm the assertion tests pass, a pre-set strucutred 
         tree is manually created, so we know where each node is situated, thus
         relative to each-other
     */
@@ -800,7 +800,7 @@ class Program // Program class, the entry point of the program
     {
         try // try the following code; if an assertion exception is thrown, catch it.
         {
-            // Create a sample tree, where the names of the nodes represent the values they hold, to easily say what this node's data holds
+            // Create a sample tree, where the names of the nodes represent the values they hold, to easily see what this node's data holds
             Tree tree = new Tree();
             Node root = new Node { data = new DataEntry { data = 4 } };
             Node node2 = new Node { data = new DataEntry { data = 2 } };
@@ -982,7 +982,7 @@ class Program // Program class, the entry point of the program
     /// <returns>True if the Node is found, false otherwise.</returns>
     static bool SearchTreeItem(Node tree, Node item)
     {
-        // Base case: If the tree is empty, return false
+        // Base case: If the tree is empty, return false 
         if (tree == null)
             return false;
 
@@ -1055,7 +1055,7 @@ class Program // Program class, the entry point of the program
           accounting for the current node.
         */
 
-        // Base case: If the tree is empty (root is null), return 0 (no depth)
+        // Base case: If the tree is empty (root is null), return 0 (no depth) 
         if (tree == null) return 0;
 
         // Else, recursively calculate the depth of the left or right subtree's
@@ -1076,7 +1076,7 @@ class Program // Program class, the entry point of the program
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
     {
-        if (node == null || node == tree.root) return null; // If node is null or the root of the tree, it has no parent, so return null
+        if (node == null || node == tree.root) return null; // If node is null or the root of the tree, it has no parent, so return null 
 
         // Call the recursive helper function to find the parent
         return FindParentHelper(tree.root, node);
@@ -1443,8 +1443,8 @@ class Program // Program class, the entry point of the program
         is false, e.g. the test fails. Prior to reporting success,
         I checked all Assertion tests would pass successfully; I
         I could've done this programmatically, however, I hope my manual
-        check is sufficient.
-       
+        check is sufficient. 
+        
         Later on, I do indeed programmatically
         check the assert functions pass with a try-catch block in the
         TestParent() and Test_DeleteMin() functions
@@ -1457,7 +1457,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Time-taken for all AVL-structure and BST-operation testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
-       
+        
     }
 
 

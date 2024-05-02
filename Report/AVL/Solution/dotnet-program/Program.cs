@@ -91,7 +91,7 @@ Notebook
 --------
 
 [MESSAGE] Although recursive rebalancing may not be the most efficient approach, I have done it this way
-          to sensure it definitey is balanced after every operation. Also, in your tree, because I've 
+          to sensure it definitey is balanced after every operation. Also, in your tree, because I've
           attempted to only insert elements above the value of 10, to not get mixed up with the randomly
           generated elements.
 
@@ -301,7 +301,7 @@ class Program // Program class, the entry point of the program
 
     static int GetBalanceFactor(Node node)
     {
-        if (node == null) return 0; // Base case: If the node is null, immediately return 0(balance-factor of an empty tree is 0)
+        if (node == null) return 0; // Base case: If the node is null, return 0(balance-factor of an empty tree is 0)
 
         return GetHeight(node.left) - GetHeight(node.right);
         // The balance-factor = subtracting right subtree height from the left subtree height
@@ -462,53 +462,6 @@ class Program // Program class, the entry point of the program
 
 
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
-
-    static void TestParent() 
-    {
-        try {
-            // Create a sample tree, where the names of the nodes represent the values they hold
-            Tree tree = new Tree();
-            Node root = new Node { data = new DataEntry { data = 4 } };
-            Node node2 = new Node { data = new DataEntry { data = 2 } };
-            Node node6 = new Node { data = new DataEntry { data = 6 } };
-            Node node1 = new Node { data = new DataEntry { data = 1 } };
-            Node node3 = new Node { data = new DataEntry { data = 3 } };
-            Node node5 = new Node { data = new DataEntry { data = 5 } };
-            Node node7 = new Node { data = new DataEntry { data = 7 } };
-
-            // Construct tree structure, so we know where the parent of each node should be
-            tree.root = root;
-            root.left = node2;
-            root.right = node6;
-            node2.left = node1;
-            node2.right = node3;
-            node6.left = node5;
-            node6.right = node7;
-
-            // Test Case 1: Find parent of the root node (should be null)
-            Node parent1 = Parent(tree, root);
-            Assert(parent1 == null, "Parent of the root node should be null");
-
-            // Test Case 2: Find the parent of a leaf node (node1) which has a sibling but no children.
-            Node parent2 = Parent(tree, node1);
-            Assert(parent2 == node2, "Parent of node1 should be node2");
-
-            // Test Case 3: Find the parent of an intermediate node (node6), eg, a node situated between the root and a leaf node.
-            Node parent3 = Parent(tree, node6);
-            Assert(parent3 == root, "Parent of node6 should be the root node");
-
-            // Test Case 4: Find parent of a node that doesn't exist in the tree
-            Node nonExistentNode = new Node { data = new DataEntry { data = 10 } };
-            Node parent4 = Parent(tree, nonExistentNode);
-            Assert(parent4 == null, "Parent of a non-existent node should be null");
-
-            // If all assertions pass, print this success message
-            Console.WriteLine("Parent test PASSED - No Exceptions were thrown");
-        } catch (Exception ex) {
-            // If an assertion fails, the error will be caught here
-            Console.WriteLine(ex.Message);
-        }
-    }
 
 
     static void TestInsertion(Tree testTree)
@@ -796,6 +749,105 @@ class Program // Program class, the entry point of the program
             return FindNode(node.right, item);
     }
 
+    /// ------------------------------------------------------------- Latest Test Functions ------------------------------------------------------------- ///
+
+    /*
+        These new test functions I made in May now use try-catch blocks to
+        programmatically confirm the assertion tests pass, a pre-set strucutred
+        tree is manually created, so we know where each node is situated, thus
+        relative to each-other
+    */
+
+    static void Test_DeleteMin()
+    {
+        try  // try the following code; if an assertion exception is thrown, catch it.
+        {
+            // Test Case 1: Deleting the minimum node from an empty tree
+            Tree emptyTree = new Tree(); // init testtree
+            DeleteMin(emptyTree); // call DeleteMin, passing empty test tree
+            Assert(emptyTree.root == null, "Tree should still be empty after trying to delete min from an empty tree."); // run assertion
+
+            // Test Case 2: Deleting the minimum node from a single-node tree
+            Tree singleNodeTree = new Tree(); // init testtree
+            singleNodeTree.root = new Node { data = new DataEntry { data = 10 } };
+            DeleteMin(singleNodeTree); // call DeleteMin passing a single-noded tree
+            Assert(singleNodeTree.root == null, "Tree should be empty after deleting the min from a single-node tree."); // run assertion
+
+            // Test Case 3: Deleting the minimum node from a tree with multiple nodes. This should delete 5, as it's the left-most (therefore smallest) node.
+            Tree multipleNodesTree = new Tree(); // init test tree
+            Node root = new Node { data = new DataEntry { data = 20 } };
+            Node leftChild = new Node { data = new DataEntry { data = 10 } };
+            Node rightChild = new Node { data = new DataEntry { data = 30 } };
+            Node leftGrandchild = new Node { data = new DataEntry { data = 5 } }; // this is the left-most node to be deleted
+            root.left = leftChild;
+            root.right = rightChild;
+            leftChild.left = leftGrandchild; // left-most
+            multipleNodesTree.root = root; // Set the root of the multipleNodesTree to the provided root node
+
+            DeleteMin(multipleNodesTree); // Delete the left-most (smallest) node from the multipleNodesTree. The recursive operation begins at the root.
+            Assert(!SearchTree(multipleNodesTree.root, new DataEntry { data = 5 }), "Min node (5) should be deleted."); // check min value (5) indeed is the one deleted
+            Assert(IsBalanced(multipleNodesTree.root), "Tree should remain balanced after deleting the min node."); // balance verification
+
+            Console.WriteLine("DeleteMin tests PASSED - No Exceptions were thrown");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("DeleteMin test failed: " + ex.Message); // if assertions fail, catch exception here
+        }
+    }
+
+    static void TestParent()
+    {
+        try // try the following code; if an assertion exception is thrown, catch it.
+        {
+            // Create a sample tree, where the names of the nodes represent the values they hold, to easily say what this node's data holds
+            Tree tree = new Tree();
+            Node root = new Node { data = new DataEntry { data = 4 } };
+            Node node2 = new Node { data = new DataEntry { data = 2 } };
+            Node node6 = new Node { data = new DataEntry { data = 6 } };
+            Node node1 = new Node { data = new DataEntry { data = 1 } };
+            Node node3 = new Node { data = new DataEntry { data = 3 } };
+            Node node5 = new Node { data = new DataEntry { data = 5 } };
+            Node node7 = new Node { data = new DataEntry { data = 7 } };
+
+            // Construct tree structure, so we know where the parent of each node should be
+            tree.root = root;
+            root.left = node2;
+            root.right = node6; // right-child of root thus intermediate node: as child of root but parent of node5 and node7 leaf-node's
+            node2.left = node1;
+            node2.right = node3;
+            node6.left = node5;
+            node6.right = node7;
+
+            // Test Case 1: Find parent of the root node (should be null)
+            Node parent1 = Parent(tree, root);
+            Assert(parent1 == null, "Parent of the root node should be null");
+
+            // Test Case 2: Find the parent of a leaf node (node1) which has a sibling but no children.
+            Node parent2 = Parent(tree, node1);
+            Assert(parent2 == node2, "Parent of node1 should be node2");
+
+            // Test Case 3: Find the parent of an intermediate node (node6), eg, a node situated between the root and a leaf node.
+            Node parent3 = Parent(tree, node6);
+            Assert(parent3 == root, "Parent of node6 should be the root node");
+
+            // Test Case 4: Find parent of a node that doesn't exist in the tree
+            Node nonExistentNode = new Node { data = new DataEntry { data = 10 } };
+            Node parent4 = Parent(tree, nonExistentNode);
+            Assert(parent4 == null, "Parent of a non-existent node should be null");
+
+            // If all assertions pass, print this success message
+            Console.WriteLine("Parent test PASSED - No Exceptions were thrown");
+        }
+        catch (Exception ex)
+        {
+            // If an assertion fails, the error will be caught here
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------------------------------------------------
+
     /// .... (and nowhere else) [X]
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
 
@@ -930,7 +982,7 @@ class Program // Program class, the entry point of the program
     /// <returns>True if the Node is found, false otherwise.</returns>
     static bool SearchTreeItem(Node tree, Node item)
     {
-        // Base case: If the tree is empty, return false 
+        // Base case: If the tree is empty, return false
         if (tree == null)
             return false;
 
@@ -977,7 +1029,7 @@ class Program // Program class, the entry point of the program
         to calculate the size of the tree. The helper function traverses the tree in a depth-first manner,
         */
 
-        // Base case: If the tree is empty (root is null), return 0 (no elements) immediately
+        // Base case: If the tree is empty (root is null), return 0 (no elements)
         if (tree.root == null) return 0;
 
 
@@ -1003,7 +1055,7 @@ class Program // Program class, the entry point of the program
           accounting for the current node.
         */
 
-        // Base case: If the tree is empty (root is null), return 0 (no depth) immediately
+        // Base case: If the tree is empty (root is null), return 0 (no depth)
         if (tree == null) return 0;
 
         // Else, recursively calculate the depth of the left or right subtree's
@@ -1024,7 +1076,7 @@ class Program // Program class, the entry point of the program
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
     {
-        if (node == null || node == tree.root) return null; // If node is null or the root of the tree, it has no parent, so return null immediately
+        if (node == null || node == tree.root) return null; // If node is null or the root of the tree, it has no parent, so return null
 
         // Call the recursive helper function to find the parent
         return FindParentHelper(tree.root, node);
@@ -1037,7 +1089,7 @@ class Program // Program class, the entry point of the program
     /// <returns>The Node that contains the largest value in the sub-tree provided.</returns>
     static Node FindMax(Node tree)
     {
-        // Base case: If the tree is empty, return null immediately
+        // Base case: If the tree is empty, return null
         if (tree == null) return null;
 
         // Node to keep track of the current node as we traverse the tree
@@ -1363,10 +1415,19 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Search test PASSED!");
         Console.WriteLine(); // newline
 
+        // Test Parent functionality
         Console.WriteLine("----------Testing Parent function...----------");
         Console.WriteLine(); // newline
-        TestParent();
+        TestParent(); // run Parent test
         Console.WriteLine(); // newline
+
+        // Test DeleteMin
+        Console.WriteLine("----------Testing DeleteMin...----------"); // testing...
+        Console.WriteLine(); // newline
+        Test_DeleteMin(); // run test for DeleteMin
+        Console.WriteLine(); // newline
+
+
 
         // Test AVL balancing
         Console.WriteLine("----------Testing AVL balancing...----------"); // testing...
@@ -1382,21 +1443,21 @@ class Program // Program class, the entry point of the program
         is false, e.g. the test fails. Prior to reporting success,
         I checked all Assertion tests would pass successfully; I
         I could've done this programmatically, however, I hope my manual
-        check is sufficient. 
-        
-        Later, I do indeed programmatically
+        check is sufficient.
+       
+        Later on, I do indeed programmatically
         check the assert functions pass with a try-catch block in the
-        TestParent() function.
+        TestParent() and Test_DeleteMin() functions
         */
 
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
 
         Console.WriteLine(); // newline
-        Console.WriteLine("Time-taken for all AVL testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
+        Console.WriteLine("Time-taken for all AVL-structure and BST-operation testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
-        
+       
     }
 
 

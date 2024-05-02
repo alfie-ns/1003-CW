@@ -90,20 +90,23 @@ number; one cannot have .32 a step!
 Notebook
 --------
 
-[MESSAGE] Although recursive rebalancing may not be the most efficient approach, I have done it this way
-          to sensure it definitey is balanced after every operation. Also, in your tree, because I've 
-          attempted to only insert elements above the value of 10, to not get mixed up with the randomly
-          generated elements.
-
+[MESSAGE] In your tree, I've only inserted elements >10, to not get mixed up with
+          the randomly generated elements. I do this so duplicates DON'T get
+          immediately discarded. Thus, the tree may not be as balanced as possible
+          in those situations. Nonetheless, the heights still DON'T differ by more
+          than one; I just didn't want to change your code.
 
 - [X] Give a logical explanation of how to quickly work out heights of nodes in an AVL tree.
 - NO[X] perhaps I need to insert random nodes into the test trees?
 - [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
 - [X] Show more testing for the Searches
 - [X] More tests that tree is indeed Balanced after every operation
+- [X] Use arrow-function somewhere for data handling delegates. Delegates allow functions(InOrderTraversal)
+      to be operating while storing the data returned from the function in an array
 - [X] Comment explaining why I used 'ref' for the treesize when deleting(to make sure global size is updated after deletion)
 - [X] Define a large test tree
 - [X] verify tree is indeed balanced after every operation
+- [X] Visualise tree
  
 */
 
@@ -208,20 +211,10 @@ class Program // Program class, the entry point of the program
             }
         }
 
-        // 4. Traverse the subtree recursively to check and rebalance the entire tree.
-        if (node.left != null)
-        {
-            node.left = Rebalance(node.left);
-        }
-        if (node.right != null)
-        {
-            node.right = Rebalance(node.right);
-        }
-
-        // 5. Update the height of the current node after rebalancing.
+        // 4. Update the height of the current node after rebalancing.
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
 
-        // return the rebalanced node
+        // finally, return the rebalanced node, this will happen for each node
         return node;
     }
     /// ------------------------------------------------------------- AVL Rotation Functions ------------------------------------------------------------- ///
@@ -628,22 +621,22 @@ class Program // Program class, the entry point of the program
             The way this lambda function works is:
             1. Take an integer 'value' as input, which represents the data of the current node being visited during the traversal.
             2. Store the 'value' in the 'sortedArray' at the current 'index' position.
-            3. Increment 'index' using the post-increment operator (index++) to move to the next position in the array.
+            3. Increment 'index' using the post-increment operator (index++) to move to the next position in the array after the value is stored.
 
             ++index would increment the index before the value is stored, whereas index++ increments the index after the value is stored.
             If the index was incremented before storing the value, it would start at 1, thus skipping the first position of the sortedArray,
             as an array is zero-indexed.
        
-            By performing an in-order traversal and using this lambda function, the elements of the tree are stored in the 'sortedArray'
-            in ascending order. This is because an in-order traversal of a binary search tree visits the nodes in ascending order of their values.
+            By performing an in-order traversal while using this lambda function, the elements of the tree are stored in the 'sortedArray'
+            in ascending order. This is because an in-order traversal function visits the nodes in ascending order of their values.
        
             After the traversal is complete, the 'sortedArray' will contain all the elements of the tree in sorted order.
             The 'IsSorted' method then iterates over the 'sortedArray' and checks if each element is greater than or equal to the previous element.
-            If any element is found to be smaller than its previous element, it means the tree is not sorted, and the method returns 'false'.
+            If any element is found to be SMALLER than its previous element, it means the tree is NOT sorted, and the method returns 'false'.
             Otherwise, if the entire array is iterated without finding any violations, the tree is considered sorted, and the method returns 'true'.
        
-            This lambda function, used in conjunction with the in-order traversal, allows for efficient checking of whether the tree is sorted
-            without modifying the original tree structure.
+            This lambda function mixed with the in-order traversal function, allowing efficient checking of whether the tree is indeed sorted
+            without modifying the tree structure.
         */
 
 
@@ -752,8 +745,8 @@ class Program // Program class, the entry point of the program
     /// ------------------------------------------------------------- Latest Test Functions ------------------------------------------------------------- ///
 
     /*
-        These new test functions I made in May now use try-catch blocks to 
-        programmatically confirm the assertion tests pass, a pre-set strucutred 
+        These new test functions I made in May now use try-catch blocks to
+        programmatically confirm the assertion tests pass, a pre-set strucutred
         tree is manually created, so we know where each node is situated, thus
         relative to each-other
     */
@@ -982,7 +975,7 @@ class Program // Program class, the entry point of the program
     /// <returns>True if the Node is found, false otherwise.</returns>
     static bool SearchTreeItem(Node tree, Node item)
     {
-        // Base case: If the tree is empty, return false 
+        // Base case: If the tree is empty, return false
         if (tree == null)
             return false;
 
@@ -1055,7 +1048,7 @@ class Program // Program class, the entry point of the program
           accounting for the current node.
         */
 
-        // Base case: If the tree is empty (root is null), return 0 (no depth) 
+        // Base case: If the tree is empty (root is null), return 0 (no depth)
         if (tree == null) return 0;
 
         // Else, recursively calculate the depth of the left or right subtree's
@@ -1076,7 +1069,7 @@ class Program // Program class, the entry point of the program
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
     {
-        if (node == null || node == tree.root) return null; // If node is null or the root of the tree, it has no parent, so return null 
+        if (node == null || node == tree.root) return null; // If node is null or the root of the tree, it has no parent, so return null
 
         // Call the recursive helper function to find the parent
         return FindParentHelper(tree.root, node);
@@ -1443,8 +1436,8 @@ class Program // Program class, the entry point of the program
         is false, e.g. the test fails. Prior to reporting success,
         I checked all Assertion tests would pass successfully; I
         I could've done this programmatically, however, I hope my manual
-        check is sufficient. 
-        
+        check is sufficient.
+       
         Later on, I do indeed programmatically
         check the assert functions pass with a try-catch block in the
         TestParent() and Test_DeleteMin() functions
@@ -1457,7 +1450,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Time-taken for all AVL-structure and BST-operation testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
-        
+       
     }
 
 

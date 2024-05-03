@@ -708,8 +708,9 @@ class Program // Program class, the entry point of the program
             If the node has children, it prints the '├─' box-drawing character, indicating that there IS
             more children to go in the subtree after this node.
            
-            - The 'last' parameter  starts as TRUE for the root node as it's the root of the tree so
-              has NO node before it.
+            - The 'last' parameter starts as TRUE for the root node as it's the root of the tree, also,
+              '└─' is a good character to indicate the root node
+             
             - The 'indent' parameter is used to create the necessary visual indentation space
               for each level.
 
@@ -1120,7 +1121,7 @@ class Program // Program class, the entry point of the program
         */
 
         // If the tree is empty, there is nothing to delete
-        if (tree.root == null) return; // Base case: If the tree is empty, return immediately
+        if (tree.root == null) return; // Base case: If the tree is empty, return
 
         // Call helper func to find the node with the minimum value
         Node minNode = FindMin(tree.root);

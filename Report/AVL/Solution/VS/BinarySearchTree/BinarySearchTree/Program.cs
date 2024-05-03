@@ -46,11 +46,12 @@ is too tall compared to the left subtree, making the node right-heavy. These sit
 When an imbalance is detected (i.e, the balance-factor is outside the range [-1, 1]), the AVL tree performs
 rotations to rebalance the tree. The specific rotation's needed depend on the balance-factor and the structure of the subtrees
 involved. In this case, after insertion or deletion operations, the program recursively assesses the balance factor of the current node and
-performs necessary rotations as the recursive calls unwind, ensuring that the tree remains balanced. If the balance-factor indicates a
-left-heavy imbalance (greater than 1), it'll check the left subtree's balance-factor to decide between a single right rotation,
-or a left-right double rotation. Conversely, for a right-heavy imbalance (less than -1), it checks the right subtree's balance-factor
-to decide between a single left rotation or a right-left double rotation. This ensures the tree maintains its balanced state,
-thereby preserving the AVL tree's guarantee of logarithmic time-complexity.
+performs necessary rotations as the recursive calls unwind, ensuring that the tree remains balanced.
+
+If the balance-factor indicates a left-heavy imbalance (greater than 1), it'll check the left subtree's balance-factor to decide
+between a single right rotation, or a left-right double rotation. Conversely, for a right-heavy imbalance (less than -1),
+it checks the right subtree's balance-factor to decide between a single left rotation or a right-left double rotation.
+This ensures the tree maintains its balanced state, therefore preserving the AVL tree's guarantee of logarithmic time-complexity.
  
 By keeping the tree balanced, AVL trees ensure that the heights of the left and right subtrees are as close as possible.
 This balance minimises the maximum depth of the tree, which in turn reduces the worst-case time complexity of operations
@@ -62,12 +63,18 @@ guarantee efficient operations.The balance-factor is calculated based on the hei
 in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the
 number of nodes in each subtree.
  
-Again, the terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node; a node is considered left-heavy when its left
-subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1), and right-heavy when the opposite is true
-(balance-factor < -1). These term's determine the appropriate rotations to apply in order to restore the tree's balance.
+The terms 'left-heavy' and 'right-heavy' refer to the balance-factor of a node, as we know; however, concretely, one should know
+that a node is considered left-heavy when its left subtree's height exceeds that of its right subtree by MORE than one (balance-factor > 1),
+and right-heavy when the opposite is true (balance-factor < -1). These term's determine the appropriate rotations to apply in
+order to restore the tree's balance.
 
-The height of a node is the length of the longest path from that node to a leaf node, with box-drawing characters used in my implementation,
-one can visually see if the heights are indeed balanced to AVL tree standards.
+The height of a node is the length of the longest path from that node to a leaf node,
+with box-drawing characters used in my implementation, one can visually see if the
+heights are indeed balanced to AVL tree standards.
+
+Height = length(node -> leafnode)
+Depth = length(root -> node)
+BalanceFactor = height(node.left) - height(node.right)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -285,8 +292,8 @@ class Program // Program class, the entry point of the program
     /// ------------------------------------------------------------- Balance-factor Functions ------------------------------------------------------------- ///
 
     static int GetHeight(Node node)
-    { // get the height of trees
-        if (node == null) return -1; // Base case: If the node is null, return -1 (learnt from: https://www.youtube.com/watch?v=_pnqMz5nrRs)
+    { // Get height of tree rooted at 'node' - (https://www.youtube.com/watch?v=_pnqMz5nrRs)
+        if (node == null) return -1; // Base case: If the node is null, return -1, thereby making the height calculation for its parent node start at 0 after adding 1(the current node)
         int leftHeight = GetHeight(node.left); // Recursively calculate height of the left subtree
         int rightHeight = GetHeight(node.right); // Recursively calculate height of the right subtree
         return Math.Max(leftHeight, rightHeight) + 1; //you get the max of EITHER left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node

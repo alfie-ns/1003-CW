@@ -151,7 +151,7 @@ class Node
     public DataEntry data;
     public Node right;
     public Node left;
-    public int Height; // This is for AVL tree, as one needs to keep track of the height of the tree to balance it
+    public int Height; // This is for AVL tree, as one needs to keep track of the height of each node to balance the tree
 }
 
 

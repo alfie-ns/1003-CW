@@ -195,11 +195,13 @@ class Program // Program class, the entry point of the program
             {
                 // Left-Right case: Perform a left-right rotation.
                 node = RotateLeftRight(node);
+                //Console.WriteLine("Performing left-right rotation.");
             }
             else
             {
                 // Left-Left case: Perform a single right rotation.
                 node = RotateRight(node);
+                //Console.WriteLine("Performing single right rotation.");
             }
         }
         // 3. If the balance factor is less than -1, the tree is right-heavy.
@@ -210,11 +212,13 @@ class Program // Program class, the entry point of the program
             {
                 // Right-Left case: Perform a right-left rotation.
                 node = RotateRightLeft(node);
+                //Console.WriteLine("Performing right-left rotation.");
             }
             else
             {
                 // Right-Right case: Perform a single left rotation.
                 node = RotateLeft(node);
+                //Console.WriteLine("Performing single left rotation.");
             }
         }
 

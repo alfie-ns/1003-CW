@@ -1440,7 +1440,7 @@ class Program // Program class, the entry point of the program
 
         /*
         I run all my tests and directly report them as PASSED;
-        as the assert function throws an exception if the condition
+        the assert function throws an exception if the condition
         is false, e.g. the test fails. Prior to reporting success,
         I checked all Assertion tests would pass successfully; I
         I could've done this programmatically, however, I hope my manual

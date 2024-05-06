@@ -709,7 +709,7 @@ class Program // Program class, the entry point of the program
             to the node's data, indicating there are NO more children to go in the subtree
             after THIS node.
            
-            This prints the '├─' box-drawing character, indicating that there IS
+            The '├─' box-drawing character indicates there IS
             more children to go in the subtree after this node.
            
             - The 'last' parameter starts as TRUE for the root node as it's the root of the tree, also,

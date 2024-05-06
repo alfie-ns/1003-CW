@@ -195,11 +195,13 @@ class Program // Program class, the entry point of the program
             {
                 // Left-Right case: Perform a left-right rotation.
                 node = RotateLeftRight(node);
+                //Console.WriteLine("Performing left-right rotation.");
             }
             else
             {
                 // Left-Left case: Perform a single right rotation.
                 node = RotateRight(node);
+                //Console.WriteLine("Performing single right rotation.");
             }
         }
         // 3. If the balance factor is less than -1, the tree is right-heavy.
@@ -210,11 +212,13 @@ class Program // Program class, the entry point of the program
             {
                 // Right-Left case: Perform a right-left rotation.
                 node = RotateRightLeft(node);
+                //Console.WriteLine("Performing right-left rotation.");
             }
             else
             {
                 // Right-Right case: Perform a single left rotation.
                 node = RotateLeft(node);
+                //Console.WriteLine("Performing single left rotation.");
             }
         }
 
@@ -705,7 +709,7 @@ class Program // Program class, the entry point of the program
             to the node's data, indicating there are NO more children to go in the subtree
             after THIS node.
            
-            If the node has children, it prints the '├─' box-drawing character, indicating that there IS
+            The '├─' box-drawing character indicates there IS
             more children to go in the subtree after this node.
            
             - The 'last' parameter starts as TRUE for the root node as it's the root of the tree, also,

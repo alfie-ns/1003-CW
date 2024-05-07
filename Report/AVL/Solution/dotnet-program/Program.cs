@@ -1081,7 +1081,7 @@ class Program // Program class, the entry point of the program
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
     {
-        if (node == null || node == tree.root) return null; // If node is null or the root of the tree, it has no parent, so return null
+        if (node == null || node == tree.root) return null; // If node is null or the root of the tree(thus has no parent), return null
 
         // Call the recursive helper function to find the parent
         return FindParentHelper(tree.root, node);

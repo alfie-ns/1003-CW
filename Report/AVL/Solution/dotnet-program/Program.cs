@@ -702,22 +702,21 @@ class Program // Program class, the entry point of the program
     static void PrintTreeVisual(Node node, string indent = "", bool last = true)
     {
         /*
-            The function recursively traverses the tree in a depth-first manner, printing the node's data
-            next to the respective box-drawing character used to visually represent the tree structure.
-           
-            If the node has no children, it prints the '└─' box-drawing character, next
-            to the node's data, indicating there are NO more children to go in the subtree
-            after THIS node.
-           
-            The '├─' box-drawing character indicates there IS
-            more children to go in the subtree after this node.
-           
-            - The 'last' parameter starts as TRUE for the root node as it's the root of the tree, also,
-              '└─' is a good character to indicate the root node
-             
-            - The 'indent' parameter is used to create the necessary visual indentation space
-              for each level.
+            This function prints each node of the AVL tree alongside box-drawing characters to represent the tree's structure visually.
+            It's a recursive, depth-first implementation that prints nodes with indentation and connection lines to show tree hierarchy.
 
+            Parameters:
+            - 'node': The current node to print.
+            - 'indent': Maintains the prefix spaces and lines for visual structure.
+            - 'last': Indicates if the node is the last child of its parent, affecting the drawing character and subsequent indentation.
+
+            Box-drawing characters:
+            - '└─': Used when the current node is the last child, indicating no siblings below.
+            - '├─': Used when more siblings follow, requiring a vertical continuation line.
+
+            Indent adjustments:
+            - When 'last' is true, subsequent children do not extend the vertical line below this node.
+            - When 'last' is false, extends a vertical line ('|') to connect with more siblings below.
         */
 
         if (node != null) // If node is NOT null

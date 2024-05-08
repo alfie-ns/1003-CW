@@ -715,8 +715,8 @@ class Program // Program class, the entry point of the program
             - '├─': Used when more siblings follow, requiring a vertical continuation line.
 
             Indent adjustments:
-            - When 'last' is true, subsequent children do not extend the vertical line below this node.
-            - When 'last' is false, extends a vertical line ('|') to connect with more siblings below.
+            - When 'last' is TRUE, subsequent children do not extend the vertical line below this node.
+            - When 'last' is FALSE, extends a vertical line ('|') to connect with more siblings below.
         */
 
         if (node != null) // If node is NOT null
@@ -726,19 +726,19 @@ class Program // Program class, the entry point of the program
             if (last) // IF it's the last child in the sibling group
             {
                 Console.Write("└─"); // print box-drawing indicating it's the last child
-                indent += "  "; // += indent 2 spaces horizontally for alingment hence looks like: '└─  {data}'
+                indent += "  "; // += indent 2 spaces horizontally for alingment'
             }
             else // OTHERWISE the node is NOT the last child
             {
                 Console.Write("├─"); // print box-drawing character indicating it has siblings below it
-                indent += "| "; // Add a vertical line following '├─' to indicate more siblings below to go
+                indent += "| "; // Add a vertical line following '├─' to indicate more siblings to go
 
             }
 
             Console.WriteLine(node.data.data); // Finally, print the node's data following the box-drawing character in this recusive level
 
-            PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==false this time round, as the right subtree will be visited next
-            PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last==true this time round.
+            PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==FALSE for left because right sibling (right child) might follow
+            PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last=TRUE for right as it's the last in the order of visualisation
 
         }
     }
@@ -1461,7 +1461,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Time-taken for all AVL-structure and BST-operation testing: " + elapsedTime.TotalMilliseconds + "ms"); // print time taken in milliseconds
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
-       
+
     }
 
 

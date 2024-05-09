@@ -703,7 +703,7 @@ class Program // Program class, the entry point of the program
     {
         /*
             This function prints each node of the AVL tree alongside box-drawing characters to represent the tree's structure visually.
-            It's a recursive, depth-first implementation that prints nodes with indentation and connection lines to show tree hierarchy.
+            It's a recursive, depth-first implementation of a fully working AVL tree that prints nodes with indentation and connection lines to show tree hierarchy.
 
             Parameters:
             - 'node': The current node to print.
@@ -757,7 +757,7 @@ class Program // Program class, the entry point of the program
 
     /*
         These new test functions I made in May now use try-catch blocks to
-        programmatically confirm the assertion tests pass, a pre-set strucutred
+        programmatically confirm the assertion tests pass, a pre-set structured
         tree is manually created, so we know where each node is situated, thus
         relative to each-other
     */

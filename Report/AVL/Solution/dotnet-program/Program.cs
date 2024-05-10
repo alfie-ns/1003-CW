@@ -703,30 +703,37 @@ class Program // Program class, the entry point of the program
     {
         /*
             This function prints each node of the AVL tree using box-drawing characters
-            and indentation to visually represent the tree's structure. I implement a recursive,
-            depth-first search (DFS) approach to traverse and print the tree from the root.
+            and indentation to visualise the hierarchical structure of the tree.
+            I implement a recursive, depth-first search (DFS) approach to traverse and 
+            print the tree from the root.
             
             This method processes all nodes down the left subtree using DFS before backtracking and continuing
             with the right subtree, thereby maintaining the hierarchical relationships between nodes, effectively 
             exploring the depth of each branch before moving to another branch.
 
             Parameters:
-            - 'node': The current node to print.
+            ------------
+
+            - 'node': The current data of the node. node.data.data is the integer value of said node.
+
             - 'indent': A string that accumulates spaces or vertical lines to represent the visual
                         structure as the recursion progresses deeper into the tree. This indentation
                         helps visually delineate the depth and parent-child relationships in the tree.
-            - 'last': Indicates if the node is the last child of its parent, which determines
-                    the type of box-drawing character used and how subsequent indentation is adjusted.
+
+            - 'last': Indicates if the node is the LAST child of its parent, which determines
+                      the type of box-drawing character used and how subsequent indentation is adjusted.
+                      this starts as TRUE, as a root node has no siblings, ONLY children.
 
             Box-drawing characters:
-            - '└─': Used when the current node is the last child, indicating no siblings follow directly below.
-            - '├─': Used when more siblings follow; it adds a vertical line to connect subsequent items vertically.
+            - '└─': Used when the current node is the LAST child, indicating no siblings follow directly below.
+            - '├─': Used when more siblings follow; it adds a vertical line to connect subsequent siblings.
 
             Indent adjustments:
-            - if 'last' == TRUE, no vertical line is extended below this node to maintain a clean ending at each branch.
+            - If 'last' == TRUE, no vertical line is extended below this node, ensuring a clean ending at the branch.
             - if 'last' == FALSE, a vertical line ('|') is added to continue the connection lines vertically for subsequent siblings.
 
             DFS Traversal:
+            ----------------
 
             Consider a binary tree structured as follows:
             {
@@ -746,10 +753,6 @@ class Program // Program class, the entry point of the program
             '5' as its right child (since 5 > 4).
         
         */
-
-
-
-
 
         if (node != null) // If node is NOT null
         {

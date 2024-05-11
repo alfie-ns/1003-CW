@@ -22,4 +22,4 @@ Or you can **run** the bash-scrips in the root directory to quickly run the AVL 
 - .csproj: The project file with build settings and dependencies. - csproj = C# project.
 - bin/: The output folder for compiled files. - bin stands for binary.
 - obj/: Contains temporary build files. - obj stands for object.
-- 'dotnet run' -  The command to compile and run the project.
+- `dotnet run` -  The command to compile and run the project.

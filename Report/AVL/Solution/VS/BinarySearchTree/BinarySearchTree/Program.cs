@@ -733,7 +733,7 @@ class Program // Program class, the entry point of the program
             The vertical line ('|') is added to continue with connection lines vertically, indicating the pathway
             to deeper levels of the tree and helping to visualise the structure of sibling relationships.
             
-            DFS Traversal - to print box-drawing structured tree:
+            DFS Traversal logic to print box-drawing structured tree:
             -------------------------------------------------------------------------------------
             |                                                                                   |
             |     Consider my AVL binary tree as follows:                                       |
@@ -785,8 +785,10 @@ class Program // Program class, the entry point of the program
             |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
             |   over from the previous call due to indent string accumulating from past calls,  |
             |   if needed, to structure hierarchy to align child nodes under their respective   |
-            |   parent nodes, note indent string is += and printed start of next recursive call |             
-            |                                                                                   |                                                                     |          
+            |   parent nodes, note indent string is += and printed start of next recursive call;|
+            |                                                                                   |
+            |   thus last time round, '      ' is NOT printed as it doesn't need to             |         
+            |                                                                                   |                                                                               
             -------------------------------------------------------------------------------------
 
         */

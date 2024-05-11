@@ -787,7 +787,7 @@ class Program // Program class, the entry point of the program
             |   if needed, to structure hierarchy to align child nodes under their respective   |
             |   parent nodes, note indent string is += and printed start of next recursive call;|
             |                                                                                   |
-            |  thus last time round, '      ' is NOT printed as it doesn't need to              |         
+            |   thus last time round, '      ' is NOT printed as it doesn't need to             |         
             |                                                                                   |                                                                               
             -------------------------------------------------------------------------------------
 

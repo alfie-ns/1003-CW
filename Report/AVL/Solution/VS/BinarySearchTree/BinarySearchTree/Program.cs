@@ -752,7 +752,7 @@ class Program // Program class, the entry point of the program
             |         └─4                                                                       |
             |           ├─2         note the box-drawing tree is indeed structured depth-first  |
             |           | ├─1       ensuring each node and its children are visited before      |                                           
-            |           | └─3       moving on, and importantly, stuctured top-down              |                                                        
+            |           | └─3       moving on, and importantly, it's stuctured top-down         |                                                        
             |           └─6         to visually represent the hierarchy.                        |                                                           
             |             ├─5                                                                   |
             |             └─7                                                                   |

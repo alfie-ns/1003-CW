@@ -8,7 +8,8 @@ Hi, as you can see, I made a GitHub Repo for this project, and for each module. 
 I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
 way to keep track of my work on both computers. It also provides a dopamine hit when I push
 to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
-and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now.
+and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now. I also
+enjoy conceptualisint and making a codebase anyone can understand and run with .NET SDK.
 
 https://github.com/alfie-ns/1003-CW
 
@@ -699,121 +700,121 @@ class Program // Program class, the entry point of the program
         PrintTreeVisual(tree.root);
     }
 
-        static void PrintTreeVisual(Node node, string indent = "", bool last = true)
+    static void PrintTreeVisual(Node node, string indent = "", bool last = true)
+    {
+        /*
+            This function prints each node of the AVL tree using box-drawing characters
+            and indentation to visualise the hierarchical structure of the tree. I implement
+            a recursive depth-first search (DFS) approach to traverse and print the tree from the root.
+            
+            This method processes all nodes down the left subtree(leftmost branch) before backtracking
+            and continuing with the right subtree, thereby maintaining the hierarchical relationships
+            between nodes, effectively exploring the depth of each branch before moving to the next.
+
+            Parameters:
+            ------------
+            - 'node': The current data of the node. node.data.data is the integer value of said node.
+            - 'indent': A string that accumulates spaces or vertical lines to represent the visual
+                        structure as the recursion progresses deeper into the tree. This indentation
+                        helps visually delineate the depth and parent-child relationships in the tree.
+            - 'last': Indicates if the node is the LAST child of its parent, which determines the type
+                        of box-drawing character used and how indentation is adjusted; this starts as TRUE,
+                        as a root node has NO siblings, ONLY children.
+
+            Box-drawing characters:
+            - '└─': Used when the current node is the LAST child, indicating no siblings follow directly below.
+            - '├─': Used when more siblings follow; it also adds a vertical line '|' to connect subsequent siblings.
+
+            Indent adjustments:
+            - initially, the indent is an empty string, as the root node has no parent or siblings.
+            - if 'last'==TRUE, no vertical line is extended below this node, ensuring a clean ending at the branch.
+            - if 'last'==FALSE, a vertical line ('|') is added to continue the connection lines vertically for subsequent siblings.
+
+            The vertical line ('|') is added to continue with connection lines vertically, indicating the pathway
+            to deeper levels of the tree and helping to visualise the structure of sibling relationships.
+            
+            DFS Traversal - to print box-drawing structured tree:
+            -------------------------------------------------------------------------------------
+            |                                                                                   |
+            |     Consider my AVL binary tree as follows:                                       |
+            |     {                                                                             |
+            |                                     4                                             |
+            |                                    / \                                            |
+            |                                   2   6                                           |
+            |                                  / \ / \                                          |
+            |                                 1  3 5  7                                         |
+            |     }                                                                             |
+            |                                                                                   |
+            |     Using box-drawing characters and indentation, the output would                |
+            |     be:                                                                           |
+            |                                                                                   |
+            |     {                                                                             |
+            |         └─4                                                                       |
+            |           ├─2         note the box-drawing tree is indeed structured depth-first  |
+            |           | ├─1       ensuring each node and its children are visited before      |                                           
+            |           | └─3       moving on, and importantly, it's stuctured top-down         |                                                        
+            |           └─6         to visually represent the hierarchy.                        |                                                           
+            |             ├─5                                                                   |
+            |             └─7                                                                   |
+            |     }                                                                             |
+            |                                                                                   |
+            |     In a depth-first AVL algorithm (DFS), the order for a full tree traversal:    |
+            |                                                                                   |
+            |     1. root(4)->left(2)->left(1), completed in the first recursive traversal.     |
+            |                                                                                   |
+            |     2. backtrack to node '2' then proceed with root(4)->left(2)->right(3).        |
+            |                                                                                   |
+            |     3. having completed the exploration of left-side (node '2' and its children), |
+            |        backtrack to root '4' then LEFT subtree of root's right-child node(6);     |
+            |        Thus root(4)->right(6)->left(5).                                           |
+            |                                                                                   |
+            |     4. finally, complete the traversal by visiting root(4)->right(6)->right(7),   |
+            |        completing the exploration of all branches more efficiently than a         |
+            |        standard unbalanced BST.                                                   |
+            ------------------------------------------------------------------------------------| 
+            | each recursive traversal |                                                        |               
+            ----------------------------                                                        |              
+            |   1. root(4) indent="  " last=true  thus prints:  '└─4'                           |                             
+            |   2. node(2) indent="| " last=false thus prints:  '  ├─2'                         |           
+            |   3. node(1) indent="| " last=false thus prints:  '  | ├─1'                       |           
+            |   4. node(3) indent="  " last=true thus prints:   '  | └─3'                       |                               
+            |   5. node(6) indent="    " last=true thus prints: '  └─6'                         |                           
+            |   6. node(5) indent="    " last=false thus prints:'    ├─5'                       |
+            |   7. node(7) indent="      "last=true so prints:  '    └─7'                       |
+            |                                                                                   |
+            |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
+            |   over from the previous call due to indent string accumulating from past calls,  |
+            |   if needed, to structure hierarchy to align child nodes under their respective   |
+            |   parent nodes, note indent string is += and printed start of next recursive call |             
+            |                                                                                   |                                                                     |          
+            -------------------------------------------------------------------------------------
+
+        */
+
+
+        if (node != null) // If node is NOT null
         {
-            /*
-                This function prints each node of the AVL tree using box-drawing characters
-                and indentation to visualise the hierarchical structure of the tree. I implement
-                a recursive depth-first search (DFS) approach to traverse and print the tree from the root.
-                
-                This method processes all nodes down the left subtree(leftmost branch) before backtracking
-                and continuing with the right subtree, thereby maintaining the hierarchical relationships
-                between nodes, effectively exploring the depth of each branch before moving to the next.
+            Console.Write(indent); // This prints the current indentation string before the box-drawing character in recursive traversal
 
-                Parameters:
-                ------------
-                - 'node': The current data of the node. node.data.data is the integer value of said node.
-                - 'indent': A string that accumulates spaces or vertical lines to represent the visual
-                            structure as the recursion progresses deeper into the tree. This indentation
-                            helps visually delineate the depth and parent-child relationships in the tree.
-                - 'last': Indicates if the node is the LAST child of its parent, which determines
-                          the type of box-drawing character used and how indentation is adjusted.
-                          this starts as TRUE, as a root node has no siblings, ONLY children.
-
-                Box-drawing characters:
-                - '└─': Used when the current node is the LAST child, indicating no siblings follow directly below.
-                - '├─': Used when more siblings follow; it also adds a vertical line '|' to connect subsequent siblings.
-
-                Indent adjustments:
-                - initially, the indent is an empty string, as the root node has no parent or siblings.
-                - if 'last'==TRUE, no vertical line is extended below this node, ensuring a clean ending at the branch.
-                - if 'last'==FALSE, a vertical line ('|') is added to continue the connection lines vertically for subsequent siblings.
-
-                The vertical line ('|') is added to continue with connection lines vertically, indicating the pathway
-                to deeper levels of the tree and helping to visualise the structure of sibling relationships.
-                
-                DFS Traversal:
-                -------------------------------------------------------------------------------------
-                |                                                                                   |
-                |     Consider my AVL binary tree as follows:                                       |
-                |     {                                                                             |
-                |             4                                                                     |
-                |            / \                                                                    |
-                |           2   6                                                                   |
-                |          / \ / \                                                                  |
-                |         1  3 5  7                                                                 |
-                |     }                                                                             |
-                |                                                                                   |
-                |     Using box-drawing characters and indentation, the output would                |
-                |     be:                                                                           |
-                |                                                                                    |
-                |     {                                                                             |
-                |         └─4                                                                       |
-                |           ├─2         note the box-drawing tree is indeed structured depth-first  |
-                |           | ├─1       and importantly top-down, (for any BST)                     |                              
-                |           | └─3                                                                   |
-                |           └─6                                                                     |
-                |             ├─5                                                                   |
-                |             └─7                                                                   |
-                |     }                                                                             |
-                |                                                                                   |
-                |     In a depth-first AVL algorithm (DFS), the order for a full tree traversal:    |
-                |                                                                                   |
-                |     1. root(4)->left(2)->left(1), completed in the first recursive traversal.     |
-                |                                                                                   |
-                |     2. backtrack to node '2' then proceed with root(4)->left(2)->right(3).        |
-                |                                                                                   |
-                |     3. having completed the exploration of left-side (node '2' and its children), |
-                |        backtrack to root '4' then LEFT subtree of root's right-child node(6);     |
-                |        Thus root(4)->right(6)->left(5).                                           |
-                |                                                                                   |
-                |     4. finally, complete the traversal by visiting root(4)->right(6)->right(7),   |
-                |        completing the exploration of all branches more efficiently than a         |
-                |        standard unbalanced BST.                                                   |
-                ------------------------------------------------------------------------------------| 
-                | each recursive traversal :|                                                       |               |
-                ------------------------------                                                      |              |
-                |   1. root(4) indent="" last=true  thus prints:    '└─4'                           |                             
-                |   2. node(2) indent="  " last=false thus prints:  '  ├─2'                         |           
-                |   3. node(1) indent="| " last=false thus prints:  '  | ├─1'                       |           
-                |   4. node(3) indent="| " last=true thus prints:   '  | └─3'                       |                               
-                |   5. node(6) indent="  " last=true thus prints:   '  └─6'                         |                           
-                |   6. node(5) indent="    "last=false thus prints: '    ├─5'                       |
-                |   7. node(7) indent="    "last=true thus prints:  '    └─7'                       |
-                |                                                                                   |
-                |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
-                |   over from the previous call due to indent string carried over from past call    |
-                |   if needed due to hirearchy to align child nodes under their respective parent   |
-                |   nodes                                                                           |
-                |                                                                                   |                                                                     |          
-                -------------------------------------------------------------------------------------
-
-            */
-
-
-            if (node != null) // If node is NOT null
+            if (last) // IF it's the last child in the sibling group
             {
-                Console.Write(indent); // This prints the current indentation string before the box-drawing character
-
-                if (last) // IF it's the last child in the sibling group
-                {
-                    Console.Write("└─"); // print box-drawing indicating it's the last child
-                    indent += "  "; // += indent 2 spaces horizontally for alingment
-                }
-                else // OTHERWISE the node is NOT the LAST child
-                {
-                    Console.Write("├─"); // print box-drawing character indicating the tree continues
-                    indent += "| "; // Add a vertical following line to connect subsequent nodes
-
-                }
-
-                Console.WriteLine(node.data.data); // Finally, print the node's integer data following the box-drawing character in this recusive level
-
-                PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==FALSE for left because right sibling (right child) might follow
-                PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last=TRUE for right as it's the last in the order of visualisation
+                Console.Write("└─"); // print box-drawing indicating it's the last child
+                indent += "  "; // += indent 2 spaces horizontally for alingment - NOT printed yet
+            }
+            else // OTHERWISE the node is NOT the last child
+            {
+                Console.Write("├─"); // print box-drawing character indicating the tree continues
+                indent += "| "; // Add a vertical following line to connect subsequent nodes - NOT printed yet
 
             }
+
+            Console.WriteLine(node.data.data); // Finally, print the node's integer data following the box-drawing character in this recusive level
+
+            PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==FALSE for left because right sibling (right child) might follow
+            PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last=TRUE for right as it's the last in the order of visualisation
+
         }
+    }
 
     static Node FindNode(Node node, Node item)
     {
@@ -1502,7 +1503,6 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Test_DeleteMin(); // run test for DeleteMin
         Console.WriteLine(); // newline
-
 
 
         // Test AVL balancing

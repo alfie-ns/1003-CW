@@ -746,11 +746,11 @@ class Program // Program class, the entry point of the program
                 |                                                                                   |
                 |     Using box-drawing characters and indentation, the output would                |
                 |     be:                                                                           |
-                |                                                                                    |
+                |                                                                                   |
                 |     {                                                                             |
                 |         └─4                                                                       |
                 |           ├─2         note the box-drawing tree is indeed structured depth-first  |
-                |           | ├─1       and importantly top-down, (for any BST)                     |                              
+                |           | ├─1       and importantly, top-down, to be an AVL tree                |                              
                 |           | └─3                                                                   |
                 |           └─6                                                                     |
                 |             ├─5                                                                   |
@@ -771,7 +771,7 @@ class Program // Program class, the entry point of the program
                 |        completing the exploration of all branches more efficiently than a         |
                 |        standard unbalanced BST.                                                   |
                 ------------------------------------------------------------------------------------| 
-                | each recursive traversal :|                                                       |               |
+                | each recursive traversal : |                                                      |               |
                 ------------------------------                                                      |              |
                 |   1. root(4) indent="" last=true  thus prints:    '└─4'                           |                             
                 |   2. node(2) indent="  " last=false thus prints:  '  ├─2'                         |           

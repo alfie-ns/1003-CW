@@ -793,7 +793,7 @@ class Program // Program class, the entry point of the program
 
             if (node != null) // If node is NOT null
             {
-                Console.Write(indent); // This prints the current indentation string before the box-drawing character
+                Console.Write(indent); // This prints the current indentation string before the box-drawing character in recursive traversal
 
                 if (last) // IF it's the last child in the sibling group
                 {

@@ -6,7 +6,7 @@
 
 - Run `dotnet --version` to verify that the .NET SDK has been installed correctly.
 
-Then you can **run** my pre-set up [dotnet environment](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) using `dotnet run` command.
+Then you can **run** my pre-set up dotnet environment using `dotnet run` command.
 
 Or you can **run** the bash scripts in the root directory to quickly run the AVL tree environment.
 

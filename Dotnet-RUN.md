@@ -2,7 +2,7 @@
 
 ## Install:
 
-- https://dotnet.microsoft.com/en-us/download
+- https://dotnet.microsoft.com/en-us/download/dotnet/8.0
 
 -`dotnet --version` to verify that the .NET SDK has been installed correctly.
 

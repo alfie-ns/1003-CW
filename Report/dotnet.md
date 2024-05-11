@@ -1,6 +1,13 @@
 # Dotnet Environment
 
+
+## Install:
+
+- https://dotnet.microsoft.com/en-us/download
+- `dotnet --version` to verify that the .NET SDK has been installed correctly.
+
 ## To create a dotnet environment/program
+
 1. dotnet new console -n ProjectName
 2. cd ProjectName
 3. dotnet run

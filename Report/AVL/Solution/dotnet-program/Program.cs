@@ -772,8 +772,8 @@ class Program // Program class, the entry point of the program
                 |        completing the exploration of all branches more efficiently than a         |
                 |        standard unbalanced BST.                                                   |
                 ------------------------------------------------------------------------------------| 
-                | each recursive traversal : |                                                   |               
-                ---------------------------------                                                   |              
+                | each recursive traversal:      |                                                   |               
+                ----------------------------------                                                   |              
                 |   1. root(4) indent="" last=true  thus prints:    '└─4'                           |                             
                 |   2. node(2) indent="  " last=false thus prints:  '  ├─2'                         |           
                 |   3. node(1) indent="| " last=false thus prints:  '  | ├─1'                       |           

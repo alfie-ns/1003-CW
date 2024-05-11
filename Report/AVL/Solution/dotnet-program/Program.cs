@@ -799,12 +799,12 @@ class Program // Program class, the entry point of the program
             if (last) // IF it's the last child in the sibling group
             {
                 Console.Write("└─"); // print box-drawing indicating it's the last child
-                indent += "  "; // += indent 2 spaces horizontally for alingment
+                indent += "  "; // += indent 2 spaces horizontally for alingment - NOT printed yet
             }
             else // OTHERWISE the node is NOT the last child
             {
                 Console.Write("├─"); // print box-drawing character indicating the tree continues
-                indent += "| "; // Add a vertical following line to connect subsequent nodes
+                indent += "| "; // Add a vertical following line to connect subsequent nodes - NOT printed yet
 
             }
 

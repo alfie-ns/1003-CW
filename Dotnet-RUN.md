@@ -6,6 +6,8 @@
 
 -`dotnet --version` to verify that the .NET SDK has been installed correctly.
 
+Then you can immediately run my pre-set up dotnet environment, with the bash-script's in root folder.
+
 ## To create a dotnet environment/program
 
 1.`dotnet new console -n ProjectName`

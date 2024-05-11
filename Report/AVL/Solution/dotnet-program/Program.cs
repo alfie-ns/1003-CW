@@ -706,7 +706,7 @@ class Program // Program class, the entry point of the program
             This function prints each node of the AVL tree using box-drawing characters
             and indentation to visualise the hierarchical structure of the tree. I implement
             a recursive depth-first search (DFS) approach to traverse and print the tree from the root.
-            
+           
             This method processes all nodes down the left subtree(leftmost branch) before backtracking
             and continuing with the right subtree, thereby maintaining the hierarchical relationships
             between nodes, effectively exploring the depth of each branch before moving to the next.
@@ -732,27 +732,28 @@ class Program // Program class, the entry point of the program
 
             The vertical line ('|') is added to continue with connection lines vertically, indicating the pathway
             to deeper levels of the tree and helping to visualise the structure of sibling relationships.
-            
+           
             DFS Traversal logic to print box-drawing structured tree:
             -------------------------------------------------------------------------------------
             |                                                                                   |
-            |     Consider an AVL binary tree as follows:                                       |
+            |     Consider my AVL binary tree as follows:                                       |
             |     {                                                                             |
-            |            4       in a Depth First Search(DFS) this tree will be traversed       |                                                           |
-            |           / \      by exploring as far down each branch as possible before        |                                                               |
-            |          2   6     backtracking. The traversal starts at the root and first       |                                                         |
-            |         / \ / \    explores the entire left subtree, then move to the right       |                                                        |
-            |        1  3 5  7   subtree. This ensures each node is visited in the order        |                                                      |
-            |                    of left-most branch first.                                     |                          |
+            |                                     4                                             |
+            |                                    / \                                            |
+            |                                   2   6                                           |
+            |                                  / \ / \                                          |
+            |                                 1  3 5  7                                         |
             |     }                                                                             |
+            |                                                                                   |
             |     Using box-drawing characters and indentation, the output would                |
-            |     be:                                                                           |                                                                             |
+            |     be:                                                                           |
+            |                                                                                   |
             |     {                                                                             |
             |         └─4                                                                       |
             |           ├─2         note the box-drawing tree is indeed structured depth-first  |
-            |           | ├─1       ensuring each node and its children are visited before      |                                           
-            |           | └─3       moving on, and importantly, stuctured top-down              |                                                        
-            |           └─6         to visually represent the hierarchy.                        |                                                           
+            |           | ├─1       ensuring each node and its children are visited before      |                                          
+            |           | └─3       moving on, and importantly, it's stuctured top-down         |                                                        
+            |           └─6         to visually represent the hierarchy.                        |                                                          
             |             ├─5                                                                   |
             |             └─7                                                                   |
             |     }                                                                             |
@@ -770,24 +771,24 @@ class Program // Program class, the entry point of the program
             |     4. finally, complete the traversal by visiting root(4)->right(6)->right(7),   |
             |        completing the exploration of all branches more efficiently than a         |
             |        standard unbalanced BST.                                                   |
-            ------------------------------------------------------------------------------------| 
-            | each recursive traversal |                                                        |               
+            ------------------------------------------------------------------------------------|
+            | each recursive traversal |                                                        |              
             ----------------------------                                                        |              
-            |   1. root(4) indent="  " last=true  thus prints:  '└─4'                           |                             
-            |   2. node(2) indent="| " last=false thus prints:  '  ├─2'                         |           
-            |   3. node(1) indent="| " last=false thus prints:  '  | ├─1'                       |           
-            |   4. node(3) indent="  " last=true thus prints:   '  | └─3'                       |                               
-            |   5. node(6) indent="    " last=true thus prints: '  └─6'                         |                           
-            |   6. node(5) indent="    " last=false thus prints:'    ├─5'                       |
-            |   7. node(7) indent="      "last=true so prints:  '    └─7'                       |
+            |   1. root(4) (indent="  ", last=true) --  prints:  '└─4'                           |                            
+            |   2. node(2) (indent="| ", last=false)--  prints:  '  ├─2'                         |          
+            |   3. node(1) (indent="| ", last=false)--  prints:  '  | ├─1'                       |          
+            |   4. node(3) (indent="  ", last=true) --  prints:  '  | └─3'                       |                              
+            |   5. node(6) (indent="  ", last=true) --  prints:  '  └─6'                         |                          
+            |   6. node(5) (indent="  ", last=false)--  prints:  '    ├─5'                       |
+            |   7. node(7) (indent="  ", last=true) --  prints:  '    └─7'                       |
             |                                                                                   |
             |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
             |   over from the previous call due to indent string accumulating from past calls,  |
             |   if needed, to structure hierarchy to align child nodes under their respective   |
             |   parent nodes, note indent string is += and printed start of next recursive call;|
-            |                                                                                   |
-            |   thus last time round, '      ' is NOT printed as it doesn't reach the next call |         
-            |   as it doesn't need to do another recursive traversal                            |                                                    |                                                                               
+            |   thus last time round, '  ' is NOT printed as it doesn't need to, as the         |
+            |   function resets for the new possibility of new branch                           |                |                                       |                                                                                | 
+            |                                                                                   |                                                                              
             -------------------------------------------------------------------------------------
 
         */
@@ -800,7 +801,7 @@ class Program // Program class, the entry point of the program
             if (last) // IF it's the last child in the sibling group
             {
                 Console.Write("└─"); // print box-drawing indicating it's the last child
-                indent += "  "; // += accumulate indentation of 2 spaces horizontally for alingment - NOT printed yet
+                indent += "  "; // += indent 2 spaces horizontally for alingment - NOT printed yet
             }
             else // OTHERWISE the node is NOT the last child
             {

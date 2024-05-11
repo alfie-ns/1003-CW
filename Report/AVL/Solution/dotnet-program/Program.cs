@@ -717,9 +717,9 @@ class Program // Program class, the entry point of the program
                 - 'indent': A string that accumulates spaces or vertical lines to represent the visual
                             structure as the recursion progresses deeper into the tree. This indentation
                             helps visually delineate the depth and parent-child relationships in the tree.
-                - 'last': Indicates if the node is the LAST child of its parent, which determines
-                          the type of box-drawing character used and how indentation is adjusted.
-                          This starts as TRUE, as a root node has no siblings, ONLY children.
+                - 'last': Indicates if the node is the LAST child of its parent, which determines the type
+                          of box-drawing character used and how indentation is adjusted; this starts as TRUE,
+                          as a root node has NO siblings, ONLY children.
 
                 Box-drawing characters:
                 - '└─': Used when the current node is the LAST child, indicating no siblings follow directly below.
@@ -751,9 +751,9 @@ class Program // Program class, the entry point of the program
                 |     {                                                                             |
                 |         └─4                                                                       |
                 |           ├─2         note the box-drawing tree is indeed structured depth-first  |
-                |           | ├─1       and importantly, top-down, to be an AVL tree                |                              
-                |           | └─3                                                                   |
-                |           └─6                                                                     |
+                |           | ├─1       ensuring each node and its children are visited before      |                                           
+                |           | └─3       moving on, and importantly, it's stuctured top-down         |                                                        
+                |           └─6         to visually represent the hierarchy.                        |                                                           
                 |             ├─5                                                                   |
                 |             └─7                                                                   |
                 |     }                                                                             |
@@ -772,20 +772,20 @@ class Program // Program class, the entry point of the program
                 |        completing the exploration of all branches more efficiently than a         |
                 |        standard unbalanced BST.                                                   |
                 ------------------------------------------------------------------------------------| 
-                | each recursive traversal:      |                                                   |               
-                ----------------------------------                                                   |              
-                |   1. root(4) indent="" last=true  thus prints:    '└─4'                           |                             
-                |   2. node(2) indent="  " last=false thus prints:  '  ├─2'                         |           
+                | each recursive traversal:|                                                  |               
+                ----------------------------                                                  |              
+                |   1. root(4) indent="  " last=true  thus prints:  '└─4'                           |                             
+                |   2. node(2) indent="| " last=false thus prints:  '  ├─2'                         |           
                 |   3. node(1) indent="| " last=false thus prints:  '  | ├─1'                       |           
-                |   4. node(3) indent="| " last=true thus prints:   '  | └─3'                       |                               
-                |   5. node(6) indent="  " last=true thus prints:   '  └─6'                         |                           
-                |   6. node(5) indent="    "last=false thus prints: '    ├─5'                       |
-                |   7. node(7) indent="    "last=true thus prints:  '    └─7'                       |
+                |   4. node(3) indent="  " last=true thus prints:   '  | └─3'                       |                               
+                |   5. node(6) indent="    " last=true thus prints: '  └─6'                         |                           
+                |   6. node(5) indent="    " last=false thus prints:'    ├─5'                       |
+                |   7. node(7) indent="      "last=true so prints:  '    └─7'                       |
                 |                                                                                   |
                 |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
-                |   over from the previous call due to indent string carried over from past call    |
-                |   if needed due to hierarchy to align child nodes under their respective parent   |
-                |   nodes.                                                                           |
+                |   over from the previous call due to indent string accumulating from past calls,  |
+                |   if needed, to structure hierarchy to align child nodes under their respective   |
+                |   parent nodes, note indent string is += and printed start of next recursive call |             
                 |                                                                                   |                                                                     |          
                 -------------------------------------------------------------------------------------
 
@@ -801,7 +801,7 @@ class Program // Program class, the entry point of the program
                     Console.Write("└─"); // print box-drawing indicating it's the last child
                     indent += "  "; // += indent 2 spaces horizontally for alingment
                 }
-                else // OTHERWISE the node is NOT the LAST child
+                else // OTHERWISE the node is NOT the last child
                 {
                     Console.Write("├─"); // print box-drawing character indicating the tree continues
                     indent += "| "; // Add a vertical following line to connect subsequent nodes

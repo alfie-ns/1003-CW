@@ -774,13 +774,13 @@ class Program // Program class, the entry point of the program
             ------------------------------------------------------------------------------------|
             | each recursive traversal |                                                        |              
             ----------------------------                                                        |              
-            |   1. root(4) (indent="  ", last=true) --  prints:  '└─4'                           |                            
-            |   2. node(2) (indent="| ", last=false)--  prints:  '  ├─2'                         |          
-            |   3. node(1) (indent="| ", last=false)--  prints:  '  | ├─1'                       |          
-            |   4. node(3) (indent="  ", last=true) --  prints:  '  | └─3'                       |                              
-            |   5. node(6) (indent="  ", last=true) --  prints:  '  └─6'                         |                          
-            |   6. node(5) (indent="  ", last=false)--  prints:  '    ├─5'                       |
-            |   7. node(7) (indent="  ", last=true) --  prints:  '    └─7'                       |
+            |   1. root(4) (indent="  ", last=true) --  prints:  '└─4'                          |                            
+            |   2. node(2) (indent="| ", last=false)--  prints:  '  ├─2'                        |          
+            |   3. node(1) (indent="| ", last=false)--  prints:  '  | ├─1'                      |          
+            |   4. node(3) (indent="  ", last=true) --  prints:  '  | └─3'                      |                              
+            |   5. node(6) (indent="    ", last=true) --  prints:'  └─6'                        |                          
+            |   6. node(5) (indent="    ", last=false)--  prints:'    ├─5'                      |
+            |   7. node(7) (indent="  ", last=true) --  prints:  '    └─7'                      |
             |                                                                                   |
             |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
             |   over from the previous call due to indent string accumulating from past calls,  |

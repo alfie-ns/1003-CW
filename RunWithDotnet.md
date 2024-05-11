@@ -4,7 +4,7 @@
 
 - https://dotnet.microsoft.com/en-us/download
 
--`dotnet --version` to verify that the .NET SDK has been installed correctly.
+- `dotnet --version` to verify that the .NET SDK has been installed correctly.
 
 ## To create a dotnet environment/program
 

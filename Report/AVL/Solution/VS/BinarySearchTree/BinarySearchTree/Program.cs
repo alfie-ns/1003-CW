@@ -473,9 +473,9 @@ class Program // Program class, the entry point of the program
         /*
             This test function shows that the tree is
             INSERTING and rebalanceing itself correctly.
-            I need to pick elements that definitely WON'T
+            I need to pick elements that definitely won't
             be trandomly generated, in TestTrees() so the
-            duplicate WON'T get discarded when I randomly
+            duplicate won'ts get discarded when I randomly
             insert it prior to when I can delete it.
         */
 
@@ -743,12 +743,14 @@ class Program // Program class, the entry point of the program
                 |          / \ / \                                                                  |
                 |         1  3 5  7                                                                 |
                 |     }                                                                             |
+                |                                                                                   |
                 |     Using box-drawing characters and indentation, the output would                |
                 |     be:                                                                           |
+                |                                                                                    |
                 |     {                                                                             |
                 |         └─4                                                                       |
                 |           ├─2         note the box-drawing tree is indeed structured depth-first  |
-                |           | ├─1       and importantly(for any BST) top-down.                      |                              
+                |           | ├─1       and importantly top-down, (for any BST)                     |                              
                 |           | └─3                                                                   |
                 |           └─6                                                                     |
                 |             ├─5                                                                   |
@@ -768,9 +770,9 @@ class Program // Program class, the entry point of the program
                 |     4. finally, complete the traversal by visiting root(4)->right(6)->right(7),   |
                 |        completing the exploration of all branches more efficiently than a         |
                 |        standard unbalanced BST.                                                   |
-                ------------------------------------------------------------------------------------- 
-                | each time:|                                                                       |
-                -------------                                                                       |
+                ------------------------------------------------------------------------------------| 
+                | each recursive traversal :|                                                       |               |
+                ------------------------------                                                      |              |
                 |   1. root(4) indent="" last=true  thus prints:    '└─4'                           |                             
                 |   2. node(2) indent="  " last=false thus prints:  '  ├─2'                         |           
                 |   3. node(1) indent="| " last=false thus prints:  '  | ├─1'                       |           

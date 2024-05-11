@@ -719,7 +719,7 @@ class Program // Program class, the entry point of the program
                             helps visually delineate the depth and parent-child relationships in the tree.
                 - 'last': Indicates if the node is the LAST child of its parent, which determines
                           the type of box-drawing character used and how indentation is adjusted.
-                          this starts as TRUE, as a root node has no siblings, ONLY children.
+                          This starts as TRUE, as a root node has no siblings, ONLY children.
 
                 Box-drawing characters:
                 - '└─': Used when the current node is the LAST child, indicating no siblings follow directly below.
@@ -784,7 +784,7 @@ class Program // Program class, the entry point of the program
                 |                                                                                   |
                 |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
                 |   over from the previous call due to indent string carried over from past call    |
-                |   if needed due to hirearchy to align child nodes under their respective parent   |
+                |   if needed due to hierarchy to align child nodes under their respective parent   |
                 |   nodes.                                                                           |
                 |                                                                                   |                                                                     |          
                 -------------------------------------------------------------------------------------

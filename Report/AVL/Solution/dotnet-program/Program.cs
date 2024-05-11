@@ -736,18 +736,17 @@ class Program // Program class, the entry point of the program
             DFS Traversal logic to print box-drawing structured tree:
             -------------------------------------------------------------------------------------
             |                                                                                   |
-            |     Consider my AVL binary tree as follows:                                       |
+            |     Consider an AVL binary tree as follows:                                       |
             |     {                                                                             |
-            |                                     4                                             |
-            |                                    / \                                            |
-            |                                   2   6                                           |
-            |                                  / \ / \                                          |
-            |                                 1  3 5  7                                         |
+            |            4       in a Depth First Search(DFS) this tree will be traversed       |                                                           |
+            |           / \      by exploring as far down each branch as possible before        |                                                               |
+            |          2   6     backtracking. The traversal starts at the root and first       |                                                         |
+            |         / \ / \    explores the entire left subtree, then move to the right       |                                                        |
+            |        1  3 5  7   subtree. This ensures each node is visited in the order        |                                                      |
+            |                    of left-most branch first.                                     |                          |
             |     }                                                                             |
-            |                                                                                   |
             |     Using box-drawing characters and indentation, the output would                |
-            |     be:                                                                           |
-            |                                                                                   |
+            |     be:                                                                           |                                                                             |
             |     {                                                                             |
             |         └─4                                                                       |
             |           ├─2         note the box-drawing tree is indeed structured depth-first  |

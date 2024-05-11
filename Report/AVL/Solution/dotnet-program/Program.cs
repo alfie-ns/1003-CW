@@ -9,7 +9,8 @@ I genuinely found this helpful concerning my poor memory; it gives me an organis
 way to keep track of my work on both computers. It also provides a dopamine hit when I push
 to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
 and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now. I also
-enjoy conceptualisint and making a codebase anyone can understand and run with .NET SDK.
+enjoy conceptualisint and making a codebase anyone can understand and run with .NET SDK. to run dotnet
+prograns 
 
 https://github.com/alfie-ns/1003-CW
 
@@ -37,8 +38,8 @@ remains approximately balanced, which in turn provides efficient search, inserti
 of O(log n).
  
 The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of
-its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node violates this
-condition.
+its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node 
+violates this condition.
 
 If the balance-factor of a node is greater than 1, it means that the left subtree is too tall compared to the
 right subtree, making the node left-heavy. Conversely, if the balance-factor is LESS than -1, it indicates that the right subtree
@@ -298,6 +299,11 @@ class Program // Program class, the entry point of the program
 
     static int GetHeight(Node node)
     { // Get height of tree rooted at 'node' - (https://www.youtube.com/watch?v=_pnqMz5nrRs)
+        
+        /*
+            height of a given node is defined as the length of the path
+            to the deepest lead node of the tree rooted to that node.
+        */
         if (node == null) return -1; // Base case: If the node is null, return -1, thereby making the height calculation for its parent node start at 0 after adding 1(the current node)
         int leftHeight = GetHeight(node.left); // Recursively calculate height of the left subtree
         int rightHeight = GetHeight(node.right); // Recursively calculate height of the right subtree
@@ -320,7 +326,7 @@ class Program // Program class, the entry point of the program
 
         In an AVL tree, an empty subtree is always balanced as it has a height of 0
         Returning true for null nodes ensures that the base case of the recursive
-        function is handled correctly.
+        function is indeed handled correctly.
         */
 
         // Traverse and get the heights of the left and right subtrees
@@ -631,6 +637,7 @@ class Program // Program class, the entry point of the program
 
         int index = 0; // Initialise the index to 0
         InOrderTraversal(tree.root, (int value) => { sortedArray[index++] = value; });
+
         /*
             The lambda function stores the node's data in the array during in-order traversal.
             The way this lambda function works is:
@@ -745,16 +752,18 @@ class Program // Program class, the entry point of the program
             |                                                                                   |
             |     Consider my AVL binary tree as follows:                                       |
             |     {                                                                             |
-            |                                     4                                             |
-            |                                    / \                                            |
-            |                                   2   6                                           |
-            |                                  / \ / \                                          |
-            |                                 1  3 5  7                                         |
+            |            4            an AVL binary tree is a tree data structure where the     |
+            |           /  \          left child or any given node is LESS than parent while    |
+            |          2     6        while right child is GREATER than parent. Thus a function |
+            |         / \   / \       can traverse the tree more efficiently due to the boolean |
+            |        1   3 5   7      constraint used in searching instead of searching whole   |
+            |                         datasets, to find 3:IF SMALLER: GO LEFT IF NOT SMALLER:   |
+                                      GO RIGHT                                                  |
+            |                                                                                   |    
             |     }                                                                             |
             |                                                                                   |
             |     Using box-drawing characters and indentation, the output would                |
-            |     be:                                                                           |
-            |                                                                                   |
+            |     be:                                                                           |                                                                              |
             |     {                                                                             |
             |         └─4                                                                       |
             |           ├─2         note the box-drawing tree is indeed structured depth-first  |
@@ -766,6 +775,7 @@ class Program // Program class, the entry point of the program
             |     }                                                                             |
             |                                                                                   |
             |     In a depth-first AVL algorithm (DFS), the order for a full tree traversal:    |
+            |     --------------------------------------------------------------------------    |  
             |                                                                                   |
             |     1. root(4)->left(2)->left(1), completed in the first recursive traversal.     |
             |                                                                                   |
@@ -779,8 +789,8 @@ class Program // Program class, the entry point of the program
             |        completing the exploration of all branches more efficiently than a         |
             |        standard unbalanced BST.                                                   |
             ------------------------------------------------------------------------------------|
-            | each recursion |                                                        |              
-            ----------------------------                                                        |              
+            | each recursion |                                                                  |              
+            ------------------                                                                  |              
             |   1. root(4) (indent="  ", last=true) --  prints:  '└─4'                          |                            
             |   2. node(2) (indent="| ", last=false)--  prints:  '  ├─2'                        |          
             |   3. node(1) (indent="| ", last=false)--  prints:  '  | ├─1'                      |          
@@ -793,8 +803,8 @@ class Program // Program class, the entry point of the program
             |   over from the previous call due to indent string accumulating from past calls,  |
             |   if needed, to structure hierarchy to align child nodes under their respective   |
             |   parent nodes, note indent string is += and printed start of next recursive call;|
-            |   thus last time round, '  ' is NOT printed as it doesn't need to, as the         |
-            |   function resets for the new possibility of new branch                           |                                                                                                                                        
+            |   thus last time round, indent is NOT printed as it it doesn't reach the next     |
+            |    recusive call                                                                  |                                                                                                                                   
             |                                                                                   |                                                                              
             -------------------------------------------------------------------------------------
 
@@ -954,7 +964,7 @@ class Program // Program class, the entry point of the program
         if (tree.left != null) // if left child is NOT null
             PrintTree(tree.left);
 
-        Console.Write(tree.data.data + " "); // print the data of the current node
+        Console.Write(tree.data.data + " "); // print the data of the current integer node
 
         if (tree.right != null) // if right child is NOT null
             PrintTree(tree.right);
@@ -1442,6 +1452,7 @@ class Program // Program class, the entry point of the program
 
         // some basic info on the tree
         Console.WriteLine("Size of the tree: " + Size(tree)); // print size
+        Console.WriteLine("Height of root: " + GetHeight(tree.root)); // print height
         Console.WriteLine("Depth of the tree: " + Depth(tree.root)); // print depth
         Node minNode = FindMin(tree.root); // find min value
         Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else
@@ -1519,6 +1530,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         tree.root = Rebalance(tree.root); // rebalance the tree
         TestAVLBalancing(); // run test for AVL balancing
+        Console.WriteLine("Height of root: " + GetHeight(tree.root)); // print height of root
         Console.WriteLine(); // newline
         Console.WriteLine("AVL balancing test PASSED!");
 

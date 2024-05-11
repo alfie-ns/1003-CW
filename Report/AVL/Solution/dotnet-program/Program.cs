@@ -737,11 +737,11 @@ class Program // Program class, the entry point of the program
                 |                                                                                   |
                 |     Consider my AVL binary tree as follows:                                       |
                 |     {                                                                             |
-                |             4                                                                     |
-                |            / \                                                                    |
-                |           2   6                                                                   |
-                |          / \ / \                                                                  |
-                |         1  3 5  7                                                                 |
+                |                                     4                                             |
+                |                                    / \                                            |
+                |                                   2   6                                           |
+                |                                  / \ / \                                          |
+                |                                 1  3 5  7                                         |
                 |     }                                                                             |
                 |                                                                                   |
                 |     Using box-drawing characters and indentation, the output would                |
@@ -1502,7 +1502,6 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Test_DeleteMin(); // run test for DeleteMin
         Console.WriteLine(); // newline
-
 
 
         // Test AVL balancing

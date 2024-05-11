@@ -573,6 +573,9 @@ class Program // Program class, the entry point of the program
         // Rebalance the tree after insertions
         tree.root = Rebalance(tree.root);
 
+        // The assertion functions essientially make sure that elements in the tree are indeed found,
+        // by making sure it CAN be found, and outputting an error exception if it CAN'T be found.
+
         Console.WriteLine("Searching for 5...");
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
         Console.WriteLine("FOUND"); // print FOUND
@@ -589,7 +592,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
 
         Console.WriteLine("Searching for 6...");
-        Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Existing element not found"); // check if non-existing element is NOT found
+        Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Existing element not found"); // check if element is indeed found
         Console.WriteLine("FOUND"); // print FOUND
         Console.WriteLine(); // newline
 
@@ -680,6 +683,7 @@ class Program // Program class, the entry point of the program
 
     static void Assert(bool condition, string message)
     { // custom assert function: if boolean passed to function is NOT true, throw an exception with the specified message
+      // this is used to show it works with proof that it's indeed working
         if (!condition)
             throw new Exception("Assertion failed: " + message); // print exception
     }
@@ -733,8 +737,11 @@ class Program // Program class, the entry point of the program
             The vertical line ('|') is added to continue with connection lines vertically, indicating the pathway
             to deeper levels of the tree and helping to visualise the structure of sibling relationships.
            
-            DFS Traversal logic to print box-drawing structured tree:
+            
             -------------------------------------------------------------------------------------
+            | DFS Traversal logic to print box-drawing structured tree: |                       | 
+            -------------------------------------------------------------                       |
+            |                                                                                   |   
             |                                                                                   |
             |     Consider my AVL binary tree as follows:                                       |
             |     {                                                                             |
@@ -772,7 +779,7 @@ class Program // Program class, the entry point of the program
             |        completing the exploration of all branches more efficiently than a         |
             |        standard unbalanced BST.                                                   |
             ------------------------------------------------------------------------------------|
-            | each recursive traversal |                                                        |              
+            | each recursion |                                                        |              
             ----------------------------                                                        |              
             |   1. root(4) (indent="  ", last=true) --  prints:  '└─4'                          |                            
             |   2. node(2) (indent="| ", last=false)--  prints:  '  ├─2'                        |          
@@ -787,7 +794,7 @@ class Program // Program class, the entry point of the program
             |   if needed, to structure hierarchy to align child nodes under their respective   |
             |   parent nodes, note indent string is += and printed start of next recursive call;|
             |   thus last time round, '  ' is NOT printed as it doesn't need to, as the         |
-            |   function resets for the new possibility of new branch                           |                |                                       |                                                                                | 
+            |   function resets for the new possibility of new branch                           |                                                                                                                                        
             |                                                                                   |                                                                              
             -------------------------------------------------------------------------------------
 
@@ -801,12 +808,12 @@ class Program // Program class, the entry point of the program
             if (last) // IF it's the last child in the sibling group
             {
                 Console.Write("└─"); // print box-drawing indicating it's the last child
-                indent += "  "; // += indent 2 spaces horizontally for alingment - NOT printed yet
+                indent += "  "; // += indent 2 spaces horizontally for alingment - printed next time round
             }
             else // OTHERWISE the node is NOT the last child
             {
                 Console.Write("├─"); // print box-drawing character indicating the tree continues
-                indent += "| "; // Add a vertical following line to connect subsequent nodes - NOT printed yet
+                indent += "| "; // Add a vertical following line to connect subsequent nodes - printed next time round
 
             }
 
@@ -1137,7 +1144,7 @@ class Program // Program class, the entry point of the program
         // Base case: If the tree is empty (root is null), return 0 (no depth)
         if (tree == null) return 0;
 
-        // Else, recursively calculate the depth of the left or right subtree's
+        //  Recursively calculate the depth of the left or right subtree's
         int leftDepth = Depth(tree.left);
         int rightDepth = Depth(tree.right);
 
@@ -1433,13 +1440,13 @@ class Program // Program class, the entry point of the program
 
         Console.WriteLine("-------------");
 
-        // print the size of the tree
+        // some basic info on the tree
         Console.WriteLine("Size of the tree: " + Size(tree)); // print size
         Console.WriteLine("Depth of the tree: " + Depth(tree.root)); // print depth
         Node minNode = FindMin(tree.root); // find min value
         Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else
         Node maxNode = FindMax(tree.root); // find max value
-        Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null"));
+        Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null")); // Terinary operator, quick if else
         Console.WriteLine("--------------------------------");
 
         // test SearchTree
@@ -1523,7 +1530,7 @@ class Program // Program class, the entry point of the program
         I could've done this programmatically, however, I hope my manual
         check is sufficient.
        
-        Later on, I do indeed programmatically
+        LATER ON, I do indeed programmatically
         check the assert functions pass with a try-catch block in the
         TestParent() and Test_DeleteMin() functions
         */

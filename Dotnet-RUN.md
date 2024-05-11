@@ -6,7 +6,9 @@
 
 -`dotnet --version` to verify that the .NET SDK has been installed correctly.
 
-Then you can immediately run my pre-set up dotnet environment, with the bash-script's in root folder.
+Then you can **run** my pre-set up [dotnet environment]() using `dotnet run` command.
+
+Or you can **run** the bash-scrips in the root directory to quickly run the AVL tree environment.
 
 ## To create a dotnet environment/program
 

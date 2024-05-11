@@ -787,7 +787,7 @@ class Program // Program class, the entry point of the program
             |   parent nodes, note indent string is += and printed start of next recursive call;|
             |                                                                                   |
             |   thus last time round, '      ' is NOT printed as it doesn't reach the next call |         
-            |                                                                                   |                                                                               
+            |   as it doesn't need to do another recursive traversal                            |                                                    |                                                                               
             -------------------------------------------------------------------------------------
 
         */
@@ -800,7 +800,7 @@ class Program // Program class, the entry point of the program
             if (last) // IF it's the last child in the sibling group
             {
                 Console.Write("└─"); // print box-drawing indicating it's the last child
-                indent += "  "; // += indent 2 spaces horizontally for alingment - NOT printed yet
+                indent += "  "; // += accumulate indentation of 2 spaces horizontally for alingment - NOT printed yet
             }
             else // OTHERWISE the node is NOT the last child
             {

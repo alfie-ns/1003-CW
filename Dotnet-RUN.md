@@ -3,13 +3,16 @@
 ## Install:
 
 - https://dotnet.microsoft.com/en-us/download
-- `dotnet --version` to verify that the .NET SDK has been installed correctly.
+
+-`dotnet --version` to verify that the .NET SDK has been installed correctly.
 
 ## To create a dotnet environment/program
 
-1. `dotnet new console -n ProjectName`
-2. `cd ProjectName`
-3. `dotnet run`
+1.`dotnet new console -n ProjectName`
+
+2.`cd ProjectName`
+
+3.`dotnet run`
 
 - Program.cs: The main C# file as the entry point of the application.
 - .csproj: The project file with build settings and dependencies. - csproj = C# project.

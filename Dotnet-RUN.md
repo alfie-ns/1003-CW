@@ -20,4 +20,4 @@ Then you can immediately run my pre-set up dotnet environment, with the bash-scr
 - .csproj: The project file with build settings and dependencies. - csproj = C# project.
 - bin/: The output folder for compiled files. - bin stands for binary.
 - obj/: Contains temporary build files. - obj stands for object.
-- 'dotnet run': The command to compile and run the project.
+- 'dotnet run' -  The command to compile and run the project.

@@ -747,7 +747,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Balanced AVL Tree with elements 1 to 50:");
         PrintTreeVisual(tree.root);
 
-        Console.WriteLine("Height(length of longest path from root->leaf) should be 5");
+        Console.WriteLine("Height(length of longest path from root to leaf) should be 5");
         Console.WriteLine("Height: " + GetHeight(tree.root)); // print height of root
         Console.WriteLine("Depth(height-1) should be 4");
         Console.WriteLine("Depth: " + Depth(tree.root)); // print depth of tree from root
@@ -1488,7 +1488,7 @@ class Program // Program class, the entry point of the program
         // some basic info on the tree
         Console.WriteLine("Size of the tree: " + Size(tree)); // print size
         Console.WriteLine("Height of root: " + GetHeight(tree.root)); // print height
-        Console.WriteLine("Depth: " + Depth(tree.root)); // print depth
+        Console.WriteLine("Depth(number of edges from the tree's root node): " + Depth(tree.root)); // print depth
         Node minNode = FindMin(tree.root); // find min value
         Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else
         Node maxNode = FindMax(tree.root); // find max value

@@ -1190,8 +1190,8 @@ class Program // Program class, the entry point of the program
     /// <param name="tree">The root of the tree</param>
     /// <returns>The depth of the tree.</returns>
     static int Depth(Node tree)
-    {
-        if (tree == null) return -1; // Base case: If the node is null, return -1, thereby making the height calculation the length of the PATH to the deepest leaf node
+    { // depth is always one less than height
+        if (tree == null) return 0; // Base case: If the node is null, return 0, as an empty tree has a depth of 0
         int leftHeight = GetHeight(tree.left); // Recursively calculate height of the left subtree
         int rightHeight = GetHeight(tree.right); // Recursively calculate height of the right subtree
         return Math.Max(leftHeight, rightHeight); //height-1=depth

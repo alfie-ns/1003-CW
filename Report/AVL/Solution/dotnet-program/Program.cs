@@ -9,9 +9,7 @@ I genuinely found this helpful concerning my poor memory; it gives me an organis
 way to keep track of my work on both computers. It give me a creative instrest while also providing
 a dopamine hit when I push to the repo! However, I realised this also shows a high-level commitment,
 organisation, structure, and proactive initiative in managing my coursework effectively; hence, I'm 
-mentioning it now. It was interesting to use a dotnet SDK to run the programs, I very much enjoyed
-enjoy conceptualisint and making a codebase anyone can understand and run with .NET SDK. to run dotnet
-prograns 
+mentioning it now. It was interesting to learn dotnet SDK to run the program, in the vscode directory.
 
 https://github.com/alfie-ns/1003-CW
 
@@ -123,6 +121,7 @@ Notebook
 - [X] verify tree is indeed balanced after every operation
 - [X] Visualise tree
 - [X] Create new depth functions(depth, getdepth)
+- [X] TestDeleteMin
 
 - [ ] Fix GetDepth() 
 ---------------------
@@ -355,28 +354,29 @@ class Program // Program class, the entry point of the program
     }
 
     // NEW
-    static int GetDepth(Node rootNode, Node targetNode, int depth = 0)
-    {
-        if (rootNode == null)
-        {
-            return -1; // Node not found, return -1
-        }
-
-        if (rootNode.data.data == targetNode.data.data)
-        {
-            return depth; // If the current node matches the target node, return the current depth
-        }
-
-        // Decide whether to search in the left or right subtree and increment the depth
-        if (targetNode.data.data < rootNode.data.data)
-        {
-            return GetDepth(rootNode.left, targetNode, depth++); // Search in the left subtree
-        }
-        else
-        {
-            return GetDepth(rootNode.right, targetNode, depth++); // Search in the right subtree
-        }
-    }
+    //static int GetDepth(Node rootNode, int depth = 0)
+    //{
+    //    // initital failcheck
+    //    if (rootNode == null) //
+    //    {
+    //        return 0; // return 0 if the root node is null thus tree empty
+    //    }
+    //    // Base case: If the current node matches the target node, return the current depth
+    //    if (IsEqual(rootNode, targetNode))
+    //    {
+    //        return depth;
+    //    }
+//
+    //    // Decide whether to search in the left or right subtree and increment the depth
+    //    if (IsSmaller(targetNode, rootNode)) // If the target node is smaller than the current node
+    //    {
+    //        return GetDepth(rootNode.left, depth++); // Search in the left subtree
+    //    }
+    //    else // then it must be larger
+    //    {
+    //        return GetDepth(rootNode.right, depth++); // Search in the right subtree
+    //    }
+    //}
 
 
 
@@ -746,10 +746,11 @@ class Program // Program class, the entry point of the program
         // Print the visual representation of the balanced tree
         Console.WriteLine("Balanced AVL Tree with elements 1 to 50:");
         PrintTreeVisual(tree.root);
-        Console.WriteLine("Height should be 5: (log2(50))=5.64 we count in whole steps/edges - for an AVL tree of 50 elements.");
+
+        Console.WriteLine("Height(length of longest path from root->leaf) should be 5");
         Console.WriteLine("Height: " + GetHeight(tree.root)); // print height of root
-        Console.WriteLine("Depth should be 4: (height-1) - for an AVL tree of 50 elements.");
-        Console.WriteLine("Depth: " + Depth(tree.root)); // print depth of tree
+        Console.WriteLine("Depth(height-1) should be 4");
+        Console.WriteLine("Depth: " + Depth(tree.root)); // print depth of tree from root
     }
 
     static void PrintTreeVisual(Node node, string indent = "", bool last = true) // insent starts as '' for subsequent accumulation
@@ -766,7 +767,7 @@ class Program // Program class, the entry point of the program
             Parameters:
             ------------
             - 'node': The current data of the node. node.data.data is the integer value of said node.
-            - 'indent': A string that accumulates spaces or vertical lines to represent the visual
+            - 'indent': A string that accumulates spaces or spaces+vertical lines to represent the visual
                         structure as the recursion progresses deeper into the tree. This indentation
                         helps visually delineate the depth and parent-child relationships in the tree.
             - 'last': Indicates if the node is the LAST child of its parent, which determines the type
@@ -798,7 +799,7 @@ class Program // Program class, the entry point of the program
             |          2     6        while right child is GREATER than parent. Thus a function |
             |         / \   / \       can traverse the tree more efficiently due to the boolean |
             |        1   3 5   7      constraint used in searching instead of searching whole   |
-            |                         datasets, to find 3:if smaller go left, if larger go right|                                                  |                                                                             |    
+            |                         datasets                                                  |                                                                             |    
             |     }                                                                             |
             |                                                                                   |
             |     Using box-drawing characters and indentation, the output would                |
@@ -807,8 +808,8 @@ class Program // Program class, the entry point of the program
             |         └─4                                                                       |
             |           ├─2         note the box-drawing tree is indeed structured depth-first  |
             |           | ├─1       ensuring each node and its children are visited before      |                                          
-            |           | └─3       moving on, and importantly is stuctured top-down to visually|                                                        
-            |           └─6         to visually represent the hierarchy.                        |                                                          
+            |           | └─3       moving on, and stuctured top-down to visually represent     |                                                        
+            |           └─6         the hierarchy                                               |                                                          
             |             ├─5                                                                   |
             |             └─7  7(last)'s indent for next call is NOT used                       |
             |     }                                                                             |
@@ -845,7 +846,7 @@ class Program // Program class, the entry point of the program
             |   parent nodes, the indent string is += and printed start of next recursive call; |
             |   thus last time round indent is NOT printed as it it doesn't get that far in the |     
             |   recusive call because it doesn't call itself again after node(7)                |                                                  |                                                                                                                                   
-            |   NOT used at begin of next call, the final +2->6 indents NEVER used              |
+            |   the final +2->6 indents NEVER used;                                                |
             |   last could also be thought of as first(before) next recusive call, or NOT       |
             |   intermediate                                                                    |                                                                               |                                                                              
             -------------------------------------------------------------------------------------
@@ -987,55 +988,8 @@ class Program // Program class, the entry point of the program
         }
     }
 
-    static void TestDepth()
-    {
-        try
-        {
-            // Test Case 1: Null node
-            Assert(Depth(null) == 0, "Depth of a null node should be 0");
 
-            // Test Case 2: Single node
-            Node singleNode = new Node { data = new DataEntry { data = 1 } };
-            Assert(Depth(singleNode) == 0, "Depth of a single node should be 0");
-
-            // Test Case 3: Tree with multiple levels
-            Node root = new Node { data = new DataEntry { data = 4 } };
-            Node node2 = new Node { data = new DataEntry { data = 2 } };
-            Node node6 = new Node { data = new DataEntry { data = 6 } };
-            Node node1 = new Node { data = new DataEntry { data = 1 } };
-            Node node3 = new Node { data = new DataEntry { data = 3 } };
-            Node node5 = new Node { data = new DataEntry { data = 5 } };
-            Node node7 = new Node { data = new DataEntry { data = 7 } };
-
-            root.left = node2;
-            root.right = node6;
-            node2.left = node1;
-            node2.right = node3;
-            node6.left = node5;
-            node6.right = node7;
-
-            Assert(Depth(root) == 0, "Depth of the root node should be 0");
-            Assert(Depth(node2) == 1, "Depth of node 2 should be 1");
-            Assert(Depth(node6) == 1, "Depth of node 6 should be 1");
-            Assert(Depth(node1) == 2, "Depth of node 1 should be 2");
-            Assert(Depth(node3) == 2, "Depth of node 3 should be 2");
-            Assert(Depth(node5) == 2, "Depth of node 5 should be 2");
-            Assert(Depth(node7) == 2, "Depth of node 7 should be 2");
-
-            // Test Case 4: Node not in the tree
-            Node nodeNotInTree = new Node { data = new DataEntry { data = 101 } };
-            Assert(Depth(nodeNotInTree) == 0, "Depth of a node not in the tree should be 0");
-
-            Console.WriteLine("TestDepth PASSED");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("TestDepth FAILED: " + ex.Message);
-        }
-    }
-
-
-    // ----------------------------------------------------------------------------------------------------------------------------------------------------------
+    //// ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
     /// .... (and nowhere else) [X]
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
@@ -1237,14 +1191,12 @@ class Program // Program class, the entry point of the program
     /// <returns>The depth of the tree.</returns>
     static int Depth(Node tree)
     {
-        if (tree == null) return 0; // Base case: If the tree is empty, return 0(depth of an empty tree is 0)
-
-        int depth = GetDepth(tree, tree, 0); // Call the recursive helper function to calculate the depth of the tree
-
-        Console.WriteLine(depth); // TESTING
-
-        return depth; // Return the depth of the tree
+        if (tree == null) return -1; // Base case: If the node is null, return -1, thereby making the height calculation the length of the PATH to the deepest leaf node
+        int leftHeight = GetHeight(tree.left); // Recursively calculate height of the left subtree
+        int rightHeight = GetHeight(tree.right); // Recursively calculate height of the right subtree
+        return Math.Max(leftHeight, rightHeight); //height-1=depth
     }
+    
 
     /// <summary>
     /// Find the parent of Node node in Tree tree.
@@ -1280,6 +1232,7 @@ class Program // Program class, the entry point of the program
         }
 
         // Now, current is the RIGHTMOST node, which will be the maximum value node in the tree
+        Console.WriteLine("Max: " + current.data.data); // TESTING
         return current;
     }
 
@@ -1535,7 +1488,7 @@ class Program // Program class, the entry point of the program
         // some basic info on the tree
         Console.WriteLine("Size of the tree: " + Size(tree)); // print size
         Console.WriteLine("Height of root: " + GetHeight(tree.root)); // print height
-        Console.WriteLine("Depth of the tree: " + Depth(tree.root)); // print depth
+        Console.WriteLine("Depth: " + Depth(tree.root)); // print depth
         Node minNode = FindMin(tree.root); // find min value
         Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else
         Node maxNode = FindMax(tree.root); // find max value
@@ -1605,13 +1558,6 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Test_DeleteMin(); // run test for DeleteMin
         Console.WriteLine(); // newline
-
-        // Test depth
-        Console.WriteLine("----------Testing depth...----------"); // testing...
-        Console.WriteLine(); // newline
-        TestDepth(); // run test for depth
-        Console.WriteLine(); // newline
-
 
         // Test AVL balancing
         Console.WriteLine("----------Testing AVL balancing...----------"); // testing...

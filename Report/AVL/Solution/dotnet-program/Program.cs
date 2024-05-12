@@ -751,7 +751,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Depth of AVL tree: " + Depth(tree.root)); // print depth of tree
     }
 
-    static void PrintTreeVisual(Node node, string indent = "", bool last = true) 
+    static void PrintTreeVisual(Node node, string indent = "", bool last = true) // insent starts as '' for subsequent accumulation
     {
         /*
             This function prints each node of the AVL tree using box-drawing characters
@@ -797,8 +797,7 @@ class Program // Program class, the entry point of the program
             |          2     6        while right child is GREATER than parent. Thus a function |
             |         / \   / \       can traverse the tree more efficiently due to the boolean |
             |        1   3 5   7      constraint used in searching instead of searching whole   |
-            |                         datasets, to find 3:IF SMALLER: GO LEFT IF NOT SMALLER:   |
-            |                         GO RIGHT                                                 |                                                                             |    
+            |                         datasets, to find 3:if smaller go left, if larger go right|                                                  |                                                                             |    
             |     }                                                                             |
             |                                                                                   |
             |     Using box-drawing characters and indentation, the output would                |
@@ -807,10 +806,10 @@ class Program // Program class, the entry point of the program
             |         └─4                                                                       |
             |           ├─2         note the box-drawing tree is indeed structured depth-first  |
             |           | ├─1       ensuring each node and its children are visited before      |                                          
-            |           | └─3       moving on, and importantly, it's stuctured top-down         |                                                        
+            |           | └─3       moving on, and importantly stuctured top-down to visually   |                                                        
             |           └─6         to visually represent the hierarchy.                        |                                                          
             |             ├─5                                                                   |
-            |             └─7      last is the same thing as to change||                                                             |
+            |             └─7     sinces 7(last) is directly 5 two spaces AREN'T accumulated                                                              |
             |     }                                                                             |
             |                                                                                   |
             |     In a depth-first AVL algorithm (DFS), the order for a full tree traversal:    |
@@ -837,15 +836,15 @@ class Program // Program class, the entry point of the program
             |   4. node(3) (indent="  ", last=true) --  prints:       '  | └─3'                 |                              
             |   5. node(6) (indent="    ", last=true) --  prints:     '  └─6'                   |                          
             |   6. node(5) (indent="    ", last=false)--  prints:     '    ├─5'                 |
-            |   7. node(7) (indent="      ", last=true) --  prints:   '    └─7'                 |
+            |   7. node(7) (indent="    +2", last=true) --  prints:   '    └─7'                 |
             |            ^^^NOT USED 6 indents^^^                                                                   |
             |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
             |   over from the previous call due to 'indent' string accumulation from past calls,|
             |   if needed, to structure hierarchy to align child nodes under their respective   |
-            |   parent nodes, the indent string is += and printed start of next recursive call;||
-            |   thus last time round indent is NOT printed as it it doesn't get that far in the|     
+            |   parent nodes, the indent string is += and printed start of next recursive call; |
+            |   thus last time round indent is NOT printed as it it doesn't get that far in the |     
             |   recusive call because it doesn't call itself again after node(7)                |                                                  |                                                                                                                                   
-            |   NOT used at begin of next call                                                                                 |                                                                              
+            |   NOT used at begin of next call, the final +2->6 indents NEVER used              |                                                                               |                                                                              
             -------------------------------------------------------------------------------------
 
         */
@@ -853,24 +852,25 @@ class Program // Program class, the entry point of the program
 
         if (node != null) // Proceed if node is not null to begin recursion
         {
-            Console.Write(indent); // Print the previous accumulated indentation before the box-drawing character
+            Console.Write(indent); // Print the previous accumulated indentation before the box-drawing character, starts empty so just '└─' is printed
 
             if (last) // Check if it is the last child
             {
                 Console.Write("└─"); // Indicate end of this branch
-                indent += "  "; // Extend indentation for subsequent lines
+                indent += "  "; // If this is the last child, adjust the indentation without adding a vertical continuation line for siblings, preparing
+                                // for the next line of output at a potentially new level of depth next time round
             }
-            else
+            else // if NOT last child
             {
                 Console.Write("├─"); // Indicate continuation of this branch
-                indent += "| "; // Add vertical line to align subsequent nodes
+                indent += "| "; // Add vertical line to align subsequent siblings
             }
 
-            Console.WriteLine(node.data.data); // Print the node's data
+            Console.WriteLine(node.data.data); // Print the node's integer value as data.data
 
             // Recursively print left and right children
-            PrintTreeVisual(node.left, indent, false); // Left child is not the last by default
-            PrintTreeVisual(node.right, indent, true); // Right child is the last in the order of visualisation
+            PrintTreeVisual(node.left, indent, false); // we've already began at new branch so start with connection next time round
+            PrintTreeVisual(node.right, indent, true); // Right child is the last in the order of visualisation because next time round doesn't need to print connection line
         }
 
     }

@@ -829,8 +829,8 @@ class Program // Program class, the entry point of the program
             |        standard unbalanced BST.                                                   |   
             |                                                                                   |
             ------------------------------------------------------------------------------------|
-            | each recursive traversal  |                                                                  |              
-            -----------------------------                                                                  |              
+            | each recursive traversal  |                                                       |              
+            -----------------------------                                                       |              
             |   1. root(4) (indent="  ", last=true) --  prints:       '└─4'                     |                            
             |   2. node(2) (indent="| ", last=false)--  prints:       '  ├─2'                   |          
             |   3. node(1) (indent="| ", last=false)--  prints:       '  | ├─1'                 |          
@@ -838,14 +838,16 @@ class Program // Program class, the entry point of the program
             |   5. node(6) (indent="    ", last=true) --  prints:     '  └─6'                   |                          
             |   6. node(5) (indent="    ", last=false)--  prints:     '    ├─5'                 |
             |   7. node(7) (indent="      ", last=true) --  prints:   '    └─7'                 |
-            |            ^^^NOT USED 6 indents^^^                                                                   |
+            |            ^^^NOT USED 6 indents^^^                                               |                    |
             |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
             |   over from the previous call due to 'indent' string accumulation from past calls,|
             |   if needed, to structure hierarchy to align child nodes under their respective   |
             |   parent nodes, the indent string is += and printed start of next recursive call; |
             |   thus last time round indent is NOT printed as it it doesn't get that far in the |     
             |   recusive call because it doesn't call itself again after node(7)                |                                                  |                                                                                                                                   
-            |   NOT used at begin of next call, the final +2->6 indents NEVER used              |                                                                               |                                                                              
+            |   NOT used at begin of next call, the final +2->6 indents NEVER used              |
+            |   last could also be thought of as first(before) next recusive call, or NOT       |
+            |   intermediate                                                                    |                                                                               |                                                                              
             -------------------------------------------------------------------------------------
 
         */
@@ -867,11 +869,13 @@ class Program // Program class, the entry point of the program
                 indent += "| "; // Add vertical line to align subsequent siblings
             }
 
-            Console.WriteLine(node.data.data); // Print the node's integer value as data.data
+            Console.WriteLine(node.data.data); // Print the node's integer value as data.data, this is on the same line FOLLOWING the box-drawing character
 
             // Recursively print left and right children
             PrintTreeVisual(node.left, indent, false); // we've already began at new branch so start with connection next time round
             PrintTreeVisual(node.right, indent, true); // Right child is the last in the order of visualisation because next time round doesn't need to print connection line
+
+            // .Write instead of .WriteLine to print node's integer value on the same line as the box-drawing character
         }
 
     }

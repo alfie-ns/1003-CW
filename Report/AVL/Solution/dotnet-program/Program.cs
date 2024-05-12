@@ -748,7 +748,7 @@ class Program // Program class, the entry point of the program
         PrintTreeVisual(tree.root);
         Console.WriteLine("Height of root: " + GetHeight(tree.root)); // print height of root
         Console.WriteLine("As you can see, the height of the root node is 5, indicating that the maximum depth of the tree is 5. Minus the current node This demonstrates an efficient search time complexity for a tree of 50 elements.");
-        Console.WriteLine("Depth of AVL tree: " + Depth(tree.root)); // print depth of tree
+        //Console.WriteLine("Depth of AVL tree: " + Depth(tree.root)); // print depth of tree
     }
 
     static void PrintTreeVisual(Node node, string indent = "", bool last = true) // insent starts as '' for subsequent accumulation

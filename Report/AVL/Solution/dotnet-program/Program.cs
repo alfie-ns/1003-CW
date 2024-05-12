@@ -701,7 +701,7 @@ class Program // Program class, the entry point of the program
 
         for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array
         {
-            if (sortedArray[i] < sortedArray[i - 1]) return false; // If the current element is LESS than the previous element, return false
+            if (sortedArray[i] < sortedArray[i - 1]) return false; // If the current element is LESS than the previous element iterated element, return false
         }
 
         return true; // If the array is sorted in ascending order, return true

@@ -726,7 +726,7 @@ class Program // Program class, the entry point of the program
     }
 
     static void Assert(bool condition, string message)
-    { // custom assert function: if boolean passed to function is NOT true, throw an exception with the specified message
+    { // my custom-made assert function: if boolean passed to function is NOT true, throw an exception with the specified message
       // this is used to show it works with proof that it's indeed working
         if (!condition) // if test function does NOT pass
             throw new Exception("Assertion failed: " + message); // print exception
@@ -806,10 +806,10 @@ class Program // Program class, the entry point of the program
             |         └─4                                                                       |
             |           ├─2         note the box-drawing tree is indeed structured depth-first  |
             |           | ├─1       ensuring each node and its children are visited before      |                                          
-            |           | └─3       moving on, and importantly stuctured top-down to visually   |                                                        
+            |           | └─3       moving on, and importantly is stuctured top-down to visually|                                                        
             |           └─6         to visually represent the hierarchy.                        |                                                          
             |             ├─5                                                                   |
-            |             └─7     sinces 7(last) is directly 5 two spaces AREN'T accumulated                                                              |
+            |             └─7  7(last)'s indent for next call is NOT used                       |
             |     }                                                                             |
             |                                                                                   |
             |     In a depth-first AVL algorithm (DFS), the order for a full tree traversal:    |
@@ -836,7 +836,7 @@ class Program // Program class, the entry point of the program
             |   4. node(3) (indent="  ", last=true) --  prints:       '  | └─3'                 |                              
             |   5. node(6) (indent="    ", last=true) --  prints:     '  └─6'                   |                          
             |   6. node(5) (indent="    ", last=false)--  prints:     '    ├─5'                 |
-            |   7. node(7) (indent="    +2", last=true) --  prints:   '    └─7'                 |
+            |   7. node(7) (indent="      ", last=true) --  prints:   '    └─7'                 |
             |            ^^^NOT USED 6 indents^^^                                                                   |
             |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
             |   over from the previous call due to 'indent' string accumulation from past calls,|

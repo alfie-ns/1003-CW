@@ -1190,7 +1190,8 @@ class Program // Program class, the entry point of the program
     /// <param name="tree">The root of the tree</param>
     /// <returns>The depth of the tree.</returns>
     static int Depth(Node tree)
-    { // depth is always one less than height thus I copied the logic to find height but WITHOUT adding 1 and returning 0 if tree is null
+    { // depth is always one less than height thus height-1 to work programmatically, however the depth is the connecting
+      // paths. Depth is defined as the number of edges on the longest path from the root to a leaf node.
         if (tree == null) return 0; // Base case: If the node is null, return 0, as an empty tree has a depth of 0
         int leftHeight = GetHeight(tree.left); // Recursively calculate height of the left subtree
         int rightHeight = GetHeight(tree.right); // Recursively calculate height of the right subtree

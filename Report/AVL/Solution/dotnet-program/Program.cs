@@ -4,11 +4,12 @@ using System; // Don't use anything else than System and only use C-core functio
 
 /*
 
-Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
+Hi, as you can see, I made a GitHub repo for this project, and for each module. Previously,
 I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
-way to keep track of my work on both computers. It also provides a dopamine hit when I push
-to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
-and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now. I also
+way to keep track of my work on both computers. It give me a creative instrest while also providing
+a dopamine hit when I push to the repo! However, I realised this also shows a high-level commitment,
+organisation, structure, and proactive initiative in managing my coursework effectively; hence, I'm 
+mentioning it now. It was interesting to use a dotnet SDK to run the programs, I very much enjoyed
 enjoy conceptualisint and making a codebase anyone can understand and run with .NET SDK. to run dotnet
 prograns 
 
@@ -37,7 +38,7 @@ In an AVL tree, the heights of the left and right subtrees of any node differ by
 remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time-complexity
 of O(log n).
  
-The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of
+The AVL self-balancing tree property states that for EVERY node in the tree, the absolute difference between the heights of
 its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node 
 violates this condition.
 
@@ -105,6 +106,11 @@ Notebook
           in those situations. Nonetheless, the heights still DON'T differ by more
           than one; I just didn't want to change your code.
 
+[MESSAGE] I've added a new function called TestDepth() to check the depth of each, as I need to
+          make sure the depth of each element is correct. I'll run an assertion try-catch block
+          to make sure the depth of each element is correct.
+
+
 - [X] Give a logical explanation of how to quickly work out heights of nodes in an AVL tree.
 - NO[X] perhaps I need to insert random nodes into the test trees?
 - [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
@@ -116,6 +122,13 @@ Notebook
 - [X] Define a large test tree
 - [X] verify tree is indeed balanced after every operation
 - [X] Visualise tree
+- [X] Create new depth functions(depth, getdepth)
+
+- [ ] Fix GetDepth() 
+---------------------
+
+
+
  
 */
 
@@ -235,10 +248,10 @@ class Program // Program class, the entry point of the program
     {
         // This function performs a right rotation on the given node in an AVL tree.
 
-        // Store a reference to the left child of the current node; it becomes the new root of the rotated subtree.
+        // Store a reference to the NEW left child of the current node
         Node newRoot = node.left;
 
-        // Update the left child of the current node to become the right child of the new root node,
+        // Update the left child of the current node to become the RIGHT child of the new root node,
         // ensuring that the right subtree of the new root becomes the left subtree of the current node.
         node.left = newRoot.right;
 
@@ -304,7 +317,7 @@ class Program // Program class, the entry point of the program
             height of a given node is defined as the length of the path
             to the deepest lead node of the tree rooted to that node.
         */
-        if (node == null) return -1; // Base case: If the node is null, return -1, thereby making the height calculation for its parent node start at 0 after adding 1(the current node)
+        if (node == null) return -1; // Base case: If the node is null, return -1, thereby making the height calculation the length of the PATH to the deepest leaf node
         int leftHeight = GetHeight(node.left); // Recursively calculate height of the left subtree
         int rightHeight = GetHeight(node.right); // Recursively calculate height of the right subtree
         return Math.Max(leftHeight, rightHeight) + 1; //you get the max of EITHER left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
@@ -340,6 +353,32 @@ class Program // Program class, the entry point of the program
 
         return isLeftBalanced && isRightBalanced; // Return true if both subtrees are balanced, false if EITHER subtree is unbalanced
     }
+
+    // NEW
+    static int GetDepth(Node rootNode, Node targetNode, int depth = 0)
+    {
+        if (rootNode == null)
+        {
+            return -1; // Node not found, return -1
+        }
+
+        if (rootNode.data.data == targetNode.data.data)
+        {
+            return depth; // If the current node matches the target node, return the current depth
+        }
+
+        // Decide whether to search in the left or right subtree and increment the depth
+        if (targetNode.data.data < rootNode.data.data)
+        {
+            return GetDepth(rootNode.left, targetNode, depth++); // Search in the left subtree
+        }
+        else
+        {
+            return GetDepth(rootNode.right, targetNode, depth++); // Search in the right subtree
+        }
+    }
+
+
 
 
     /// ------------------------------------------------------------- AVL/BST Operationa Functions ------------------------------------------------------------- ///
@@ -470,8 +509,6 @@ class Program // Program class, the entry point of the program
         //Console.WriteLine("FindMin: Minimum value node: " + tree.data.data); // TESTING
         return tree;
     }
-
-
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
 
 
@@ -563,6 +600,7 @@ class Program // Program class, the entry point of the program
         Assert(IsSorted(testTree), "Deletion test: Tree is not sorted"); // check if tree is sorted
     }
 
+
     static void TestSearch()
     {
         Tree tree = new Tree(); // init test tree
@@ -607,7 +645,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("FOUND"); // print FOUND
         Console.WriteLine(); // newline
 
-        // CHECK IT DOESN'T FIND NON-EXISTING ELEMENTS
+        // Check it DOESN'T find non-existing elements
 
         Console.WriteLine("Searching for 101...");
         Assert(!SearchTree(tree.root, new DataEntry { data = 101 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
@@ -626,7 +664,6 @@ class Program // Program class, the entry point of the program
 
 
     }
-
 
 
     static bool IsSorted(Tree tree)
@@ -691,7 +728,7 @@ class Program // Program class, the entry point of the program
     static void Assert(bool condition, string message)
     { // custom assert function: if boolean passed to function is NOT true, throw an exception with the specified message
       // this is used to show it works with proof that it's indeed working
-        if (!condition)
+        if (!condition) // if test function does NOT pass
             throw new Exception("Assertion failed: " + message); // print exception
     }
 
@@ -709,9 +746,12 @@ class Program // Program class, the entry point of the program
         // Print the visual representation of the balanced tree
         Console.WriteLine("Balanced AVL Tree with elements 1 to 50:");
         PrintTreeVisual(tree.root);
+        Console.WriteLine("Height of root: " + GetHeight(tree.root)); // print height of root
+        Console.WriteLine("As you can see, the height of the root node is 5, indicating that the maximum depth of the tree is 5. Minus the current node This demonstrates an efficient search time complexity for a tree of 50 elements.");
+        Console.WriteLine("Depth of AVL tree: " + Depth(tree.root)); // print depth of tree
     }
 
-    static void PrintTreeVisual(Node node, string indent = "", bool last = true)
+    static void PrintTreeVisual(Node node, string indent = "", bool last = true) 
     {
         /*
             This function prints each node of the AVL tree using box-drawing characters
@@ -758,8 +798,7 @@ class Program // Program class, the entry point of the program
             |         / \   / \       can traverse the tree more efficiently due to the boolean |
             |        1   3 5   7      constraint used in searching instead of searching whole   |
             |                         datasets, to find 3:IF SMALLER: GO LEFT IF NOT SMALLER:   |
-                                      GO RIGHT                                                  |
-            |                                                                                   |    
+            |                         GO RIGHT                                                 |                                                                             |    
             |     }                                                                             |
             |                                                                                   |
             |     Using box-drawing characters and indentation, the output would                |
@@ -771,7 +810,7 @@ class Program // Program class, the entry point of the program
             |           | └─3       moving on, and importantly, it's stuctured top-down         |                                                        
             |           └─6         to visually represent the hierarchy.                        |                                                          
             |             ├─5                                                                   |
-            |             └─7                                                                   |
+            |             └─7      last is the same thing as to change||                                                             |
             |     }                                                                             |
             |                                                                                   |
             |     In a depth-first AVL algorithm (DFS), the order for a full tree traversal:    |
@@ -787,52 +826,53 @@ class Program // Program class, the entry point of the program
             |                                                                                   |
             |     4. finally, complete the traversal by visiting root(4)->right(6)->right(7),   |
             |        completing the exploration of all branches more efficiently than a         |
-            |        standard unbalanced BST.                                                   |
-            ------------------------------------------------------------------------------------|
-            | each recursion |                                                                  |              
-            ------------------                                                                  |              
-            |   1. root(4) (indent="  ", last=true) --  prints:  '└─4'                          |                            
-            |   2. node(2) (indent="| ", last=false)--  prints:  '  ├─2'                        |          
-            |   3. node(1) (indent="| ", last=false)--  prints:  '  | ├─1'                      |          
-            |   4. node(3) (indent="  ", last=true) --  prints:  '  | └─3'                      |                              
-            |   5. node(6) (indent="    ", last=true) --  prints:'  └─6'                        |                          
-            |   6. node(5) (indent="    ", last=false)--  prints:'    ├─5'                      |
-            |   7. node(7) (indent="  ", last=true) --  prints:  '    └─7'                      |
+            |        standard unbalanced BST.                                                   |   
             |                                                                                   |
+            ------------------------------------------------------------------------------------|
+            | each recursive traversal  |                                                                  |              
+            -----------------------------                                                                  |              
+            |   1. root(4) (indent="  ", last=true) --  prints:       '└─4'                     |                            
+            |   2. node(2) (indent="| ", last=false)--  prints:       '  ├─2'                   |          
+            |   3. node(1) (indent="| ", last=false)--  prints:       '  | ├─1'                 |          
+            |   4. node(3) (indent="  ", last=true) --  prints:       '  | └─3'                 |                              
+            |   5. node(6) (indent="    ", last=true) --  prints:     '  └─6'                   |                          
+            |   6. node(5) (indent="    ", last=false)--  prints:     '    ├─5'                 |
+            |   7. node(7) (indent="      ", last=true) --  prints:   '    └─7'                 |
+            |            ^^^NOT USED 6 indents^^^                                                                   |
             |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
-            |   over from the previous call due to indent string accumulating from past calls,  |
+            |   over from the previous call due to 'indent' string accumulation from past calls,|
             |   if needed, to structure hierarchy to align child nodes under their respective   |
-            |   parent nodes, note indent string is += and printed start of next recursive call;|
-            |   thus last time round, indent is NOT printed as it it doesn't reach the next     |
-            |    recusive call                                                                  |                                                                                                                                   
-            |                                                                                   |                                                                              
+            |   parent nodes, the indent string is += and printed start of next recursive call;||
+            |   thus last time round indent is NOT printed as it it doesn't get that far in the|     
+            |   recusive call because it doesn't call itself again after node(7)                |                                                  |                                                                                                                                   
+            |   NOT used at begin of next call                                                                                 |                                                                              
             -------------------------------------------------------------------------------------
 
         */
 
 
-        if (node != null) // If node is NOT null
+        if (node != null) // Proceed if node is not null to begin recursion
         {
-            Console.Write(indent); // This prints the current indentation string before the box-drawing character in recursive traversal
+            Console.Write(indent); // Print the previous accumulated indentation before the box-drawing character
 
-            if (last) // IF it's the last child in the sibling group
+            if (last) // Check if it is the last child
             {
-                Console.Write("└─"); // print box-drawing indicating it's the last child
-                indent += "  "; // += indent 2 spaces horizontally for alingment - printed next time round
+                Console.Write("└─"); // Indicate end of this branch
+                indent += "  "; // Extend indentation for subsequent lines
             }
-            else // OTHERWISE the node is NOT the last child
+            else
             {
-                Console.Write("├─"); // print box-drawing character indicating the tree continues
-                indent += "| "; // Add a vertical following line to connect subsequent nodes - printed next time round
-
+                Console.Write("├─"); // Indicate continuation of this branch
+                indent += "| "; // Add vertical line to align subsequent nodes
             }
 
-            Console.WriteLine(node.data.data); // Finally, print the node's integer data following the box-drawing character in this recusive level
+            Console.WriteLine(node.data.data); // Print the node's data
 
-            PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==FALSE for left because right sibling (right child) might follow
-            PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last=TRUE for right as it's the last in the order of visualisation
-
+            // Recursively print left and right children
+            PrintTreeVisual(node.left, indent, false); // Left child is not the last by default
+            PrintTreeVisual(node.right, indent, true); // Right child is the last in the order of visualisation
         }
+
     }
 
     static Node FindNode(Node node, Node item)
@@ -941,6 +981,54 @@ class Program // Program class, the entry point of the program
             Console.WriteLine(ex.Message);
         }
     }
+
+    static void TestDepth()
+    {
+        try
+        {
+            // Test Case 1: Null node
+            Assert(Depth(null) == 0, "Depth of a null node should be 0");
+
+            // Test Case 2: Single node
+            Node singleNode = new Node { data = new DataEntry { data = 1 } };
+            Assert(Depth(singleNode) == 0, "Depth of a single node should be 0");
+
+            // Test Case 3: Tree with multiple levels
+            Node root = new Node { data = new DataEntry { data = 4 } };
+            Node node2 = new Node { data = new DataEntry { data = 2 } };
+            Node node6 = new Node { data = new DataEntry { data = 6 } };
+            Node node1 = new Node { data = new DataEntry { data = 1 } };
+            Node node3 = new Node { data = new DataEntry { data = 3 } };
+            Node node5 = new Node { data = new DataEntry { data = 5 } };
+            Node node7 = new Node { data = new DataEntry { data = 7 } };
+
+            root.left = node2;
+            root.right = node6;
+            node2.left = node1;
+            node2.right = node3;
+            node6.left = node5;
+            node6.right = node7;
+
+            Assert(Depth(root) == 0, "Depth of the root node should be 0");
+            Assert(Depth(node2) == 1, "Depth of node 2 should be 1");
+            Assert(Depth(node6) == 1, "Depth of node 6 should be 1");
+            Assert(Depth(node1) == 2, "Depth of node 1 should be 2");
+            Assert(Depth(node3) == 2, "Depth of node 3 should be 2");
+            Assert(Depth(node5) == 2, "Depth of node 5 should be 2");
+            Assert(Depth(node7) == 2, "Depth of node 7 should be 2");
+
+            // Test Case 4: Node not in the tree
+            Node nodeNotInTree = new Node { data = new DataEntry { data = 101 } };
+            Assert(Depth(nodeNotInTree) == 0, "Depth of a node not in the tree should be 0");
+
+            Console.WriteLine("TestDepth PASSED");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("TestDepth FAILED: " + ex.Message);
+        }
+    }
+
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1144,24 +1232,13 @@ class Program // Program class, the entry point of the program
     /// <returns>The depth of the tree.</returns>
     static int Depth(Node tree)
     {
-        /*
-          First, null check, then recursively calculate the depth of the left and right subtrees.
-          The depth is the length of the longest path from the root to a leaf node. It first checks
-          the leftDepth then rightDepth, then returns the max depth of the left or right subtree, plus 1
-          accounting for the current node.
-        */
+        if (tree == null) return 0; // Base case: If the tree is empty, return 0(depth of an empty tree is 0)
 
-        // Base case: If the tree is empty (root is null), return 0 (no depth)
-        if (tree == null) return 0;
+        int depth = GetDepth(tree, tree, 0); // Call the recursive helper function to calculate the depth of the tree
 
-        //  Recursively calculate the depth of the left or right subtree's
-        int leftDepth = Depth(tree.left);
-        int rightDepth = Depth(tree.right);
+        Console.WriteLine(depth); // TESTING
 
-        // Return the max depth, EITHER left or right subtree, plus 1 for the current node
-        int depth = Math.Max(leftDepth, rightDepth) + 1;
-
-        return depth;
+        return depth; // Return the depth of the tree
     }
 
     /// <summary>
@@ -1524,13 +1601,18 @@ class Program // Program class, the entry point of the program
         Test_DeleteMin(); // run test for DeleteMin
         Console.WriteLine(); // newline
 
+        // Test depth
+        Console.WriteLine("----------Testing depth...----------"); // testing...
+        Console.WriteLine(); // newline
+        TestDepth(); // run test for depth
+        Console.WriteLine(); // newline
+
 
         // Test AVL balancing
         Console.WriteLine("----------Testing AVL balancing...----------"); // testing...
         Console.WriteLine(); // newline
         tree.root = Rebalance(tree.root); // rebalance the tree
         TestAVLBalancing(); // run test for AVL balancing
-        Console.WriteLine("Height of root: " + GetHeight(tree.root)); // print height of root
         Console.WriteLine(); // newline
         Console.WriteLine("AVL balancing test PASSED!");
 

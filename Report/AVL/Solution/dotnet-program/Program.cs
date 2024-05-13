@@ -751,8 +751,8 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("Height(length of longest path from root to leaf) should be 5");
         Console.WriteLine("Height: " + GetHeight(tree.root)); // print height of root
         Console.WriteLine("Depth(length from the root to a specific node)");
-        Console.WriteLine("Since we can only use 'Node tree, the depth in this case is the same as the height");
         Console.WriteLine("Depth: " + Depth(tree.root)); // print depth of tree Node from ROOT
+        // depth FROM the root, to no particularNode may might be height-1?
     }
 
     static void PrintTreeVisual(Node node, string indent = "", bool last = true) // insent starts as '' for subsequent accumulation

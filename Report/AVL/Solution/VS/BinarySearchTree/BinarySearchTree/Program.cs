@@ -4,12 +4,12 @@ using System; // Don't use anything else than System and only use C-core functio
 
 /*
 
-Hi, as you can see, I made a GitHub Repo for this project, and for each module. Previously,
+Hi, as you can see, I made a GitHub repo for this project, and for each module. Previously,
 I genuinely found this helpful concerning my poor memory; it gives me an organised and fast
-way to keep track of my work on both computers. It also provides a dopamine hit when I push
-to the repo! However, I realised this also shows a high-level commitment, organisation, structure,
-and proactive initiative in managing my coursework effectively; hence, I'm mentioning it now. I also
-enjoy conceptualisint and making a codebase anyone can understand and run with .NET SDK.
+way to keep track of my work on both computers. It give me a creative instrest while also providing
+a dopamine hit when I push to the repo! However, I realised this also shows a high-level commitment,
+organisation, structure, and proactive initiative in managing my coursework effectively; hence, I'm 
+mentioning it now. It was interesting to learn dotnet SDK to run the program, in the vscode directory.
 
 https://github.com/alfie-ns/1003-CW
 
@@ -22,10 +22,10 @@ causing a stack overflow.
 - also by halting recursion at leaf nodes, it ensures that each node is only processed once,
   maintaining efficiency and preventing runtime errors.
 
-The 'ref' keyword is used for the 'treeSize' parameter in the 'DeleteNode' method to ensure that the tree's size is correctly updated after a node is deleted.
+The 'ref' keyword is used for the 'treeSize' parameter in the 'GetDeleteNode' method to ensure that the tree's size is correctly updated after a node is deleted.
 By passing 'treeSize' by reference, any modifications made to it inside the method will directly affect the original 'tree.size' value in the calling code.
 This ensures that the tree's size is accurately maintained and synchronised with the actual number of nodes in the tree after the deletion operation.
-Without using 'ref', the changes made to 'treeSize' inside the 'DeleteNode' method would not be visible to the calling code, and the tree's size would remain unchanged.
+Without using 'ref', the changes made to 'treeSize' inside the 'GetDeleteNode' method would not be visible to the calling code, and the tree's size would remain unchanged.
 
 AVL Tree Explanation:
 ---------------------
@@ -36,9 +36,9 @@ In an AVL tree, the heights of the left and right subtrees of any node differ by
 remains approximately balanced, which in turn provides efficient search, insertion, and deletion operations within a time-complexity
 of O(log n).
  
-The AVL tree property states that for EVERY node in the tree, the absolute difference between the heights of
-its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node violates this
-condition.
+The AVL self-balancing tree property states that for EVERY node in the tree, the absolute difference between the heights of
+its left and right subtrees should be at MOST 1. By calculating the balance-factor, we can easily check if a node 
+violates this condition.
 
 If the balance-factor of a node is greater than 1, it means that the left subtree is too tall compared to the
 right subtree, making the node left-heavy. Conversely, if the balance-factor is LESS than -1, it indicates that the right subtree
@@ -60,7 +60,7 @@ to O(log n).
  
 The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree.
 By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and
-guarantee efficient operations.The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes
+guarantee efficient operations.The balance-factor is calculated based on the heights of the subtrees, not the actual number of nodes
 in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the
 number of nodes in each subtree.
  
@@ -102,19 +102,31 @@ Notebook
           the randomly generated elements. I do this so duplicates DON'T get
           immediately discarded. Thus, the tree may not be as balanced as possible
           in those situations. Nonetheless, the heights still DON'T differ by more
-          than one; I just didn't want to change your code.
+          than one; i just didn't want to change your code.
+
+[MESSAGE] I've added a new function called TestDepth() to check the depth of each, as I need to
+          make sure the depth of each element is correct. I'll run an assertion try-catch block
+          to make sure the depth of each element is correct.
+
 
 - [X] Give a logical explanation of how to quickly work out heights of nodes in an AVL tree.
 - NO[X] perhaps I need to insert random nodes into the test trees?
 - [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
 - [X] Show more testing for the Searches
 - [X] More tests that tree is indeed Balanced after every operation
-- [X] Use arrow-function somewhere for data handling delegates. Delegates allow functions(InOrderTraversal)
-      to be operating while storing the data returned from the function in an array
+- [X] Use arrow-function somewhere: for delegates
 - [X] Comment explaining why I used 'ref' for the treesize when deleting(to make sure global size is updated after deletion)
 - [X] Define a large test tree
 - [X] verify tree is indeed balanced after every operation
 - [X] Visualise tree
+- [X] Create new depth functions(depth, getdepth)
+- [X] TestDeleteMin
+
+- [ ] Fix GetDepth() 
+---------------------
+
+
+
  
 */
 
@@ -234,10 +246,10 @@ class Program // Program class, the entry point of the program
     {
         // This function performs a right rotation on the given node in an AVL tree.
 
-        // Store a reference to the left child of the current node; it becomes the new root of the rotated subtree.
+        // Store a reference to the NEW left child of the current node
         Node newRoot = node.left;
 
-        // Update the left child of the current node to become the right child of the new root node,
+        // Update the left child of the current node to become the RIGHT child of the new root node,
         // ensuring that the right subtree of the new root becomes the left subtree of the current node.
         node.left = newRoot.right;
 
@@ -294,11 +306,16 @@ class Program // Program class, the entry point of the program
         return RotateLeft(node);
     }
 
-    /// ------------------------------------------------------------- Balance-factor Functions ------------------------------------------------------------- ///
+    /// ------------------------------------------------------------- Balance Functions ------------------------------------------------------------- ///
 
     static int GetHeight(Node node)
     { // Get height of tree rooted at 'node' - (https://www.youtube.com/watch?v=_pnqMz5nrRs)
-        if (node == null) return -1; // Base case: If the node is null, return -1, thereby making the height calculation for its parent node start at 0 after adding 1(the current node)
+        
+        /*
+            height of a given node is defined as the length of the path
+            to the deepest lead node of the tree rooted to that node.
+        */
+        if (node == null) return -1; // Base case: If the node is null, return -1, thereby making the height calculation the length of the PATH to the deepest leaf node
         int leftHeight = GetHeight(node.left); // Recursively calculate height of the left subtree
         int rightHeight = GetHeight(node.right); // Recursively calculate height of the right subtree
         return Math.Max(leftHeight, rightHeight) + 1; //you get the max of EITHER left or right subtree to find the LONGEST path to a leaf node, +1 to account for current node
@@ -320,7 +337,7 @@ class Program // Program class, the entry point of the program
 
         In an AVL tree, an empty subtree is always balanced as it has a height of 0
         Returning true for null nodes ensures that the base case of the recursive
-        function is handled correctly.
+        function is indeed handled correctly.
         */
 
         // Traverse and get the heights of the left and right subtrees
@@ -338,7 +355,31 @@ class Program // Program class, the entry point of the program
 
     /// ------------------------------------------------------------- AVL/BST Operationa Functions ------------------------------------------------------------- ///
 
-    static Node InsertTreeHelper(Node node, Node newNode)
+    //static int GetDepth(Node rootNode, int depth = 0)
+    //{
+    //    // initital failcheck
+    //    if (rootNode == null) //
+    //    {
+    //        return 0; // return 0 if the root node is null thus tree empty
+    //    }
+    //    // Base case: If the current node matches the target node, return the current depth
+    //    if (IsEqual(rootNode, targetNode))
+    //    {
+    //        return depth;
+    //    }
+    //
+    //    // Decide whether to search in the left or right subtree and increment the depth
+    //    if (IsSmaller(targetNode, rootNode)) // If the target node is smaller than the current node
+    //    {
+    //        return GetDepth(rootNode.left, depth++); // Search in the left subtree
+    //    }
+    //    else // then it must be larger
+    //    {
+    //        return GetDepth(rootNode.right, depth++); // Search in the right subtree
+    //    }
+    //}
+
+    static Node GetInsertTree(Node node, Node newNode)
     { // First, perform the standard BST insertion
         if (node == null)
         { // Base case: If the node is null, return the new node and a height of 1 accounting for that node
@@ -346,9 +387,9 @@ class Program // Program class, the entry point of the program
             return newNode; // Return the new node
         }
         if (IsSmaller(newNode, node)) // If the new node is smaller than the current node
-            node.left = InsertTreeHelper(node.left, newNode); // Recursively insert the new node into the left subtree
+            node.left = GetInsertTree(node.left, newNode); // Recursively insert the new node into the left subtree
         else if (IsSmaller(node, newNode)) // Elif the new node is larger than the current node
-            node.right = InsertTreeHelper(node.right, newNode); // Recursively insert the new node into the right subtree
+            node.right = GetInsertTree(node.right, newNode); // Recursively insert the new node into the right subtree
         else
         {
             // otherwise, the new node MUST equal the current node, thus discard the duplicate
@@ -361,17 +402,17 @@ class Program // Program class, the entry point of the program
         return Rebalance(node); // rebalance the node after insertion
     }
 
-    static Node DeleteNode(Node node, Node item, ref int treeSize)
+    static Node GetDeleteNode(Node node, Node item, ref int treeSize)
     {
         if (node == null) return null; // Base case: If the node is null, return null
 
         if (IsSmaller(item, node)) // If the item is SMALLER than the current node, search in the left subtree
         {
-            node.left = DeleteNode(node.left, item, ref treeSize); // Recursively search in the left subbtree
+            node.left = GetDeleteNode(node.left, item, ref treeSize); // Recursively search in the left subbtree
         }
         else if (IsSmaller(node, item)) // If the item is LARGER than the current node, search in the right subtree
         {
-            node.right = DeleteNode(node.right, item, ref treeSize); // Recursively search in the right subtree
+            node.right = GetDeleteNode(node.right, item, ref treeSize); // Recursively search in the right subtree
         }
         else // Otherwise, the item is found
         {
@@ -394,7 +435,7 @@ class Program // Program class, the entry point of the program
 
             Node successor = FindMin(node.right); // Find the minimum value in the right subtree
             node.data = successor.data; // Replace the current node's data with the successor's data
-            node.right = DeleteNode(node.right, successor, ref treeSize); // Recursively delete the successor node
+            node.right = GetDeleteNode(node.right, successor, ref treeSize); // Recursively delete the successor node
         }
 
         node.Height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right)); // Update the height of the current node
@@ -418,7 +459,7 @@ class Program // Program class, the entry point of the program
         return leftSize + rightSize + 1;
     }
 
-    static Node FindParentHelper(Node current, Node node)
+    static Node GetParent(Node current, Node node)
     {
         if (current == null) return null; // Base case: If the current node is null, return null
 
@@ -430,7 +471,7 @@ class Program // Program class, the entry point of the program
         }
 
         // Recursively search for the parent in the left subtree
-        Node parentInLeft = FindParentHelper(current.left, node);
+        Node parentInLeft = GetParent(current.left, node);
         if (parentInLeft != null)
         {
             // If the parent is found in the left subtree, return it
@@ -438,7 +479,7 @@ class Program // Program class, the entry point of the program
         }
 
         // Recursively search for the parent in the right subtree
-        Node parentInRight = FindParentHelper(current.right, node);
+        Node parentInRight = GetParent(current.right, node);
         if (parentInRight != null)
         {
             // If the parent is found in the right subtree, return it
@@ -464,8 +505,6 @@ class Program // Program class, the entry point of the program
         //Console.WriteLine("FindMin: Minimum value node: " + tree.data.data); // TESTING
         return tree;
     }
-
-
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
 
 
@@ -557,8 +596,10 @@ class Program // Program class, the entry point of the program
         Assert(IsSorted(testTree), "Deletion test: Tree is not sorted"); // check if tree is sorted
     }
 
+
     static void TestSearch()
     {
+        try {
         Tree tree = new Tree(); // init test tree
 
         DateTime startTime = DateTime.Now; // start time
@@ -572,6 +613,8 @@ class Program // Program class, the entry point of the program
 
         // Rebalance the tree after insertions
         tree.root = Rebalance(tree.root);
+
+        // The assertion function essentially return false if the condition NOT met.
 
         Console.WriteLine("Searching for 5...");
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
@@ -589,7 +632,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
 
         Console.WriteLine("Searching for 6...");
-        Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Existing element not found"); // check if non-existing element is NOT found
+        Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Existing element not found"); // check if element is indeed found
         Console.WriteLine("FOUND"); // print FOUND
         Console.WriteLine(); // newline
 
@@ -598,7 +641,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("FOUND"); // print FOUND
         Console.WriteLine(); // newline
 
-        // CHECK IT DOESN'T FIND NON-EXISTING ELEMENTS
+        // Check it DOESN'T find non-existing elements
 
         Console.WriteLine("Searching for 101...");
         Assert(!SearchTree(tree.root, new DataEntry { data = 101 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
@@ -614,10 +657,13 @@ class Program // Program class, the entry point of the program
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
         Console.WriteLine("Time-taken for 7 searches: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
+        }
+        catch (Exception e) {
+            Console.WriteLine(e.Message);
+        }
 
 
     }
-
 
 
     static bool IsSorted(Tree tree)
@@ -628,6 +674,7 @@ class Program // Program class, the entry point of the program
 
         int index = 0; // Initialise the index to 0
         InOrderTraversal(tree.root, (int value) => { sortedArray[index++] = value; });
+
         /*
             The lambda function stores the node's data in the array during in-order traversal.
             The way this lambda function works is:
@@ -635,7 +682,8 @@ class Program // Program class, the entry point of the program
             2. Store the 'value' in the 'sortedArray' at the current 'index' position.
             3. Increment 'index' using the post-increment operator (index++) to move to the next position in the array after the value is stored.
 
-            ++index would increment the index before the value is stored, whereas index++ increments the index after the value is stored.
+            ++index increments the index before the value is used, whereas index++ increments the index after the value is used.
+
             If the index was incremented before storing the value, it would start at 1, thus skipping the first position of the sortedArray,
             as an array is zero-indexed.
        
@@ -654,7 +702,7 @@ class Program // Program class, the entry point of the program
 
         for (int i = 1; i < sortedArray.Length; i++) // Iterate over the sorted array up to the length of the array
         {
-            if (sortedArray[i] < sortedArray[i - 1]) return false; // If the current element is LESS than the previous element, return false
+            if (sortedArray[i] < sortedArray[i - 1]) return false; // If the current element is LESS than the previous element iterated element, return false
         }
 
         return true; // If the array is sorted in ascending order, return true
@@ -679,8 +727,9 @@ class Program // Program class, the entry point of the program
     }
 
     static void Assert(bool condition, string message)
-    { // custom assert function: if boolean passed to function is NOT true, throw an exception with the specified message
-        if (!condition)
+    { // my custom-made assert function: if boolean passed to function is NOT true, throw an exception with the specified message
+      // this is used to show it works with proof that it's indeed working
+        if (!condition) // if test function does NOT pass
             throw new Exception("Assertion failed: " + message); // print exception
     }
 
@@ -698,9 +747,15 @@ class Program // Program class, the entry point of the program
         // Print the visual representation of the balanced tree
         Console.WriteLine("Balanced AVL Tree with elements 1 to 50:");
         PrintTreeVisual(tree.root);
+
+        Console.WriteLine("Height(length of longest path from root to leaf) should be 5");
+        Console.WriteLine("Height: " + GetHeight(tree.root)); // print height of root
+        Console.WriteLine("Depth(length from the root to a specific node)");
+        Console.WriteLine("Since we can only use 'Node tree, the depth in this case is the same as the height");
+        Console.WriteLine("Depth: " + Depth(tree.root)); // print depth of tree Node from ROOT
     }
 
-    static void PrintTreeVisual(Node node, string indent = "", bool last = true)
+    static void PrintTreeVisual(Node node, string indent = "", bool last = true) // insent starts as '' for subsequent accumulation
     {
         /*
             This function prints each node of the AVL tree using box-drawing characters
@@ -714,7 +769,7 @@ class Program // Program class, the entry point of the program
             Parameters:
             ------------
             - 'node': The current data of the node. node.data.data is the integer value of said node.
-            - 'indent': A string that accumulates spaces or vertical lines to represent the visual
+            - 'indent': A string that accumulates spaces || spaces+vertical lines to represent the visual
                         structure as the recursion progresses deeper into the tree. This indentation
                         helps visually delineate the depth and parent-child relationships in the tree.
             - 'last': Indicates if the node is the LAST child of its parent, which determines the type
@@ -733,32 +788,36 @@ class Program // Program class, the entry point of the program
             The vertical line ('|') is added to continue with connection lines vertically, indicating the pathway
             to deeper levels of the tree and helping to visualise the structure of sibling relationships.
            
-            DFS Traversal logic to print box-drawing structured tree:
+            
             -------------------------------------------------------------------------------------
+            | DFS Traversal logic to print box-drawing structured tree: |                       | 
+            -------------------------------------------------------------                       |
+            |                                                                                   |   
             |                                                                                   |
             |     Consider my AVL binary tree as follows:                                       |
             |     {                                                                             |
-            |                                     4                                             |
-            |                                    / \                                            |
-            |                                   2   6                                           |
-            |                                  / \ / \                                          |
-            |                                 1  3 5  7                                         |
+            |            4            an AVL binary tree is a tree data structure where the     |
+            |           /  \          left child or any given node is less than parent while    |
+            |          2     6        while right child is >right-child. Thus a function |
+            |         / \   / \       can traverse the tree more efficiently due to the boolean |
+            |        1   3 5   7      constraint used in searching instead of searching whole   |
+            |                         datasets                                                  |                                                                             |    
             |     }                                                                             |
             |                                                                                   |
             |     Using box-drawing characters and indentation, the output would                |
-            |     be:                                                                           |
-            |                                                                                   |
+            |     be:                                                                           |                                                                              |
             |     {                                                                             |
             |         └─4                                                                       |
             |           ├─2         note the box-drawing tree is indeed structured depth-first  |
             |           | ├─1       ensuring each node and its children are visited before      |                                          
-            |           | └─3       moving on, and importantly, it's stuctured top-down         |                                                        
-            |           └─6         to visually represent the hierarchy.                        |                                                          
+            |           | └─3       moving on, and stuctured top-down to visually represent     |                                                        
+            |           └─6         the hierarchy                                               |                                                          
             |             ├─5                                                                   |
-            |             └─7                                                                   |
+            |             └─7  7(last)'s indent(6->7) accumulation used next call is NOT used   |                     |
             |     }                                                                             |
             |                                                                                   |
             |     In a depth-first AVL algorithm (DFS), the order for a full tree traversal:    |
+            |     --------------------------------------------------------------------------    |  
             |                                                                                   |
             |     1. root(4)->left(2)->left(1), completed in the first recursive traversal.     |
             |                                                                                   |
@@ -770,52 +829,59 @@ class Program // Program class, the entry point of the program
             |                                                                                   |
             |     4. finally, complete the traversal by visiting root(4)->right(6)->right(7),   |
             |        completing the exploration of all branches more efficiently than a         |
-            |        standard unbalanced BST.                                                   |
-            ------------------------------------------------------------------------------------|
-            | each recursive traversal |                                                        |              
-            ----------------------------                                                        |              
-            |   1. root(4) (indent="  ", last=true) --  prints:  '└─4'                          |                            
-            |   2. node(2) (indent="| ", last=false)--  prints:  '  ├─2'                        |          
-            |   3. node(1) (indent="| ", last=false)--  prints:  '  | ├─1'                      |          
-            |   4. node(3) (indent="  ", last=true) --  prints:  '  | └─3'                      |                              
-            |   5. node(6) (indent="    ", last=true) --  prints:'  └─6'                        |                          
-            |   6. node(5) (indent="    ", last=false)--  prints:'    ├─5'                      |
-            |   7. node(7) (indent="  ", last=true) --  prints:  '    └─7'                      |
+            |        standard unbalanced BST.                                                   |   
             |                                                                                   |
+            ------------------------------------------------------------------------------------|
+            | each recursive traversal  |                                                       |              
+            -----------------------------                                                       |              
+            |   1. root(4) (indent="  ", last=true) --  prints:       '└─4'                     |                            
+            |   2. node(2) (indent="| ", last=false)--  prints:       '  ├─2'                   |          
+            |   3. node(1) (indent="| ", last=false)--  prints:       '  | ├─1'                 |          
+            |   4. node(3) (indent="  ", last=true) --  prints:       '  | └─3'                 |                              
+            |   5. node(6) (indent="    ", last=true) --  prints:     '  └─6'                   |                          
+            |   6. node(5) (indent="    ", last=false)--  prints:     '    ├─5'                 |
+            |   7. node(7) (indent="      ", last=true) --  prints:   '    └─7'                 |
+            |            ^^^NOT USED 6 indents^^^                                               |                    |
             |   note 5 and 7 have 4 spaces of indentation, this is because the recursion carrys |
-            |   over from the previous call due to indent string accumulating from past calls,  |
+            |   over from the previous call due to 'indent' string accumulation from past calls,|
             |   if needed, to structure hierarchy to align child nodes under their respective   |
-            |   parent nodes, note indent string is += and printed start of next recursive call;|
-            |   thus last time round, '  ' is NOT printed as it doesn't need to, as the         |
-            |   function resets for the new possibility of new branch                           |                |                                       |                                                                                | 
-            |                                                                                   |                                                                              
+            |   parent nodes, the indent string is += and printed start of next recursive call; |
+            |   thus last time round indent is NOT printed as it it doesn't get that far in the |     
+            |   recusive call because it doesn't call itself again after node(7)                |                                                  |                                                                                                                                   
+            |   the final +2->'6=' indents NEVER used;                                          |
+            |   last could also be thought of as first(before) next recusive call, or NOT       |
+            |   intermediate. Thus the algorithm searches for nodes in given AVL tree FASTER    |
+            |   the a standard unbalanced BST, thereby improving time-complexity for searches   |                                                                                                                                             |                                                                              
             -------------------------------------------------------------------------------------
 
         */
 
 
-        if (node != null) // If node is NOT null
+        if (node != null) // Proceed if node is not null to begin recursion
         {
-            Console.Write(indent); // This prints the current indentation string before the box-drawing character in recursive traversal
+            Console.Write(indent); // Print the previous accumulated indentation before the box-drawing character, starts empty so just '└─' is printed
 
-            if (last) // IF it's the last child in the sibling group
+            if (last) // Check if it is the last child
             {
-                Console.Write("└─"); // print box-drawing indicating it's the last child
-                indent += "  "; // += indent 2 spaces horizontally for alingment - NOT printed yet
+                Console.Write("└─"); // Indicate end of this branch
+                indent += "  "; // If this is the last child, adjust the indentation without adding a vertical continuation line for siblings, preparing
+                                // for the next line of output at a potentially new level of depth next time round
             }
-            else // OTHERWISE the node is NOT the last child
+            else // if NOT last child || IS intermediate node
             {
-                Console.Write("├─"); // print box-drawing character indicating the tree continues
-                indent += "| "; // Add a vertical following line to connect subsequent nodes - NOT printed yet
-
+                Console.Write("├─"); // Indicate continuation of this branch
+                indent += "| "; // Add vertical line to align subsequent siblings
             }
 
-            Console.WriteLine(node.data.data); // Finally, print the node's integer data following the box-drawing character in this recusive level
+            Console.WriteLine(node.data.data); // Print the node's integer value as data.data, this appears on the same line FOLLOWING box-drawing character
 
-            PrintTreeVisual(node.left, indent, false); // Recursively call PrintTreeVisual on the left child, last==FALSE for left because right sibling (right child) might follow
-            PrintTreeVisual(node.right, indent, true); // Recursively call PrintTreeVisual on the right child, last=TRUE for right as it's the last in the order of visualisation
+            // Recursively print left THEN right children depth-first
+            PrintTreeVisual(node.left, indent, false); // we've already began at new branch so start with connection next time round
+            PrintTreeVisual(node.right, indent, true); // Right child is the LAST in the order of visualisation
 
+            // .Write instead of .WriteLine to print value on the SAME line as AFTER box-drawing character
         }
+
     }
 
     static Node FindNode(Node node, Node item)
@@ -925,7 +991,32 @@ class Program // Program class, the entry point of the program
         }
     }
 
-    // ----------------------------------------------------------------------------------------------------------------------------------------------------------
+    static int Depth(Node root, Node node)
+    {
+        if (root == null || node == null) return 0;
+
+        if (root == node)
+        {
+            return 0; // Node found at the root, depth is 0
+        }
+
+        int leftDepth = Depth(root.left, node);
+        if (leftDepth != -1)
+        {
+            return leftDepth + 1; // Node found in the left subtree
+        }
+
+        int rightDepth = Depth(root.right, node);
+        if (rightDepth != -1)
+        {
+            return rightDepth + 1; // Node found in the right subtree
+        }
+
+        return -1; // Node not found
+    }
+
+
+    //// ----------------------------------------------------------------------------------------------------------------------------------------------------------
 
     /// .... (and nowhere else) [X]
     /// THAT LINE: If you want to add methods add them between THIS LINE and THAT LINE
@@ -947,7 +1038,7 @@ class Program // Program class, the entry point of the program
         if (tree.left != null) // if left child is NOT null
             PrintTree(tree.left);
 
-        Console.Write(tree.data.data + " "); // print the data of the current node
+        Console.Write(tree.data.data + " "); // print the data of the current integer node
 
         if (tree.right != null) // if right child is NOT null
             PrintTree(tree.right);
@@ -1025,7 +1116,7 @@ class Program // Program class, the entry point of the program
     static void InsertTree(Tree tree, Node item)
     {
 
-        tree.root = InsertTreeHelper(tree.root, item); // Call the helper function, passing the root node of the tree to begin recursive insertion, and the item to insert into the tree
+        tree.root = GetInsertTree(tree.root, item); // Call the helper function, passing the root node of the tree to begin recursive insertion, and the item to insert into the tree
     }
 
 
@@ -1091,7 +1182,7 @@ class Program // Program class, the entry point of the program
     /// <param name="item">The Node to remove</param>
     static void DeleteItem(Tree tree, Node item)
     {
-        tree.root = DeleteNode(tree.root, item, ref tree.size); // call the helper function, passing the root node, the item to delete, and the tree size by reference to ensure it's updated after deletion
+        tree.root = GetDeleteNode(tree.root, item, ref tree.size); // call the GetDeleteNode function, passing the root node, the item to delete, and the tree size by reference to ensure it's updated after deletion
     }
 
 
@@ -1126,26 +1217,14 @@ class Program // Program class, the entry point of the program
     /// <param name="tree">The root of the tree</param>
     /// <returns>The depth of the tree.</returns>
     static int Depth(Node tree)
-    {
-        /*
-          First, null check, then recursively calculate the depth of the left and right subtrees.
-          The depth is the length of the longest path from the root to a leaf node. It first checks
-          the leftDepth then rightDepth, then returns the max depth of the left or right subtree, plus 1
-          accounting for the current node.
-        */
-
-        // Base case: If the tree is empty (root is null), return 0 (no depth)
-        if (tree == null) return 0;
-
-        // Else, recursively calculate the depth of the left or right subtree's
-        int leftDepth = Depth(tree.left);
-        int rightDepth = Depth(tree.right);
-
-        // Return the max depth, EITHER left or right subtree, plus 1 for the current node
-        int depth = Math.Max(leftDepth, rightDepth) + 1;
-
-        return depth;
+    { // the depth is the connectingc paths and always one less than height thus (height-1) to work programmatically,
+      //  however. depth as the edges themselves
+        if (tree == null) return 0; // Base case: If the node is null, return 0, as an empty tree has a depth of 0
+        int leftHeight = GetHeight(tree.left); // Recursively calculate height of the left subtree
+        int rightHeight = GetHeight(tree.right); // Recursively calculate height of the right subtree
+        return Math.Max(leftHeight, rightHeight); //height-1=depth
     }
+    
 
     /// <summary>
     /// Find the parent of Node node in Tree tree.
@@ -1155,10 +1234,10 @@ class Program // Program class, the entry point of the program
     /// <returns>The parent of node in the tree, or null if node has no parent.</returns>
     static Node Parent(Tree tree, Node node)
     {
-        if (node == null || node == tree.root) return null; // If node is null or the root of the tree(thus has no parent), return null
+        if (node == null || node == tree.root) return null; // node=null or node=root(no parent
 
         // Call the recursive helper function to find the parent
-        return FindParentHelper(tree.root, node);
+        return GetParent(tree.root, node);
     }
 
     /// <summary>
@@ -1181,6 +1260,7 @@ class Program // Program class, the entry point of the program
         }
 
         // Now, current is the RIGHTMOST node, which will be the maximum value node in the tree
+        Console.WriteLine("Max: " + current.data.data); // TESTING
         return current;
     }
 
@@ -1195,7 +1275,7 @@ class Program // Program class, the entry point of the program
         This function deletes the node with the minimum value in the tree.
         It first checks if the tree is empty, if so, there is nothing to delete.
         Then, it calls the FindMin() helper function to find the node with the minimum value.
-        Finally, it calls the DeleteNode function to delete the node with the minimum value from the tree.
+        Finally, it calls the GetDeleteNode function to delete the node with the minimum value from the tree.
         */
 
         // If the tree is empty, there is nothing to delete
@@ -1205,7 +1285,7 @@ class Program // Program class, the entry point of the program
         Node minNode = FindMin(tree.root);
 
         // Delete the node with the minimum value
-        tree.root = DeleteNode(tree.root, minNode, ref tree.size);
+        tree.root = GetDeleteNode(tree.root, minNode, ref tree.size);
     }
 
 
@@ -1433,13 +1513,14 @@ class Program // Program class, the entry point of the program
 
         Console.WriteLine("-------------");
 
-        // print the size of the tree
+        // some basic info on the tree
         Console.WriteLine("Size of the tree: " + Size(tree)); // print size
-        Console.WriteLine("Depth of the tree: " + Depth(tree.root)); // print depth
+        Console.WriteLine("Height of root: " + GetHeight(tree.root)); // print height
+        Console.WriteLine("Depth(number of edges from the tree's root node): " + Depth(tree.root)); // print depth
         Node minNode = FindMin(tree.root); // find min value
         Console.WriteLine("Min value in the tree: " + (minNode != null ? minNode.data.data.ToString() : "null")); // Terinary operator, quick if else
         Node maxNode = FindMax(tree.root); // find max value
-        Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null"));
+        Console.WriteLine("Max value in the tree: " + (maxNode != null ? maxNode.data.data.ToString() : "null")); // Terinary operator, quick if else
         Console.WriteLine("--------------------------------");
 
         // test SearchTree
@@ -1506,7 +1587,6 @@ class Program // Program class, the entry point of the program
         Test_DeleteMin(); // run test for DeleteMin
         Console.WriteLine(); // newline
 
-
         // Test AVL balancing
         Console.WriteLine("----------Testing AVL balancing...----------"); // testing...
         Console.WriteLine(); // newline
@@ -1523,7 +1603,7 @@ class Program // Program class, the entry point of the program
         I could've done this programmatically, however, I hope my manual
         check is sufficient.
        
-        Later on, I do indeed programmatically
+        LATER ON, I do indeed programmatically
         check the assert functions pass with a try-catch block in the
         TestParent() and Test_DeleteMin() functions
         */

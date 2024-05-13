@@ -444,16 +444,16 @@ class Program // Program class, the entry point of the program
     }
 
     // Recursive helper function to calculate the size of a subtree
-    static int SizeHelper(Node node)
+    static int GetSize(Node node)
     {
         // If the node is null, return 0
         if (node == null) return 0;
 
         // Recursively calculate the size of the left subtree
-        int leftSize = SizeHelper(node.left);
+        int leftSize = GetSize(node.left);
 
         // Recursively calculate the size of the right subtree
-        int rightSize = SizeHelper(node.right);
+        int rightSize = GetSize(node.right);
 
         // Return the sum of sizes of left subtree, right subtree, and the current node (1)
         return leftSize + rightSize + 1;
@@ -1194,7 +1194,7 @@ class Program // Program class, the entry point of the program
     static int Size(Tree tree)
     {
         /*
-        This function calculates the size of a tree by calling the recursive helper function SizeHelper.
+        This function calculates the size of a tree by calling the recursive helper function GetSize.
         If the tree is empty (root is null), it returns 0. Otherwise, it calls the recursive helper function
         to calculate the size of the tree. The helper function traverses the tree in a depth-first manner,
         */
@@ -1204,7 +1204,7 @@ class Program // Program class, the entry point of the program
 
 
         // If the tree is not empty, call the recursive helper function to calculate the size of the tree
-        return SizeHelper(tree.root);
+        return GetSize(tree.root);
 
     }
 

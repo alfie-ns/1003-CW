@@ -60,7 +60,7 @@ to O(log n).
  
 The balance-factor provides a simple and efficient way to measure the balance of a node and the overall balance of the AVL tree.
 By continuously monitoring the balance-factors and performing necessary rotations, AVL trees maintain their balanced property and
-guarantee efficient operations.The balance-factor is calculated based on the heights of the subtrees, NOT the actual number of nodes
+guarantee efficient operations.The balance-factor is calculated based on the heights of the subtrees, not the actual number of nodes
 in each subtree. This allows for efficient calculation and updates during insertions and deletions WITHOUT the need to count the
 number of nodes in each subtree.
  
@@ -102,7 +102,7 @@ Notebook
           the randomly generated elements. I do this so duplicates DON'T get
           immediately discarded. Thus, the tree may not be as balanced as possible
           in those situations. Nonetheless, the heights still DON'T differ by more
-          than one; I just didn't want to change your code.
+          than one; i just didn't want to change your code.
 
 [MESSAGE] I've added a new function called TestDepth() to check the depth of each, as I need to
           make sure the depth of each element is correct. I'll run an assertion try-catch block
@@ -114,8 +114,7 @@ Notebook
 - [X] GET TIME-TAKEN FOR A LARGE TREE SEARCH OPERATION
 - [X] Show more testing for the Searches
 - [X] More tests that tree is indeed Balanced after every operation
-- [X] Use arrow-function somewhere for data handling delegates. Delegates allow functions(InOrderTraversal)
-      to be operating while storing the data returned from the function in an array
+- [X] Use arrow-function somewhere: for delegates
 - [X] Comment explaining why I used 'ref' for the treesize when deleting(to make sure global size is updated after deletion)
 - [X] Define a large test tree
 - [X] verify tree is indeed balanced after every operation
@@ -307,7 +306,7 @@ class Program // Program class, the entry point of the program
         return RotateLeft(node);
     }
 
-    /// ------------------------------------------------------------- Balance-factor Functions ------------------------------------------------------------- ///
+    /// ------------------------------------------------------------- Balance Functions ------------------------------------------------------------- ///
 
     static int GetHeight(Node node)
     { // Get height of tree rooted at 'node' - (https://www.youtube.com/watch?v=_pnqMz5nrRs)
@@ -353,7 +352,9 @@ class Program // Program class, the entry point of the program
         return isLeftBalanced && isRightBalanced; // Return true if both subtrees are balanced, false if EITHER subtree is unbalanced
     }
 
-    // NEW
+
+    /// ------------------------------------------------------------- AVL/BST Operationa Functions ------------------------------------------------------------- ///
+
     //static int GetDepth(Node rootNode, int depth = 0)
     //{
     //    // initital failcheck
@@ -366,7 +367,7 @@ class Program // Program class, the entry point of the program
     //    {
     //        return depth;
     //    }
-//
+    //
     //    // Decide whether to search in the left or right subtree and increment the depth
     //    if (IsSmaller(targetNode, rootNode)) // If the target node is smaller than the current node
     //    {
@@ -377,11 +378,6 @@ class Program // Program class, the entry point of the program
     //        return GetDepth(rootNode.right, depth++); // Search in the right subtree
     //    }
     //}
-
-
-
-
-    /// ------------------------------------------------------------- AVL/BST Operationa Functions ------------------------------------------------------------- ///
 
     static Node InsertTreeHelper(Node node, Node newNode)
     { // First, perform the standard BST insertion
@@ -617,8 +613,8 @@ class Program // Program class, the entry point of the program
         // Rebalance the tree after insertions
         tree.root = Rebalance(tree.root);
 
-        // The assertion functions essientially make sure that elements in the tree are indeed found,
-        // by making sure it CAN be found, and outputting an error exception if it CAN'T be found.
+        // The assertion function essentially return false if the condition is not met.
+       
 
         Console.WriteLine("Searching for 5...");
         Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
@@ -1155,7 +1151,7 @@ class Program // Program class, the entry point of the program
     /// <param name="item">The Node to remove</param>
     static void DeleteItem(Tree tree, Node item)
     {
-        tree.root = DeleteNode(tree.root, item, ref tree.size); // call the helper function, passing the root node, the item to delete, and the tree size by reference to ensure it's updated after deletion
+        tree.root = DeleteNode(tree.root, item, ref tree.size); // call the deletenode function, passing the root node, the item to delete, and the tree size by reference to ensure it's updated after deletion
     }
 
 
@@ -1190,8 +1186,8 @@ class Program // Program class, the entry point of the program
     /// <param name="tree">The root of the tree</param>
     /// <returns>The depth of the tree.</returns>
     static int Depth(Node tree)
-    { // depth is always one less than height thus height-1 to work programmatically, however the depth is the connecting
-      // paths. Depth is defined as the number of edges on the longest path from the root to a leaf node.
+    { // the depth is the connectingc paths and always one less than height thus (height-1) to work programmatically,
+     //  however. Depth is defined as the number of edges on the longest path from the root to a leaf node.
         if (tree == null) return 0; // Base case: If the node is null, return 0, as an empty tree has a depth of 0
         int leftHeight = GetHeight(tree.left); // Recursively calculate height of the left subtree
         int rightHeight = GetHeight(tree.right); // Recursively calculate height of the right subtree

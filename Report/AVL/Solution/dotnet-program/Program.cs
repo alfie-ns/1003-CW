@@ -741,7 +741,7 @@ class Program // Program class, the entry point of the program
         for (int i = 1; i <= 50; i++)
         {
             InsertTree(tree, new Node { data = new DataEntry { data = i } }); // Insert each element into the tree
-            Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is not balanced after insertion"); // Check if stays balanced after each insertion
+            Assert(IsBalanced(tree.root), "AVL Balancing test: Tree is NOT balanced after insertion"); // Check if stays balanced after each insertion
         }
 
         // Print the visual representation of the balanced tree
@@ -798,7 +798,7 @@ class Program // Program class, the entry point of the program
             |     {                                                                             |
             |            4            an AVL binary tree is a tree data structure where the     |
             |           /  \          left child or any given node is less than parent while    |
-            |          2     6        while right child is >right-child. Thus a function |
+            |          2     6        while right child is >right-child. Thus a function        |
             |         / \   / \       can traverse the tree more efficiently due to the boolean |
             |        1   3 5   7      constraint used in searching instead of searching whole   |
             |                         datasets                                                  |                                                                             |    
@@ -848,7 +848,7 @@ class Program // Program class, the entry point of the program
             |   parent nodes, the indent string is += and printed start of next recursive call; |
             |   thus last time round indent is NOT printed as it it doesn't get that far in the |     
             |   recusive call because it doesn't call itself again after node(7)                |                                                  |                                                                                                                                   
-            |   the final +2->'6=' indents NEVER used;                                          |
+            |   the final +2->'=6' indents NEVER used;                                          |
             |   last could also be thought of as first(before) next recusive call, or NOT       |
             |   intermediate. Thus the algorithm searches for nodes in given AVL tree FASTER    |
             |   the a standard unbalanced BST, thereby improving time-complexity for searches   |                                                                                                                                             |                                                                              
@@ -857,7 +857,7 @@ class Program // Program class, the entry point of the program
         */
 
 
-        if (node != null) // Proceed if node is not null to begin recursion
+        if (node != null) // Proceed if node is NOT null to begin recursion
         {
             Console.Write(indent); // Print the previous accumulated indentation before the box-drawing character, starts empty so just '└─' is printed
 

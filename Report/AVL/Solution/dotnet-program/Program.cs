@@ -1534,9 +1534,7 @@ class Program // Program class, the entry point of the program
         }
         Console.WriteLine(); // newline
         Console.WriteLine("---------- Visualising the tree while testing --------");
-        Console.WriteLine(); // newline
-
-        // Print and visualise the initial tree
+        Console.WriteLine(); // newline        // Print and visualise the initial tree
         Console.WriteLine("Checking if tree is indeed balanced initially..."); // check if tree is balanced
         tree.root = Rebalance(tree.root); // rebalance the tree
         Assert(IsBalanced(tree.root), "Initial tree is not balanced!"); // check if tree is indeed balanced

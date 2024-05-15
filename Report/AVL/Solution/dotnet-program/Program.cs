@@ -797,8 +797,8 @@ class Program // Program class, the entry point of the program
             |     Consider my AVL binary tree as follows:                                       |
             |     {                                                                             |
             |            4            an AVL binary tree is a tree data structure where the     |
-            |           /  \          left child or any given node is less than parent while    |
-            |          2     6        while right child is >right-child. Thus a function        |
+            |           /  \          left child or any given node is LESS than parent while    |
+            |          2     6        while right child is GREATER. Thus a function        |
             |         / \   / \       can traverse the tree more efficiently due to the boolean |
             |        1   3 5   7      constraint used in searching instead of searching whole   |
             |                         datasets                                                  |                                                                             |    

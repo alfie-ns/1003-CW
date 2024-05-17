@@ -1396,7 +1396,7 @@ class Program // Program class, the entry point of the program
     {
         /*
             This function computes the set difference
-            of the values in the two trees (tree1 - tree2)
+            of the values in the two trees (tree1-tree2)
             and returns a new tree with the resulting values.
         */
 

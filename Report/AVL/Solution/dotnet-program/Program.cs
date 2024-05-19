@@ -1088,7 +1088,7 @@ class Program // Program class, the entry point of the program
     static void InsertItem(ref Node tree, Node item)
     {
         if (tree == null)                           // if tree Node is empty, make item the tree's Node
-        {
+        {====
             tree = item;
             return;
         }
@@ -1103,7 +1103,7 @@ class Program // Program class, the entry point of the program
         }
 
         // otherwise the item data is already in the tree and we discard it
-    }
+    }--
 
 
     /// <summary>
@@ -1113,14 +1113,14 @@ class Program // Program class, the entry point of the program
     /// It always inserts on the toplevel and is not recursive. It's just a wrapper.
     /// </summary>
     /// <param name="tree">The Tree (not a Node as in InsertItem())</param>
-    /// <param name="item">The Node to insert</param>
+    /// <param name="item">The Node to insert</param>+==
     static void InsertTree(Tree tree, Node item)
     {
 
         tree.root = GetInsertTree(tree.root, item); // Call the helper function, passing the root node of the tree to begin recursive insertion, and the item to insert into the tree
     }
 
-
+===-
     /// <summary>
     /// Find a value in a tree.
     ///

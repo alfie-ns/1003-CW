@@ -992,7 +992,7 @@ class Program // Program class, the entry point of the program
         }
     }
 
-    static int Depth(Node root, Node node)
+    static int GetDepth(Node root, Node node)
     {
         if (root == null || node == null) return 0;
 
@@ -1001,13 +1001,13 @@ class Program // Program class, the entry point of the program
             return 0; // Node found at the root, depth is 0
         }
 
-        int leftDepth = Depth(root.left, node);
+        int leftDepth = GetDepth(root.left, node);
         if (leftDepth != -1)
         {
             return leftDepth + 1; // Node found in the left subtree
         }
 
-        int rightDepth = Depth(root.right, node);
+        int rightDepth = GetDepth(root.right, node);
         if (rightDepth != -1)
         {
             return rightDepth + 1; // Node found in the right subtree
@@ -1088,7 +1088,7 @@ class Program // Program class, the entry point of the program
     static void InsertItem(ref Node tree, Node item)
     {
         if (tree == null)                           // if tree Node is empty, make item the tree's Node
-        {====
+        {
             tree = item;
             return;
         }
@@ -1103,7 +1103,7 @@ class Program // Program class, the entry point of the program
         }
 
         // otherwise the item data is already in the tree and we discard it
-    }--
+    }
 
 
     /// <summary>
@@ -1120,7 +1120,7 @@ class Program // Program class, the entry point of the program
         tree.root = GetInsertTree(tree.root, item); // Call the helper function, passing the root node of the tree to begin recursive insertion, and the item to insert into the tree
     }
 
-===-
+
     /// <summary>
     /// Find a value in a tree.
     ///

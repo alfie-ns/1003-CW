@@ -505,6 +505,7 @@ class Program // Program class, the entry point of the program
         //Console.WriteLine("FindMin: Minimum value node: " + tree.data.data); // TESTING
         return tree;
     }
+    
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
 
 

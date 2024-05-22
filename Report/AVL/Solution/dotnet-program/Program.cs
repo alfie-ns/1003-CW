@@ -1299,7 +1299,7 @@ class Program // Program class, the entry point of the program
 
     MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION BECAUSE I WAS ENCOUNTERING ERROR REGARDING THE SCOPE OF resultTree.
     NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE && THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION,
-    THUS ARE PART OF THE FUNCTION ITSELF.
+    THUS PART OF THE FUNCTION ITSELF.
 
     */
     ///!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!!
@@ -1534,6 +1534,7 @@ class Program // Program class, the entry point of the program
             data.data = r.Next(10);
             Console.WriteLine(data.data + " was" + (!SearchTree(tree.root, data) ? " NOT" : "") + " found");
         }
+        
         Console.WriteLine(); // newline
         Console.WriteLine("---------- Visualising the tree while testing --------");
         Console.WriteLine(); // newline        // Print and visualise the initial tree

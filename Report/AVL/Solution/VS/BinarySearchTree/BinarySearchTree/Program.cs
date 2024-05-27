@@ -933,7 +933,7 @@ class Program // Program class, the entry point of the program
             Assert(!SearchTree(multipleNodesTree.root, new DataEntry { data = 5 }), "Min node (5) should be deleted."); // check min value (5) indeed is the one deleted
             Assert(IsBalanced(multipleNodesTree.root), "Tree should remain balanced after deleting the min node."); // balance verification
 
-            Console.WriteLine("DeleteMin tests PASSED - No Exceptions were thrown");
+            Console.WriteLine("DeleteMin tests PASSED; No Exceptions were thrown");
         }
         catch (Exception ex)
         {
@@ -982,7 +982,7 @@ class Program // Program class, the entry point of the program
             Assert(parent4 == null, "Parent of a non-existent node should be null");
 
             // If all assertions pass, print this success message
-            Console.WriteLine("Parent test PASSED - No Exceptions were thrown");
+            Console.WriteLine("Parent test PASSED; No Exceptions were thrown");
         }
         catch (Exception ex)
         {

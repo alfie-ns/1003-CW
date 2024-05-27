@@ -505,6 +505,7 @@ class Program // Program class, the entry point of the program
         //Console.WriteLine("FindMin: Minimum value node: " + tree.data.data); // TESTING
         return tree;
     }
+    
     /// ------------------------------------------------------------- Test Functions ------------------------------------------------------------- ///
 
 
@@ -600,63 +601,64 @@ class Program // Program class, the entry point of the program
     static void TestSearch()
     {
         try {
-        Tree tree = new Tree(); // init test tree
 
-        DateTime startTime = DateTime.Now; // start time
+            Tree tree = new Tree(); // init test tree
 
-        // Insert integers 1 to 50 into the tree
-        for (int i = 1; i <= 50; i++)
-        {
-            InsertTree(tree, new Node { data = new DataEntry { data = i } }); // insert each element into the tree
-            Assert(IsBalanced(tree.root), "Balanced insertion test: Tree is not balanced after insertion"); // more verification
-        }
+            DateTime startTime = DateTime.Now; // start time
 
-        // Rebalance the tree after insertions
-        tree.root = Rebalance(tree.root);
+            // Insert integers 1 to 50 into the tree
+            for (int i = 1; i <= 50; i++)
+            {
+                InsertTree(tree, new Node { data = new DataEntry { data = i } }); // insert each element into the tree
+                Assert(IsBalanced(tree.root), "Balanced insertion test: Tree is not balanced after insertion"); // more verification
+            }
 
-        // The assertion function essentially return false if the condition NOT met.
+            // Rebalance the tree after insertions
+            tree.root = Rebalance(tree.root);
 
-        Console.WriteLine("Searching for 5...");
-        Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
-        Console.WriteLine("FOUND"); // print FOUND
-        Console.WriteLine(); // newline
+            // The assertion function essentially return false if the condition NOT met.
 
-        Console.WriteLine("Searching for 3...");
-        Assert(SearchTree(tree.root, new DataEntry { data = 3 }), "Search test: Existing element not found"); // check if existing element is found
-        Console.WriteLine("FOUND"); // print FOUND
-        Console.WriteLine(); // newline
+            Console.WriteLine("Searching for 5...");
+            Assert(SearchTree(tree.root, new DataEntry { data = 5 }), "Search test: Existing element not found"); // check if existing element is found
+            Console.WriteLine("FOUND"); // print FOUND
+            Console.WriteLine(); // newline
 
-        Console.WriteLine("Searching for 23...");
-        Assert(SearchTree(tree.root, new DataEntry { data = 23 }), "Search test: Existing element not found"); // check if existing element is found
-        Console.WriteLine("FOUND"); // print FOUND
-        Console.WriteLine(); // newline
+            Console.WriteLine("Searching for 3...");
+            Assert(SearchTree(tree.root, new DataEntry { data = 3 }), "Search test: Existing element not found"); // check if existing element is found
+            Console.WriteLine("FOUND"); // print FOUND
+            Console.WriteLine(); // newline
 
-        Console.WriteLine("Searching for 6...");
-        Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Existing element not found"); // check if element is indeed found
-        Console.WriteLine("FOUND"); // print FOUND
-        Console.WriteLine(); // newline
+            Console.WriteLine("Searching for 23...");
+            Assert(SearchTree(tree.root, new DataEntry { data = 23 }), "Search test: Existing element not found"); // check if existing element is found
+            Console.WriteLine("FOUND"); // print FOUND
+            Console.WriteLine(); // newline
 
-        Console.WriteLine("Searching for 1...");
-        Assert(SearchTree(tree.root, new DataEntry { data = 1 }), "Search test: Existing element not found"); // check if existing element is found
-        Console.WriteLine("FOUND"); // print FOUND
-        Console.WriteLine(); // newline
+            Console.WriteLine("Searching for 6...");
+            Assert(SearchTree(tree.root, new DataEntry { data = 6 }), "Search test: Existing element not found"); // check if element is indeed found
+            Console.WriteLine("FOUND"); // print FOUND
+            Console.WriteLine(); // newline
 
-        // Check it DOESN'T find non-existing elements
+            Console.WriteLine("Searching for 1...");
+            Assert(SearchTree(tree.root, new DataEntry { data = 1 }), "Search test: Existing element not found"); // check if existing element is found
+            Console.WriteLine("FOUND"); // print FOUND
+            Console.WriteLine(); // newline
 
-        Console.WriteLine("Searching for 101...");
-        Assert(!SearchTree(tree.root, new DataEntry { data = 101 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
-        Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND  
-        Console.WriteLine(); // newline
+            // Check it DOESN'T find non-existing elements
 
-        Console.WriteLine("Searching for -1...");
-        Assert(!SearchTree(tree.root, new DataEntry { data = -1 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
-        Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND
-        Console.WriteLine(); // newline
+            Console.WriteLine("Searching for 101...");
+            Assert(!SearchTree(tree.root, new DataEntry { data = 101 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+            Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND  
+            Console.WriteLine(); // newline
+
+            Console.WriteLine("Searching for -1...");
+            Assert(!SearchTree(tree.root, new DataEntry { data = -1 }), "Search test: Non-existing element found"); // check if non-existing element is NOT found
+            Console.WriteLine("Succesfully NOT FOUND"); // print NOT FOUND
+            Console.WriteLine(); // newline
 
 
-        DateTime endTime = DateTime.Now; // end time
-        TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
-        Console.WriteLine("Time-taken for 7 searches: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
+            DateTime endTime = DateTime.Now; // end time
+            TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing
+            Console.WriteLine("Time-taken for 7 searches: " + (elapsedTime.TotalMilliseconds) + "ms"); // print time-taken
         }
         catch (Exception e) {
             Console.WriteLine(e.Message);
@@ -797,9 +799,9 @@ class Program // Program class, the entry point of the program
             |     Consider my AVL binary tree as follows:                                       |
             |     {                                                                             |
             |            4            an AVL binary tree is a tree data structure where the     |
-            |           /  \          left child or any given node is less than parent while    |
-            |          2     6        while right child is >right-child. Thus a function |
-            |         / \   / \       can traverse the tree more efficiently due to the boolean |
+            |           /  \          left child or any given node is LESS than parent while    |
+            |          2     6        while right child is GREATER. Thus a function can         |
+            |         / \   / \       traverse the tree more efficiently due to the boolean     |
             |        1   3 5   7      constraint used in searching instead of searching whole   |
             |                         datasets                                                  |                                                                             |    
             |     }                                                                             |
@@ -991,7 +993,7 @@ class Program // Program class, the entry point of the program
         }
     }
 
-    static int Depth(Node root, Node node)
+    static int GetDepth(Node root, Node node)
     {
         if (root == null || node == null) return 0;
 
@@ -1000,13 +1002,13 @@ class Program // Program class, the entry point of the program
             return 0; // Node found at the root, depth is 0
         }
 
-        int leftDepth = Depth(root.left, node);
+        int leftDepth = GetDepth(root.left, node);
         if (leftDepth != -1)
         {
             return leftDepth + 1; // Node found in the left subtree
         }
 
-        int rightDepth = Depth(root.right, node);
+        int rightDepth = GetDepth(root.right, node);
         if (rightDepth != -1)
         {
             return rightDepth + 1; // Node found in the right subtree
@@ -1112,7 +1114,7 @@ class Program // Program class, the entry point of the program
     /// It always inserts on the toplevel and is not recursive. It's just a wrapper.
     /// </summary>
     /// <param name="tree">The Tree (not a Node as in InsertItem())</param>
-    /// <param name="item">The Node to insert</param>
+    /// <param name="item">The Node to insert</param>+==
     static void InsertTree(Tree tree, Node item)
     {
 
@@ -1297,7 +1299,7 @@ class Program // Program class, the entry point of the program
 
     MADE THE HELPER FUNCTIONS INSIDE THE RESPECTIVE FUNCTION BECAUSE I WAS ENCOUNTERING ERROR REGARDING THE SCOPE OF resultTree.
     NEVERTHELESS, THESE STILL ARE NOT FUNCTIONS OUTSIDE THIS LINE && THAT LINE, AS THEY'RE INSIDE THE RESPECTIVE FUNCTION,
-    THUS ARE PART OF THE FUNCTION ITSELF.
+    THUS PART OF THE FUNCTION ITSELF.
 
     */
     ///!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!! /!!! </remarks> !!! !!!
@@ -1395,7 +1397,7 @@ class Program // Program class, the entry point of the program
     {
         /*
             This function computes the set difference
-            of the values in the two trees (tree1 - tree2)
+            of the values in the two trees (tree1-tree2)
             and returns a new tree with the resulting values.
         */
 
@@ -1532,11 +1534,10 @@ class Program // Program class, the entry point of the program
             data.data = r.Next(10);
             Console.WriteLine(data.data + " was" + (!SearchTree(tree.root, data) ? " NOT" : "") + " found");
         }
+        
         Console.WriteLine(); // newline
         Console.WriteLine("---------- Visualising the tree while testing --------");
-        Console.WriteLine(); // newline
-
-        // Print and visualise the initial tree
+        Console.WriteLine(); // newline        // Print and visualise the initial tree
         Console.WriteLine("Checking if tree is indeed balanced initially..."); // check if tree is balanced
         tree.root = Rebalance(tree.root); // rebalance the tree
         Assert(IsBalanced(tree.root), "Initial tree is not balanced!"); // check if tree is indeed balanced
@@ -1600,7 +1601,7 @@ class Program // Program class, the entry point of the program
         the assert function throws an exception if the condition
         is false, e.g. the test fails. Prior to reporting success,
         I checked all Assertion tests would pass successfully; I
-        I could've done this programmatically, however, I hope my manual
+        could've done this programmatically, however, I hope my manual
         check is sufficient.
        
         LATER ON, I do indeed programmatically

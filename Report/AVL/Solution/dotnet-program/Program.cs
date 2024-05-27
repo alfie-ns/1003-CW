@@ -1601,7 +1601,7 @@ class Program // Program class, the entry point of the program
         the assert function throws an exception if the condition
         is false, e.g. the test fails. Prior to reporting success,
         I checked all Assertion tests would pass successfully; I
-        I could've done this programmatically, however, I hope my manual
+        could've done this programmatically, however, I hope my manual
         check is sufficient.
        
         LATER ON, I do indeed programmatically

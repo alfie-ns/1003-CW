@@ -21,3 +21,8 @@
 # .NET project output directories
 bin/
 obj/
+
+# ignore all virtual environments
+# ------------------------------------------------------------------------------------------------------------
+
+**/venv/

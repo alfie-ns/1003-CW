@@ -7,10 +7,8 @@ if [ -d "$VENV_DIR" ]; then
 else
   # Create the virtual environment
   python3 -m venv $VENV_DIR
-  echo "Virtual environment created."
+  echo -e "\nVirtual environment created."
 fi
-
-pip install --upgrade pip
 
 # Activate the virtual environment
 source $VENV_DIR/bin/activate
@@ -18,12 +16,15 @@ source $VENV_DIR/bin/activate
 # Install the required packages
 if [ -f "requirements.txt" ]; then
   pip install -r requirements.txt
-  echo "Requirements installed."
+  echo -e "\nRequirements installed."
 else
   echo "requirements.txt not found."
 fi
 
+pip install --upgrade pip
+
+
 
 
 # Indicate the script has finished
-echo "Setup complete. Virtual environment is ready and requirements are installed."
+echo -e "\nSetup complete. Virtual environment is ready and requirements are installed."

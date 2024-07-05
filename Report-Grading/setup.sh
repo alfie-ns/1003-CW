@@ -28,5 +28,3 @@ pip install --upgrade pip
 
 # Indicate the script has finished
 echo -e "\nSetup complete. Virtual environment is ready and requirements are installed."
-
-cd Report-Grading

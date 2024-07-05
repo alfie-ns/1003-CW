@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 
 # Provide the correct path to the Excel file
-file_path = '/Users/oladeanio/Library/CloudStorage/GoogleDrive-alfienurse@gmail.com/My Drive/Uni/Undergrad/BSc (Hons) Computer Science (Artificial Intelligence) (7392)/Year_1/Semester_2/[X] COMP1003/CW/1003-CW/1003-report-grading-sheet.xlsx'
+file_path = '/Users/oladeanio/Library/CloudStorage/GoogleDrive-alfienurse@gmail.com/My Drive/Uni/Undergrad/BSc (Hons) Computer Science (Artificial Intelligence) (7392)/Year_1/Semester_2/[X] COMP1003/CW/1003-CW/Report-Grading/Grading-sheet/COMP1003-Report-Marks--24.xlsx'
 
 # Check if the file exists at the provided path
 if not os.path.isfile(file_path):
@@ -88,7 +88,7 @@ plt.legend(['Your Score'])
 
 # Save the plots
 plt.tight_layout()
-output_dir = "/Users/oladeanio/Library/CloudStorage/GoogleDrive-alfienurse@gmail.com/My Drive/Uni/Undergrad/BSc (Hons) Computer Science (Artificial Intelligence) (7392)/Year_1/Semester_2/[X] COMP1003/CW/1003-CW"
+output_dir = "/Users/oladeanio/Library/CloudStorage/GoogleDrive-alfienurse@gmail.com/My Drive/Uni/Undergrad/BSc (Hons) Computer Science (Artificial Intelligence) (7392)/Year_1/Semester_2/[X] COMP1003/CW/1003-CW/Report-Grading/Grading-sheet/Output"
 plot_file_path = os.path.join(output_dir, "score_visualizations.png")
 plt.savefig(plot_file_path)
 plt.show()

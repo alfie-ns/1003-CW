@@ -27,7 +27,6 @@ Your project demonstrates a solid understanding of AVL trees and their operation
 **Score: 4/5**
 
 - The code is generally well-structured and readable.
-- The use of comments helps in understanding the flow and purpose of the code.
 - However, some comments are too lengthy and could be more concise.
 - Ensure that helper functions are not placed inside other functions unless necessary for encapsulation purposes.
 
@@ -58,22 +57,124 @@ Your project demonstrates a solid understanding of AVL trees and their operation
 
 ---
 
-## Recommendations for Improvement
+##### Grading:
+
+Binary Search Tree: 33.6: [X][X][X]
+Equal: 4 [X][X]
+Insert Tree: 4[X][X]
+Search Tree: 5[X][X][X]
+Search Item: 5[X][X][X]
+Delete Tree: 4[X][X]
+Size: 4
+Depth: 4
+Parent: 4
+Max: 4
+Delete: 4
+AVL: 14.4
+AVL2: 4
+Extra: 28
+A&DS: 5
+Testing: 5
+Style: 4
+
+| Component           | Grade         | Relative Grade (%) |
+| ------------------- | ------------- | ------------------ |
+| Binary Search Tree  | 33.6          |                    |
+| Equal               | 4             |                    |
+| Insert Tree         | 4             |                    |
+| Search Tree         | 5             |                    |
+| Search Item         | 5             |                    |
+| Delete Tree         | 4             |                    |
+| Size                | 4             |                    |
+| Depth               | 4             |                    |
+| Parent              | 4             |                    |
+| Max                 | 4             |                    |
+| Delete              | 4             |                    |
+| AVL                 | 14.4          |                    |
+| AVL2                | 4             |                    |
+| Extra               | 28            |                    |
+| A&DS                | 5             |                    |
+| Testing             | 5             |                    |
+| Style               | 4             |                    |
+| **Sets**      | **9.6** |                    |
+| Union               | 4             |                    |
+| Intersection        | 4             |                    |
+| Difference          | 4             |                    |
+| Symbolic Difference | 4             |                    |
+
+---
+
+Sets: 9.6
+Union: 4
+Intersection: 4
+Difference: 4
+Symboilc Difference: 4
+
+---
+
+# Grade Distribution Analysis
+
+![Description of image]()
+
+The grade distribution shown in these images provides important insights about how grades are spread across the entire class. Let's break it down:
+
+## 1. Overall Range
+
+- Grades range from 0 to about 82
+- Your grade of 81.6 is the second highest score
+
+## 2. Shape of Distribution
+
+The distribution is not a normal bell curve. Instead, it's a "bimodal" distribution with two peaks:
+
+- Main peak in the 50-60 range, where most students scored
+- Smaller peak near 0, possibly representing students who didn't submit work or struggled significantly
+
+## 3. Spread
+
+Wide spread of grades, from very low to very high, indicating diverse performance in the class
+
+## 4. Your Position
+
+Your grade of 81.6 (shown by the red dashed line) is at the far right of both distributions, indicating you're among the top performers
+
+## 5. Median and Quartiles
+
+From the box plot in Image 1:
+
+- Median (middle line in the box) is around 50
+- Box represents the middle 50% of grades
+- Your grade is beyond the upper whisker, confirming top performance
+
+## 6. Outliers
+
+Several low-scoring outliers (circles on the left in Image 1), representing unusually low grades
+
+## What This Means
+
+- Class performance varied widely, with most students scoring in the 50-60 range
+- A group of very low-scoring students pulls down the overall average
+- Your score of 81.6 puts you well above most peers, likely in the top 5% or higher
+- The bimodal distribution suggests two distinct groups: those who grasped the material well and those who struggled significantly
+
+This distribution provides context for your performance. You not only did well but significantly outperformed the majority of the class. The wide spread of grades suggests a challenging assessment, making your high score even more impressive.
+
+# Recommendations for Improvement
 
 1. **Conciseness and Clarity:**
 
-   - Break down lengthy comments into shorter, more digestible parts.
-   - Ensure that each comment directly relates to the code it describes without unnecessary verbosity.
+   - Break down lengthy comments into shorter, more digestible parts
+   - Ensure each comment directly relates to the code it describes without unnecessary verbosity
 2. **Encapsulation and Modularity:**
 
-   - Avoid placing helper functions within other functions unless necessary.
-   - Ensure that each function has a clear, single responsibility.
-   - Consider refactoring the code to improve modularity.
+   - Avoid placing helper functions within other functions unless necessary
+   - Ensure each function has a clear, single responsibility
+   - Consider refactoring the code to improve modularity
 3. **Additional Context and Examples:**
 
-   - Use diagrams or visual aids where necessary to explain complex concepts.
-   - Provide clear definitions of terms before using them in explanations.
-   - Offer additional examples to illustrate key points.
+   - Use diagrams or visual aids where necessary to explain complex concepts
+   - Provide clear definitions of terms before using them in explanations
+   - Offer additional examples to illustrate key points
 
 ---
 
@@ -85,5 +186,3 @@ Your project is a strong demonstration of your understanding of AVL trees and th
 
 **Overall Comments:**
 Great work on implementing the AVL tree and providing thorough explanations. Your project stands out due to its detailed comments and comprehensive testing suite. With a few refinements, it can achieve even greater clarity and modularity.
-
----

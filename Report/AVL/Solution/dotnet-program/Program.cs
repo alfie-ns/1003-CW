@@ -162,9 +162,9 @@ class DataEntry
 class Node
 { // Get the height from node's subtrees, add 1 to the max of the two, and set it as the height of the node
     public DataEntry data;
-    public Node right;
-    public Node left;
-    public int Height; // This is for AVL tree, as one needs to keep track of the height of each node to balance the tree
+    public Node? right;
+    public Node? left;
+    public int Height;
 }
 
 
@@ -173,7 +173,7 @@ class Node
 /// </summary>
 class Tree
 {
-    public Node root; // The root node of the tree
+    public Node? root; // The root node of the tree, nullable
     public int size; // The number of elements in the tree, used to keep track of the tree's size
 
 }
@@ -1596,6 +1596,50 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Console.WriteLine("AVL balancing test PASSED!");
 
+
+        // User input section
+        Console.WriteLine("\n--- Build Your Own AVL Tree ---");
+        Console.WriteLine("Enter integer values one by one. Enter 'end' to finish.");
+
+        Tree userInputTree = new Tree();
+
+        while (true)
+        {
+            Console.Write("Enter a value (or 'end' to finish): ");
+            string? input = Console.ReadLine();
+
+            if (input?.ToLower() == "end")
+                break;
+
+            if (int.TryParse(input, out int value))
+            {
+                InsertTree(userInputTree, new Node { data = new DataEntry { data = value } });
+                Console.WriteLine($"Inserted {value}.");
+                Assert(IsBalanced(userInputTree.root), $"Tree is not balanced after inserting {value}");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter an integer or 'end'.");
+            }
+        }
+
+        Console.WriteLine("\nFinal user-created AVL tree:");
+        PrintTreeVisual(userInputTree.root);
+
+        // Additional tests on the user-created tree
+        Console.WriteLine($"\nSize of the user-created tree: {Size(userInputTree)}");
+        Console.WriteLine($"Height of the user-created tree: {GetHeight(userInputTree.root)}");
+        Console.WriteLine($"Depth of the user-created tree: {Depth(userInputTree.root)}");
+
+        Node? userCreatedMinNode = FindMin(userInputTree.root);
+        Node? userCreatedMaxNode = FindMax(userInputTree.root);
+        Console.WriteLine($"Minimum value in the user-created tree: {userCreatedMinNode?.data?.data ?? -1}");
+        Console.WriteLine($"Maximum value in the user-created tree: {userCreatedMaxNode?.data?.data ?? -1}");
+
+        
+        Console.WriteLine("----------------------------");
+        
+
         /*
         I run all my tests and directly report them as PASSED;
         the assert function throws an exception if the condition
@@ -1689,7 +1733,7 @@ class Program // Program class, the entry point of the program
         Console.WriteLine(); // newline
         Console.WriteLine("----------------------------");
         Console.WriteLine(); // newline
-        Console.WriteLine("All tests PASSED successfully!"); // manual confirmation of success
+        Console.WriteLine("All tests PASSED successfully"); // manual confirmation of success
         Console.WriteLine(); // newline
     }
 

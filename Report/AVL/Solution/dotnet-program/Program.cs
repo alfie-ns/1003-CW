@@ -1588,7 +1588,7 @@ class Program // Program class, the entry point of the program
         Test_DeleteMin(); // run test for DeleteMin
         Console.WriteLine(); // newline
 
-        // Test AVL balancing
+        // Test AVL balancing -----------------------------------------------------
         Console.WriteLine("----------Testing AVL balancing...----------"); // testing...
         Console.WriteLine(); // newline
         tree.root = Rebalance(tree.root); // rebalance the tree
@@ -1597,11 +1597,11 @@ class Program // Program class, the entry point of the program
         Console.WriteLine("AVL balancing test PASSED!");
 
 
-        // User input section
+        // User input section -----------------------------------------------------
         Console.WriteLine("\n--- Build Your Own AVL Tree ---");
         Console.WriteLine("Enter integer values one by one. Enter 'end' to finish.");
 
-        Tree userInputTree = new Tree();
+        Tree userInputTree = new Tree(); // initialise user-created tree
 
         while (true)
         {

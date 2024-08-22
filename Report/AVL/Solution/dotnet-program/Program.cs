@@ -710,24 +710,6 @@ class Program // Program class, the entry point of the program
         return true; // If the array is sorted in ascending order, return true
     }
 
-    static void InOrderTraversal(Node node, Action<int> action)
-    {
-        /*
-        This function utilises an Action<int> delegate for flexible node
-        data handling during in-order traversal, the null check serves as
-        a base case, ensuring recursion halts at leaf nodes. I need to use
-        a delegate to handle the node's data, when I use this function inside
-        the IsSorted function, essentially, I pass a lambda function that
-        stores the node's data in an array, that I check is indeed sorted.
-        */
-
-        if (node == null) return; // Base case: If the node is null, return
-
-        InOrderTraversal(node.left, action); // Recursively traverse the left subtree
-        action(node.data.data); // Action<int> delegate to handle the node's data. data.data = the integer value of the node
-        InOrderTraversal(node.right, action); // Recursively traverse the right subtree
-    }
-
     static void Assert(bool condition, string message)
     { // my custom-made assert function: if boolean passed to function is NOT true, throw an exception with the specified message
       // this is used to show it works with proof that it's indeed working
@@ -1016,6 +998,141 @@ class Program // Program class, the entry point of the program
 
         return -1; // Node not found
     }
+
+
+    /// ------------------------------------------------------------- Traversal Functions ------------------------------------------------------------- ///
+     
+
+    /// <summary>
+    /// Different functions to traverse the tree.
+    /// </summary>
+    /// In-order: Left subtree, Root, Right subtree - line 
+    /// Pre-order: Root, Left subtree, Right subtree
+    /// Post-order: Left subtree, Right subtree, Root
+
+
+    static void InOrderTraversal(Node node, Action<int> action)
+    {
+        /*
+        This function utilises an Action<int> delegate for flexible node
+        data handling during in-order traversal, the null check serves as
+        a base case, ensuring recursion halts at leaf nodes. I need to use
+        a delegate to handle the node's data, when I use this function inside
+        the IsSorted function, essentially, I pass a lambda function that
+        stores the node's data in an array, that I check is indeed sorted.
+        */
+
+        if (node == null) return; // Base case: If the node is null, return
+
+        InOrderTraversal(node.left, action); // Recursively traverse the left subtree
+        action(node.data.data); // Action<int> delegate to handle the node's data. data.data = the integer value of the node
+        InOrderTraversal(node.right, action); // Recursively traverse the right subtree
+    }
+
+
+// Pre-order: Root, Left subtree, Right subtree
+static void PreOrderTraversal(Node node, Action<int> action)
+{
+    if (node == null) return;
+    action(node.data.data);
+    PreOrderTraversal(node.left, action);
+    PreOrderTraversal(node.right, action);
+}
+
+// Post-order: Left subtree, Right subtree, Root
+static void PostOrderTraversal(Node node, Action<int> action)
+{
+    if (node == null) return;
+    PostOrderTraversal(node.left, action);
+    PostOrderTraversal(node.right, action);
+    action(node.data.data);
+}
+
+// Example usage in Main or a test method:
+/*
+static void DemonstrateTraversals(Tree tree)
+{
+    Console.WriteLine("In-order traversal: left-root-right");
+    InOrderTraversal(tree.root, data => Console.Write(data + " "));
+    Console.WriteLine();
+
+    Console.WriteLine("Pre-order traversal: root-left-right");
+    PreOrderTraversal(tree.root, data => Console.Write(data + " "));
+    Console.WriteLine();
+
+    Console.WriteLine("Post-order traversal: left-right-root");
+    PostOrderTraversal(tree.root, data => Console.Write(data + " "));
+    Console.WriteLine();
+}
+*/
+
+static void PrintTreeWithHighlight(Node node, List<int> highlightedNodes, string indent = "", bool last = true)
+{
+    if (node != null)
+    {
+        Console.Write(indent);
+        if (last)
+        {
+            Console.Write("└─");
+            indent += "  ";
+        }
+        else
+        {
+            Console.Write("├─");
+            indent += "| ";
+        }
+
+        string nodeValue = node.data.data.ToString();
+        if (highlightedNodes.Contains(node.data.data))
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(nodeValue);
+            Console.ResetColor();
+        }
+        else
+        {
+            Console.Write(nodeValue);
+        }
+        Console.WriteLine();
+
+        PrintTreeWithHighlight(node.left, highlightedNodes, indent, false);
+        PrintTreeWithHighlight(node.right, highlightedNodes, indent, true);
+    }
+}
+
+static void AnimateTraversal(Tree tree, string traversalType, Action<Node, Action<int>> traversalFunction)
+{
+    List<int> visitedNodes = new List<int>();
+    
+    traversalFunction(tree.root, (data) => {
+        Console.Clear();
+        visitedNodes.Add(data);
+        Console.WriteLine($"{traversalType} Traversal:");
+        PrintTreeWithHighlight(tree.root, visitedNodes);
+        Console.WriteLine($"\nCurrent node: {data}");
+        Console.WriteLine($"Visited nodes: {string.Join(" -> ", visitedNodes)}");
+        System.Threading.Thread.Sleep(1000); // Pause for 1 second
+    });
+
+    Console.WriteLine($"\nFinal {traversalType} Traversal Order: {string.Join(" -> ", visitedNodes)}");
+    Console.WriteLine("Press any key to continue...");
+    Console.ReadKey();
+}
+
+
+// Modify the DemonstrateTraversals function:
+
+static void DemonstrateTraversals(Tree tree)
+{
+    Console.WriteLine("\nDemonstrating Tree Traversals:");
+    PrintTreeVisual(tree.root);
+    Console.WriteLine("\nPress any key to start traversal demonstrations...");
+    Console.ReadKey();
+
+    AnimateTraversal(tree, "In-order", InOrderTraversal);
+    AnimateTraversal(tree, "Pre-order", PreOrderTraversal);
+    AnimateTraversal(tree, "Post-order", PostOrderTraversal);
+}
 
 
     //// ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1603,17 +1720,17 @@ class Program // Program class, the entry point of the program
 
         Tree userInputTree = new Tree(); // initialise user-created tree
 
-        while (true)
+        while (true) // forever until break with 'end'
         {
             Console.Write("Enter a value (or 'end' to finish): ");
             string? input = Console.ReadLine();
 
             if (input?.ToLower() == "end")
-                break;
+                break; //exit loop 
 
-            if (int.TryParse(input, out int value))
+            if (int.TryParse(input, out int value)) // if input is an int, output it as 'value'
             {
-                InsertTree(userInputTree, new Node { data = new DataEntry { data = value } });
+                InsertTree(userInputTree, new Node { data = new DataEntry { data = value } }); // insert the value into the user-created tree
                 Console.WriteLine($"Inserted {value}.");
                 Assert(IsBalanced(userInputTree.root), $"Tree is not balanced after inserting {value}");
             }
@@ -1638,20 +1755,17 @@ class Program // Program class, the entry point of the program
 
         
         Console.WriteLine("----------------------------");
-        
+        Console.WriteLine("Different tree traversal methods:");
 
-        /*
-        I run all my tests and directly report them as PASSED;
-        the assert function throws an exception if the condition
-        is false, e.g. the test fails. Prior to reporting success,
-        I checked all Assertion tests would pass successfully; I
-        could've done this programmatically, however, I hope my manual
-        check is sufficient.
-       
-        LATER ON, I do indeed programmatically
-        check the assert functions pass with a try-catch block in the
-        TestParent() and Test_DeleteMin() functions
-        */
+        Tree demonstrationTree = new Tree();
+        int[] values = { 50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 45, 55, 65, 75, 85 };
+        foreach (int value in values)
+        {
+            InsertTree(demonstrationTree, new Node { data = new DataEntry { data = value } });
+        }
+
+        DemonstrateTraversals(demonstrationTree);
+    
 
         DateTime endTime = DateTime.Now; // end time
         TimeSpan elapsedTime = endTime - startTime; // calculate time-taken for AVL processing

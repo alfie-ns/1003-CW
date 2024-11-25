@@ -1,5 +1,5 @@
 #!/bin/bash
-cd Report-Grading/grading-sheet
+cd Report/Feedback/grade-analysis
 ./setup.sh
 ./grading-sheet.py
 sleep 1

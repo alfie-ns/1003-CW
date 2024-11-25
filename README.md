@@ -27,7 +27,7 @@ Or you can **run** the bash scripts in the root directory to quickly run the AVL
 
 ---
 
-## Report [X]
+## Report [X] - 81.6
 
 - [X] **Create a VS C# command line project called BinarySearchTree.** The implementation **must use the Program.cs file** available on the DLE in the Assessment section. This file has been modified from the implementation provided for the worksheet on Binary Search Trees.
 - [X] Test codebase compiles on VS !!!
@@ -81,4 +81,5 @@ Or you can **run** the bash scripts in the root directory to quickly run the AVL
 'Do not use object-oriented programming other than method-free classes for the data containers. Do no	t use the C# Collection library. Keep your code simple and clear. The module’s DLE page contains an introduction into the C-core of C#. There are numerous examples in the lectures and labs showing what you can use.'
 
 ---
-81.6	4	33.6	4	4	5	5	4	4	4	4	4	4	9.6	4	4	4	4	14.4	4	28	5	5 4			
+
+81.6	4	33.6	4	4	5	5	4	4	4	4	4	4	9.6	4	4	4	4	14.4	4	28	5	5 4
